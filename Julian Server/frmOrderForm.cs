@@ -35,7 +35,7 @@ namespace Julian_Server
 
         private void frmOrderForm_Shown(object sender, EventArgs e)
         {
-            frmLoadOrderForm frmLoadOrder = new frmLoadOrderForm(this);
+            frmLoadOrderForm frmLoadOrder = new frmLoadOrderForm();
             frmLoadOrder.StartPosition = FormStartPosition.CenterParent;
             frmLoadOrder.ShowDialog();
             if (frmLoadOrder.LstOrder.Count == 0)
@@ -94,7 +94,7 @@ namespace Julian_Server
                 lstFilter.Any(f =>
                      order.MaDonKH == f.MaDonKH &&
                     order.MaHangKH == f.MaHangKH &&
-                    (f.SlDat == -1 || order.SlDat == f.SlDat) &&
+                    (f.SlDat == -1 || order.SLDat == f.SlDat) &&
                     (f.NgayGiao == DateTime.MinValue || order.NgayXuat.Date == f.NgayGiao.Date)
                 )
             ).ToList();
@@ -128,8 +128,8 @@ namespace Julian_Server
             {
                 MaKH = o.First().MaKH,
                 Lieu = o.First().LieuKH,
-                Qty = o.Sum(x => x.SlDat),
-                SoTien = o.Sum(x => x.Amount),
+                Qty = o.Sum(x => x.SLDat),
+                SoTien = o.Sum(x => x.TongTien),
             });
             lblProductionReport_TotalQty.Text = newData.Sum(order => order.Qty).ToString("#,##0.00");
             lblProductionReport_TotalAmount.Text = newData.Sum(order => order.SoTien).ToString("#,##0.00");
@@ -156,9 +156,9 @@ namespace Julian_Server
                 o.MaKH,
                 PoNhuom = o.PONhuomMoi,
                 o.NgayDat,
-                Qty = o.SlDat,
-                Lieu =!string.IsNullOrEmpty( o.LieuSd) && o.LieuSd.Length >=2?  o.LieuSd:o.LieuKH,
-                Mau = !string.IsNullOrEmpty(o.MauSd) && o.MauSd.Length >= 2 ? o.MauSd : o.MauKH,
+                Qty = o.SLDat,
+                Lieu =!string.IsNullOrEmpty( o.LieuThayThe) && o.LieuThayThe.Length >=2?  o.LieuThayThe : o.LieuKH,
+                Mau = !string.IsNullOrEmpty(o.MauThayThe) && o.MauThayThe.Length >= 2 ? o.MauThayThe : o.MauKH,
             }).ToList();
             dgvHoiHang.DataSource =ConvertData.ToDataTable(newData);
             lblHoiHang_TotalRows.Text = dgvHoiHang.RowCount.ToString("#,##0");

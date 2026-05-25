@@ -19,27 +19,24 @@ namespace Julian_Server
 {
     public partial class frmLoadOrderForm : Form
     {
-        //List<OrderFormInfo> _orderFormInfos = new List<OrderFormInfo>();
         public Dictionary<string, XLWorkbook> Workbooks => _workbooks;
         Dictionary<string, XLWorkbook> _workbooks = new Dictionary<string, XLWorkbook>();
-        //public Dictionary<string, IXLWorksheet> Sheets => _sheets;
         private Dictionary<string, SheetInfo> _dictSheetInfo = new Dictionary<string, SheetInfo>();
-        //Dictionary<string, IXLWorksheet> _sheets = new Dictionary<string, IXLWorksheet>();
         public List<OrderForm> LstOrder => _lstOrder;
         List<OrderForm> _lstOrder = new List<OrderForm>();
-        frmOrderForm _frmOrderForm = null;
+        frmReporter _frmReporter = null;
         public frmLoadOrderForm()
         {
             InitializeComponent();
             typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(listView1, true, null);
         }
-        public frmLoadOrderForm(frmOrderForm frmOrderForm)
+        public frmLoadOrderForm(frmReporter frmReporter)
         {
-            _frmOrderForm = frmOrderForm;
+            _frmReporter = frmReporter;
             InitializeComponent();
             typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(listView1, true, null);
         }
-        private async void frmLoadOrderForm_Load(object sender, EventArgs e)
+        private void frmLoadOrderForm_Load(object sender, EventArgs e)
         {
             string pathOrders = Path.Combine(Directory.GetCurrentDirectory(), "OrderForms");
             if (Directory.Exists(pathOrders))
@@ -102,13 +99,6 @@ namespace Julian_Server
                             lstSheet.Add(info);
                         if (!_workbooks.ContainsKey(info.FilePath))
                         {
-                            /*tasks1.Add(Task.Run(() =>
-                            {
-                            var sw = Stopwatch.StartNew();
-                                var stream = new FileStream(item.SubItems[2].Text, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                                _workbooks[item.SubItems[2].Text] = new XLWorkbook(stream);
-                            var a = sw.ElapsedMilliseconds;
-                            }));*/
                             tasks1.Add(Task.Run(() =>
                             {
                                 using (var fs = new FileStream(
@@ -157,25 +147,25 @@ namespace Julian_Server
                                     {
                                         MaKH = ini.GetString("OrderForm", "MaKH"),
                                         NgayDat = ini.GetString("OrderForm", "NgayDat"),
+                                        Brand = ini.GetString("OrderForm", "Brand"),
                                         PONhuom = ini.GetString("OrderForm", "PONhuom"),
                                         PONhuomMoi = ini.GetString("OrderForm", "PONhuomMoi"),
                                         MaDonKH = ini.GetString("OrderForm", "MaDonKH"),
                                         MaHangKH = ini.GetString("OrderForm", "MaHangKH"),
                                         LieuKH = ini.GetString("OrderForm", "LieuKH"),
-                                        LieuSd = ini.GetString("OrderForm", "LieuSd"),
+                                        LieuThayThe = ini.GetString("OrderForm", "LieuThayThe"),
                                         Kho = ini.GetString("OrderForm", "Kho"),
                                         MauKH = ini.GetString("OrderForm", "MauKH"),
-                                        MauSd = ini.GetString("OrderForm", "MauSd"),
-                                        MotaMau = ini.GetString("OrderForm", "MotaMau"),
-                                        SlDat = ini.GetString("OrderForm", "SlDat"),
+                                        MauThayThe = ini.GetString("OrderForm", "MauThayThe"),
+                                        MoTaMau = ini.GetString("OrderForm", "MoTaMau"),
+                                        SLDat = ini.GetString("OrderForm", "SLDat"),
                                         DonGia = ini.GetString("OrderForm", "DonGia"),
-                                        SlXuat = ini.GetString("OrderForm", "SlXuat"),
-                                        NgayXuat = ini.GetString("OrderForm", "NgayXuat"),
+                                        TongTien = ini.GetString("OrderForm", "TongTien"),
                                         ETD = ini.GetString("OrderForm", "ETD"),
-                                        Invoice = ini.GetString("OrderForm", "Invoice"),
+                                        NgayXuat = ini.GetString("OrderForm", "NgayXuat"),
+                                        InvoiceHoaDon = ini.GetString("OrderForm", "InvoiceHoaDon"),
+                                        InvoicePHG = ini.GetString("OrderForm", "InvoicePHG"),
                                         Article = ini.GetString("OrderForm", "Article"),
-                                        Brand = ini.GetString("OrderForm", "Brand"),
-                                        Amount = ini.GetString("OrderForm", "Amount"),
                                     };
                                     var lst = new ConcurrentBag<OrderForm>();
                                     ParallelOptions parallelOptions = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -186,24 +176,25 @@ namespace Julian_Server
                                         {
                                             MaKH = row.Cell(c.MaKH).GetString(),
                                             NgayDat = row.Cell(c.NgayDat).TryGetValue<DateTime>(out var ngaydat) ? ngaydat : DateTime.MinValue,
+                                            Brand = row.Cell(c.Brand).GetString(),
                                             PONhuom = row.Cell(c.PONhuom).GetString(),
                                             PONhuomMoi = row.Cell(c.PONhuomMoi).GetString(),
                                             MaHangKH = row.Cell(c.MaHangKH).GetString(),
                                             MaDonKH = row.Cell(c.MaDonKH).GetString(),
                                             LieuKH = row.Cell(c.LieuKH).GetString(),
-                                            LieuSd = row.Cell(c.LieuSd).GetString(),
-                                            MauKH = row.Cell(c.MauKH).GetString(),
-                                            MauSd = row.Cell(c.MauSd).GetString(),
+                                            LieuThayThe = row.Cell(c.LieuThayThe).GetString(),
                                             Kho = row.Cell(c.Kho).TryGetValue<int>(out var w) ? w : -1,
-                                            SlDat = row.Cell(c.SlDat).TryGetValue<double>(out var slDat) ? slDat : -1,
-                                            ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
-                                            SlXuat = row.Cell(c.SlXuat).TryGetValue<double>(out var slXuat) ? slXuat : -1,
-                                            NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,
-                                            Invoice = row.Cell(c.Invoice).GetString(),
-                                            Article = row.Cell(c.Article).GetString(),
-                                            Brand = row.Cell(c.Brand).GetString(),
+                                            MauKH = row.Cell(c.MauKH).GetString(),
+                                            MauThayThe = row.Cell(c.MauThayThe).GetString(),
+                                            SLDat = row.Cell(c.SLDat).TryGetValue<float>(out var slDat) ? slDat : -1,
                                             DonGia = row.Cell(c.DonGia).TryGetValue<float>(out var unitPrice) ? unitPrice : -1,
-                                            Amount = row.Cell(c.Amount).TryGetValue<float>(out var amount) ? amount : -1,
+                                            TongTien = row.Cell(c.TongTien).TryGetValue<double>(out var amount) ? amount : -1,
+                                            ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
+                                            NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,
+                                            InvoiceHoaDon = row.Cell(c.InvoiceHoaDon).GetString(),
+                                            InvoicePHG = row.Cell(c.InvoicePHG).GetString(),
+                                            Article = row.Cell(c.Article).GetString(),
+  
                                         };
                                         if (!string.IsNullOrEmpty(order.MaKH))
                                             lst.Add(order);
@@ -224,9 +215,9 @@ namespace Julian_Server
                     await Task.Delay(100);
                 }
                 await Task.WhenAll(tasks2);
-                if (_frmOrderForm != null)
+                if (_frmReporter != null)
                 {
-                    _frmOrderForm.SetDataSourceControl(_lstOrder);
+                    _frmReporter.SetDataSourceControl(_lstOrder);
                 }
                 this.Close();
             }

@@ -24,6 +24,7 @@ namespace Julian_Server
         public frmReporter()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(dgvMain, true, null);
             typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(btnProductionReport_Apply, true, null);
             dgvMain.AutoGenerateColumns = false;
@@ -52,6 +53,7 @@ namespace Julian_Server
             var dt = ConvertData.ToDataTable(_lstOrderForm);
             _bindingSource.DataSource = dt;
             dgvMain.DataSource = _bindingSource;
+            advancedDataGridView1.DataSource = _bindingSource;
 
             var lst = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
             //Production Report

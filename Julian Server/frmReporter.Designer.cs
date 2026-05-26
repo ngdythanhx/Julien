@@ -125,6 +125,27 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtpHoiHang_ToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpHoiHang_FromDate = new System.Windows.Forms.DateTimePicker();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -132,11 +153,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductionReport)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoiHang)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvMain
             // 
-            this.dgvMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMain.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -164,7 +187,7 @@
             this.dgvMain.Location = new System.Drawing.Point(6, 6);
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.RowHeadersWidth = 30;
-            this.dgvMain.Size = new System.Drawing.Size(1572, 366);
+            this.dgvMain.Size = new System.Drawing.Size(1572, 175);
             this.dgvMain.TabIndex = 0;
             this.dgvMain.VirtualMode = true;
             // 
@@ -322,8 +345,12 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(6, 378);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -949,11 +976,217 @@
             this.dtpHoiHang_FromDate.Size = new System.Drawing.Size(98, 20);
             this.dtpHoiHang_FromDate.TabIndex = 248;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1564, 351);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "Báo cáo tuần";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1564, 351);
+            this.tabPage4.TabIndex = 4;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // advancedDataGridView1
+            // 
+            this.advancedDataGridView1.AllowUserToAddRows = false;
+            this.advancedDataGridView1.AllowUserToDeleteRows = false;
+            this.advancedDataGridView1.AutoGenerateContextFilters = true;
+            this.advancedDataGridView1.BackgroundColor = System.Drawing.Color.LightGray;
+            this.advancedDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.advancedDataGridView1.ColumnHeadersHeight = 24;
+            this.advancedDataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column10,
+            this.Column11,
+            this.Column12,
+            this.Column13,
+            this.Column14,
+            this.Column15,
+            this.Column16,
+            this.Column17,
+            this.Column18,
+            this.Column19,
+            this.Column20,
+            this.Column21,
+            this.Column22,
+            this.Column23,
+            this.Column24,
+            this.Column25,
+            this.Column26,
+            this.Column27});
+            this.advancedDataGridView1.DateWithTime = false;
+            this.advancedDataGridView1.Location = new System.Drawing.Point(16, 187);
+            this.advancedDataGridView1.Name = "advancedDataGridView1";
+            this.advancedDataGridView1.RowHeadersWidth = 30;
+            this.advancedDataGridView1.Size = new System.Drawing.Size(1476, 136);
+            this.advancedDataGridView1.TabIndex = 228;
+            this.advancedDataGridView1.TimeFilter = false;
+            // 
+            // Column10
+            // 
+            this.Column10.DataPropertyName = "MaKH";
+            this.Column10.HeaderText = "Mã KH";
+            this.Column10.MinimumWidth = 22;
+            this.Column10.Name = "Column10";
+            this.Column10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column10.Width = 60;
+            // 
+            // Column11
+            // 
+            this.Column11.DataPropertyName = "NgayDat";
+            this.Column11.HeaderText = "Ngày đặt";
+            this.Column11.MinimumWidth = 22;
+            this.Column11.Name = "Column11";
+            this.Column11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column11.Width = 85;
+            // 
+            // Column12
+            // 
+            this.Column12.DataPropertyName = "PONhuom";
+            this.Column12.HeaderText = "PO Nhuộm";
+            this.Column12.MinimumWidth = 22;
+            this.Column12.Name = "Column12";
+            this.Column12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column12.Width = 90;
+            // 
+            // Column13
+            // 
+            this.Column13.DataPropertyName = "PONhuomMoi";
+            this.Column13.HeaderText = "PO Nhuộm mới";
+            this.Column13.MinimumWidth = 22;
+            this.Column13.Name = "Column13";
+            this.Column13.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column13.Width = 110;
+            // 
+            // Column14
+            // 
+            this.Column14.DataPropertyName = "MaDonKH";
+            this.Column14.HeaderText = "Mã Đơn KH";
+            this.Column14.MinimumWidth = 22;
+            this.Column14.Name = "Column14";
+            this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column15
+            // 
+            this.Column15.DataPropertyName = "MaHangKH";
+            this.Column15.HeaderText = "Mã Hàng KH";
+            this.Column15.MinimumWidth = 22;
+            this.Column15.Name = "Column15";
+            this.Column15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column16
+            // 
+            this.Column16.DataPropertyName = "LieuKH";
+            this.Column16.HeaderText = "Liệu KH";
+            this.Column16.MinimumWidth = 22;
+            this.Column16.Name = "Column16";
+            this.Column16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column16.Width = 90;
+            // 
+            // Column17
+            // 
+            this.Column17.DataPropertyName = "LieuSd";
+            this.Column17.HeaderText = "Liệu Sd";
+            this.Column17.MinimumWidth = 22;
+            this.Column17.Name = "Column17";
+            this.Column17.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column17.Width = 90;
+            // 
+            // Column18
+            // 
+            this.Column18.DataPropertyName = "MauKH";
+            this.Column18.HeaderText = "Màu KH";
+            this.Column18.MinimumWidth = 22;
+            this.Column18.Name = "Column18";
+            this.Column18.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column19
+            // 
+            this.Column19.HeaderText = "Màu Sd";
+            this.Column19.MinimumWidth = 22;
+            this.Column19.Name = "Column19";
+            this.Column19.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column19.Width = 80;
+            // 
+            // Column20
+            // 
+            this.Column20.HeaderText = "Brand";
+            this.Column20.MinimumWidth = 22;
+            this.Column20.Name = "Column20";
+            this.Column20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column20.Width = 75;
+            // 
+            // Column21
+            // 
+            this.Column21.HeaderText = "Article";
+            this.Column21.MinimumWidth = 22;
+            this.Column21.Name = "Column21";
+            this.Column21.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column21.Width = 75;
+            // 
+            // Column22
+            // 
+            this.Column22.HeaderText = "Khổ";
+            this.Column22.MinimumWidth = 22;
+            this.Column22.Name = "Column22";
+            this.Column22.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column22.Width = 50;
+            // 
+            // Column23
+            // 
+            this.Column23.HeaderText = "Sl đặt";
+            this.Column23.MinimumWidth = 22;
+            this.Column23.Name = "Column23";
+            this.Column23.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column23.Width = 70;
+            // 
+            // Column24
+            // 
+            this.Column24.HeaderText = "ETD";
+            this.Column24.MinimumWidth = 22;
+            this.Column24.Name = "Column24";
+            this.Column24.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column24.Width = 85;
+            // 
+            // Column25
+            // 
+            this.Column25.HeaderText = "Ngày xuất";
+            this.Column25.MinimumWidth = 22;
+            this.Column25.Name = "Column25";
+            this.Column25.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column25.Width = 85;
+            // 
+            // Column26
+            // 
+            this.Column26.HeaderText = "Invoice (PGH)";
+            this.Column26.MinimumWidth = 22;
+            this.Column26.Name = "Column26";
+            this.Column26.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column26.Width = 80;
+            // 
+            // Column27
+            // 
+            this.Column27.HeaderText = "Invoice (Công nợ)";
+            this.Column27.MinimumWidth = 22;
+            this.Column27.Name = "Column27";
+            this.Column27.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column27.Width = 80;
+            // 
             // frmReporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 761);
+            this.Controls.Add(this.advancedDataGridView1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.dgvMain);
             this.Name = "frmReporter";
@@ -970,6 +1203,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoiHang)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1053,5 +1287,26 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private ADGV.AdvancedDataGridView advancedDataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column22;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column23;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column27;
     }
 }

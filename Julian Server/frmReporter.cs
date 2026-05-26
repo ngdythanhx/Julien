@@ -31,6 +31,10 @@ namespace Julian_Server
 
             dgvProductionReport.AutoGenerateColumns = false;
             dgvProductionReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            dgvMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            dgvMain.EnableHeadersVisualStyles = false;
         }
 
         private void frmReporter_Shown(object sender, EventArgs e)

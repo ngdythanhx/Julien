@@ -164,7 +164,7 @@ namespace Julian_Server
                                         ETD = ini.GetString("OrderForm", "ETD"),
                                         NgayXuat = ini.GetString("OrderForm", "NgayXuat"),
                                         InvoiceHoaDon = ini.GetString("OrderForm", "InvoiceHoaDon"),
-                                        InvoicePHG = ini.GetString("OrderForm", "InvoicePHG"),
+                                        InvoicePGH = ini.GetString("OrderForm", "InvoicePGH"),
                                         Article = ini.GetString("OrderForm", "Article"),
                                     };
                                     var lst = new ConcurrentBag<OrderForm>();
@@ -192,7 +192,7 @@ namespace Julian_Server
                                             ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
                                             NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,
                                             InvoiceHoaDon = row.Cell(c.InvoiceHoaDon).GetString(),
-                                            InvoicePHG = row.Cell(c.InvoicePHG).GetString(),
+                                            InvoicePGH = row.Cell(c.InvoicePGH).GetString(),
                                             Article = row.Cell(c.Article).GetString(),
   
                                         };

@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Julian_Server
 {
@@ -23,6 +24,8 @@ namespace Julian_Server
         public frmReporter()
         {
             InitializeComponent();
+            typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(dgvMain, true, null);
+            typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(btnProductionReport_Apply, true, null);
             dgvMain.AutoGenerateColumns = false;
             dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
@@ -80,16 +83,73 @@ namespace Julian_Server
             dgvMain.DataSource = new SortableBindingList<OrderForm>(filtered);
             lblProductionReport_TotalRows.Text = dgvMain.Rows.Count.ToString();
         }
-        private void btnProductionReport_Apply_Click(object sender, EventArgs e)
+        private async void btnProductionReport_Apply_Click(object sender, EventArgs e)
         {
-            _lstProductionReport = _lstOrderForm.Where(o =>
-                filterProductionReport_MaKH.GetItemsChecked().Any(maKh => maKh == o.MaKH) &&
-                o.NgayDat.Date >= dtpProductionReport_FromDate.Value.Date &&
-                o.NgayDat.Date <= dtpProductionReport_ToDate.Value.Date
-            ).ToList();
-            UpdateProductionReport();
+            btnProductionReport_Apply.Enabled = false;
+
+            var fromDate = dtpProductionReport_FromDate.Value.Date;
+            var toDate = dtpProductionReport_ToDate.Value.Date;
+            var checkedItems = filterProductionReport_MaKH.GetItemsChecked().ToList();
+            var filterUnitPrice = chkProductionReport_FilerUnitPrice.Checked;
+
+            var result = await Task.Run(() =>
+            {
+                var productionReport = _lstOrderForm.Where(o =>
+                    checkedItems.Any(maKh => maKh == o.MaKH) &&
+                    o.NgayDat.Date >= fromDate &&
+                    o.NgayDat.Date <= toDate
+                ).ToList();
+
+                List<OrderForm> data;
+
+                if (filterUnitPrice)
+                    data = productionReport.Where(order => order.DonGia > 0).ToList();
+                else
+                    data = productionReport;
+
+                var newData = data.GroupBy(o => o.LieuKH)
+                    .Select(o => new
+                    {
+                        MaKH = o.First().MaKH,
+                        Lieu = o.First().LieuKH,
+                        Qty = o.Sum(x => x.SLDat),
+                        SoTien = o.Sum(x => x.TongTien),
+                    })
+                    .OrderBy(x => x.Lieu)
+                    .ToList();
+
+                var totalQty = newData.Sum(order => order.Qty);
+                var totalAmount = newData.Sum(order => order.SoTien);
+
+                var dt = ConvertData.ToDataTable(newData);
+
+                return new
+                {
+                    Data = data,
+                    Subtotal = dt,
+                    TotalQty = totalQty,
+                    TotalAmount = totalAmount,
+                    TotalRows = data.Count
+                };
+            });
+
+            dgvProductionReport.DataSource =
+                new SortableBindingList<OrderForm>(result.Data);
+
+            dgvProductionReport_Subtotal.DataSource = result.Subtotal;
+
+            lblProductionReport_TotalRows.Text =
+                result.TotalRows.ToString("#,##0");
+
+            lblProductionReport_TotalQty.Text =
+                result.TotalQty.ToString("#,##0.00");
+
+            lblProductionReport_TotalAmount.Text =
+                result.TotalAmount.ToString("#,##0.00");
+
+            btnProductionReport_Apply.Enabled = true;
         }
-        private void UpdateProductionReport()
+        private async void UpdateProductionReport()
         {
             if (_lstProductionReport == null || _lstProductionReport.Count == 0)
                 return;
@@ -109,7 +169,7 @@ namespace Julian_Server
                 Lieu = o.First().LieuKH,
                 Qty = o.Sum(x => x.SLDat),
                 SoTien = o.Sum(x => x.TongTien),
-            }).ToList();
+            }).OrderBy(x => x.Lieu).ToList();
             lblProductionReport_TotalQty.Text = newData.Sum(order => order.Qty).ToString("#,##0.00");
             lblProductionReport_TotalAmount.Text = newData.Sum(order => order.SoTien).ToString("#,##0.00");
             var dt = ConvertData.ToDataTable(newData);

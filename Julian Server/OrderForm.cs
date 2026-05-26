@@ -32,7 +32,7 @@ namespace Julian.Database.DTO
         public DateTime ETD { get; set; }
         public DateTime NgayXuat { get; set; }
         public string InvoiceHoaDon { get; set; }
-        public string InvoicePHG { get; set; }
+        public string InvoicePGH { get; set; }
         public string Article { get; set; }
 
     }

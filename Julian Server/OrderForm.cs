@@ -34,6 +34,8 @@ namespace Julian.Database.DTO
         public string InvoiceHoaDon { get; set; }
         public string InvoicePGH { get; set; }
         public string Article { get; set; }
-
+        public string BillNumber { get; set; }
+        public string ShippingMethod { get; set; }
+        
     }
 }

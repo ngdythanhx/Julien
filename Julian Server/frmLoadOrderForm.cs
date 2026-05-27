@@ -166,6 +166,9 @@ namespace Julian_Server
                                         InvoiceHoaDon = ini.GetString("OrderForm", "InvoiceHoaDon"),
                                         InvoicePGH = ini.GetString("OrderForm", "InvoicePGH"),
                                         Article = ini.GetString("OrderForm", "Article"),
+                                        BillNumber = ini.GetString("OrderForm", "BillNumber"),
+                                        ShippingMethod = ini.GetString("OrderForm", "ShippingMethod"),
+                                        
                                     };
                                     var lst = new ConcurrentBag<OrderForm>();
                                     ParallelOptions parallelOptions = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -194,7 +197,8 @@ namespace Julian_Server
                                             InvoiceHoaDon = row.Cell(c.InvoiceHoaDon).GetString(),
                                             InvoicePGH = row.Cell(c.InvoicePGH).GetString(),
                                             Article = row.Cell(c.Article).GetString(),
-  
+                                            BillNumber = row.Cell(c.BillNumber).GetString(),
+                                            ShippingMethod = row.Cell(c.ShippingMethod).GetString(),
                                         };
                                         if (!string.IsNullOrEmpty(order.MaKH))
                                             lst.Add(order);

@@ -1,4 +1,5 @@
-﻿using Julian.Database.DTO;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Julian.Database.DTO;
 using Julian.Helper;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Julian_Server
 {
     public partial class frmReporter : Form
     {
+        public List<OrderForm> LstOrderForm => _lstOrderForm;
         List<OrderForm> _lstOrderForm = null;
         BindingSource _bindingSource = new BindingSource();
         private List<OrderForm> _lstProductionReport = null;
@@ -53,7 +55,6 @@ namespace Julian_Server
             var dt = ConvertData.ToDataTable(_lstOrderForm);
             _bindingSource.DataSource = dt;
             dgvMain.DataSource = _bindingSource;
-            advancedDataGridView1.DataSource = _bindingSource;
 
             var lst = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
             //Production Report
@@ -69,7 +70,39 @@ namespace Julian_Server
         {
 
         }
+        private void LoadForm(Form frm,int index)
+        {
+            string tabPageName = "tp" + frm.Name.Substring(3);
 
+            if (!tcMain.TabPages.ContainsKey(tabPageName))
+            {
+                var tab = new TabPage(frm.Text)
+                {
+                    Name = tabPageName,
+                };
+                tcMain.TabPages.Add(tab);
+                Panel pnlScroll = new Panel
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = SystemColors.Window,
+                    AutoScroll = true
+                };
+
+                frm.TopLevel = false;
+                frm.FormBorderStyle = FormBorderStyle.None;
+                frm.Width = tab.Width;
+                frm.Height = tab.Height;
+                //frm.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+                frm.Dock = DockStyle.Fill;
+                frm.Location = new Point(0, 0);
+                frm.AutoScroll = false;
+                pnlScroll.Controls.Add(frm);
+                tab.Controls.Add(pnlScroll);
+                frm.Show();
+            }
+
+            tcMain.SelectedTab = tcMain.TabPages[tabPageName];
+        }
         private void btnFilterByExcelText_Click(object sender, EventArgs e)
         {
             frmFilterByText frm = new frmFilterByText();

@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRemoveTrans = new System.Windows.Forms.Button();
             this.btnCopy = new System.Windows.Forms.Button();
@@ -300,6 +300,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(6, 236);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 30;
+            this.dataGridView1.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.Size = new System.Drawing.Size(1341, 408);
             this.dataGridView1.TabIndex = 10;
             // 
@@ -356,17 +357,16 @@
             // col_production_created
             // 
             this.col_production_created.DataPropertyName = "Production_Created";
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production_created.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production_created.DefaultCellStyle = dataGridViewCellStyle1;
             this.col_production_created.HeaderText = "Created";
             this.col_production_created.Name = "col_production_created";
-            this.col_production_created.Width = 75;
             // 
             // col_production_lotid
             // 
             this.col_production_lotid.DataPropertyName = "Production_LotID";
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production_lotid.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production_lotid.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_production_lotid.HeaderText = "LotID";
             this.col_production_lotid.Name = "col_production_lotid";
             this.col_production_lotid.Width = 140;
@@ -374,17 +374,17 @@
             // col_production_materialnumber
             // 
             this.col_production_materialnumber.DataPropertyName = "Production_MaterialNumber";
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production_materialnumber.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production_materialnumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.col_production_materialnumber.HeaderText = "MaterialNumber";
             this.col_production_materialnumber.Name = "col_production_materialnumber";
             // 
             // col_production_qty
             // 
             this.col_production_qty.DataPropertyName = "Production_Qty";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production_qty.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production_qty.DefaultCellStyle = dataGridViewCellStyle4;
             this.col_production_qty.HeaderText = "Qty";
             this.col_production_qty.Name = "col_production_qty";
             this.col_production_qty.Width = 60;
@@ -392,10 +392,10 @@
             // Column3
             // 
             this.Column3.DataPropertyName = "Production_TotalQty";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.Honeydew;
-            dataGridViewCellStyle19.Format = "#,##0.000";
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Honeydew;
+            dataGridViewCellStyle5.Format = "#,##0.000";
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column3.FillWeight = 200F;
             this.Column3.HeaderText = "TotalQty";
             this.Column3.Name = "Column3";
@@ -404,8 +404,8 @@
             // col_production_date
             // 
             this.col_production_date.DataPropertyName = "Production_Date";
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production_date.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production_date.DefaultCellStyle = dataGridViewCellStyle6;
             this.col_production_date.HeaderText = "Date";
             this.col_production_date.Name = "col_production_date";
             this.col_production_date.Width = 75;
@@ -413,17 +413,16 @@
             // col_outbound_created
             // 
             this.col_outbound_created.DataPropertyName = "Outbound_Created";
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outbound_created.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outbound_created.DefaultCellStyle = dataGridViewCellStyle7;
             this.col_outbound_created.HeaderText = "Created";
             this.col_outbound_created.Name = "col_outbound_created";
-            this.col_outbound_created.Width = 75;
             // 
             // col_outbound_lotid
             // 
             this.col_outbound_lotid.DataPropertyName = "OutBound_LotID";
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outbound_lotid.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outbound_lotid.DefaultCellStyle = dataGridViewCellStyle8;
             this.col_outbound_lotid.HeaderText = "LotID";
             this.col_outbound_lotid.Name = "col_outbound_lotid";
             this.col_outbound_lotid.Width = 140;
@@ -431,17 +430,17 @@
             // col_outbound_materialnumber
             // 
             this.col_outbound_materialnumber.DataPropertyName = "Outbound_MaterialNumber";
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outbound_materialnumber.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outbound_materialnumber.DefaultCellStyle = dataGridViewCellStyle9;
             this.col_outbound_materialnumber.HeaderText = "MaterialNumber";
             this.col_outbound_materialnumber.Name = "col_outbound_materialnumber";
             // 
             // col_outboundqty
             // 
             this.col_outboundqty.DataPropertyName = "Outbound_Qty";
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outboundqty.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outboundqty.DefaultCellStyle = dataGridViewCellStyle10;
             this.col_outboundqty.FillWeight = 400F;
             this.col_outboundqty.HeaderText = "Qty";
             this.col_outboundqty.Name = "col_outboundqty";
@@ -450,10 +449,10 @@
             // col_outbound_totalqty
             // 
             this.col_outbound_totalqty.DataPropertyName = "Outbound_TotalQty";
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.PaleGoldenrod;
-            dataGridViewCellStyle25.Format = "#,##0.00";
-            this.col_outbound_totalqty.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.PaleGoldenrod;
+            dataGridViewCellStyle11.Format = "#,##0.00";
+            this.col_outbound_totalqty.DefaultCellStyle = dataGridViewCellStyle11;
             this.col_outbound_totalqty.HeaderText = "TotalQty";
             this.col_outbound_totalqty.Name = "col_outbound_totalqty";
             this.col_outbound_totalqty.Width = 75;
@@ -461,8 +460,8 @@
             // col_outboundinvoice
             // 
             this.col_outboundinvoice.DataPropertyName = "Outbound_Invoice";
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outboundinvoice.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outboundinvoice.DefaultCellStyle = dataGridViewCellStyle12;
             this.col_outboundinvoice.HeaderText = "Invoice";
             this.col_outboundinvoice.Name = "col_outboundinvoice";
             this.col_outboundinvoice.Width = 200;
@@ -470,8 +469,8 @@
             // col_outboundremarks
             // 
             this.col_outboundremarks.DataPropertyName = "Outbound_Remarks";
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outboundremarks.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outboundremarks.DefaultCellStyle = dataGridViewCellStyle13;
             this.col_outboundremarks.HeaderText = "Remarks";
             this.col_outboundremarks.Name = "col_outboundremarks";
             this.col_outboundremarks.Width = 120;
@@ -479,8 +478,8 @@
             // col_outbound
             // 
             this.col_outbound.DataPropertyName = "OutBound_Date";
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outbound.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outbound.DefaultCellStyle = dataGridViewCellStyle14;
             this.col_outbound.HeaderText = "Date";
             this.col_outbound.Name = "col_outbound";
             this.col_outbound.Width = 75;

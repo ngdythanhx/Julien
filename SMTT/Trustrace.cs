@@ -166,7 +166,7 @@ namespace SMTT
                                     ProductionDate = smttObj["production_date"].ToObject<DateTime>().Date,
                                     OutBoundDate = smttObj["tx_date"].ToObject<DateTime>().Date,
                                     Remarks = smttObj["remarks"]?.ToString(),
-                                    TransactionStatus = Enum.TryParse<TransactionStatus>(smttObj["tx_type"]?.ToString(), out var status) ? status : default,
+                                    TransactionStatus = Enum.TryParse<TransactionStatus>(smttObj["status"]?.ToString(), out var status) ? status : default,
                                 };
                                 lst.Add(item);
                             }

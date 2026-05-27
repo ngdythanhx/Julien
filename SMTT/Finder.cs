@@ -22,21 +22,21 @@ namespace SMTT
         public string Input_MaterialID { get; set; } = string.Empty;
         public double Input_Qty { get; set; } = -1;
         //Production
-        public string Production_Created =>Finish? _lstProduction.Count!=0?  string.Join(Environment.NewLine, _lstProduction.Select(x=>x.CreatedDate.ToString("yy-MM-dd"))):"null":"waitting";
-        public string Production_MaterialNumber => string.Join(Environment.NewLine, _lstProduction.Select(x => x.MaterialNumber));
-        public string Production_LotID => string.Join(Environment.NewLine, _lstProduction.Select(x => x.LotID));
-        public string Production_Qty => string.Join(Environment.NewLine, _lstProduction.Select(x => x.Qty));
+        public string Production_Created =>Finish? _lstProduction.Count!=0?  string.Join("\r\n", _lstProduction.Select(x=>(x.TransactionStatus == Trustrace.TransactionStatus.DRAFT? "[draft] " : "")+  x.CreatedDate.ToString("yy-MM-dd"))):"null":"waitting";
+        public string Production_MaterialNumber => string.Join("\r\n", _lstProduction.Select(x => x.MaterialNumber));
+        public string Production_LotID => string.Join("\r\n", _lstProduction.Select(x => x.LotID));
+        public string Production_Qty => string.Join("\r\n", _lstProduction.Select(x => x.Qty));
         public double Production_TotalQty => _lstProduction.Sum(x=>x.Qty);
-        public string Production_Date =>string.Join(Environment.NewLine, _lstProduction.Select(x=>x.ProductionDate.ToString("yy-MM-dd")));
+        public string Production_Date =>string.Join("\r\n", _lstProduction.Select(x=>x.ProductionDate.ToString("yy-MM-dd")));
         //Outbound
-        public string Outbound_Created => Finish ? _lstOutbound.Count != 0 ? string.Join(Environment.NewLine, _lstOutbound.Select(x => x.CreatedDate.ToString("yy-MM-dd"))) : "null":"waitting";
-        public string Outbound_MaterialNumber=>  string.Join(Environment.NewLine, _lstOutbound.Select(x => x.MaterialNumber));
-        public string Outbound_LotID => string.Join(Environment.NewLine, _lstOutbound.Select(x => x.LotID));
-        public string Outbound_Qty => string.Join(Environment.NewLine, _lstOutbound.Select(x => x.Qty));
+        public string Outbound_Created => Finish ? _lstOutbound.Count != 0 ? string.Join("\r\n", _lstOutbound.Select(x => (x.TransactionStatus == Trustrace.TransactionStatus.DRAFT ? "[draft] " : "") + x.CreatedDate.ToString("yy-MM-dd"))) : "null":"waitting";
+        public string Outbound_MaterialNumber=>  string.Join("\r\n", _lstOutbound.Select(x => x.MaterialNumber));
+        public string Outbound_LotID => string.Join("\r\n", _lstOutbound.Select(x => x.LotID));
+        public string Outbound_Qty => string.Join("\r\n", _lstOutbound.Select(x => x.Qty));
         public double Outbound_TotalQty => _lstOutbound.Sum(x => x.Qty);
-        public string Outbound_Invoice => string.Join(Environment.NewLine, _lstOutbound.Select(x => x.InvoiceNumber));
-        public string Outbound_Remarks => string.Join(Environment.NewLine, _lstOutbound.Select(x => x.Remarks));
-        public string Outbound_Date => string.Join(Environment.NewLine, _lstOutbound.Select(x => x.OutBoundDate.ToString("yy-MM-dd")));
+        public string Outbound_Invoice => string.Join("\r\n", _lstOutbound.Select(x => x.InvoiceNumber));
+        public string Outbound_Remarks => string.Join("\r\n", _lstOutbound.Select(x => x.Remarks));
+        public string Outbound_Date => string.Join("\r\n", _lstOutbound.Select(x => x.OutBoundDate.ToString("yy-MM-dd")));
         public bool Finish { get; private set; } = false;
         public string Status { get; set; } = "...";
 

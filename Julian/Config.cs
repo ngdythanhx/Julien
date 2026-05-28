@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace  Julian
 {
-    public sealed class Config
+    public class Config
     {
-        private static readonly Config _instance = new Config();
-        private string _conn;
-        public static string ConnectionString { get => _instance._conn; set { _instance._conn = value; } }
+        private static readonly Lazy<Config> _instance = new Lazy<Config>(() => new Config());
+        public static Config Instance => _instance.Value;
+        private Config()
+        {
+
+        }
+        public string ConnectionString { get; set; }
+        public string SMTTFolderPath { get; set; }
     }
 }

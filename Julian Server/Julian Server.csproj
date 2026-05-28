@@ -227,6 +227,18 @@
     <Compile Include="frmSanLuong.Designer.cs">
       <DependentUpon>frmSanLuong.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSHCNewOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSHCNewOrder.Designer.cs">
+      <DependentUpon>frmSHCNewOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSHCPending.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSHCPending.Designer.cs">
+      <DependentUpon>frmSHCPending.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSMTT2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,6 +294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSanLuong.resx">
       <DependentUpon>frmSanLuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSHCNewOrder.resx">
+      <DependentUpon>frmSHCNewOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSHCPending.resx">
+      <DependentUpon>frmSHCPending.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSMTT2.resx">
       <DependentUpon>frmSMTT2.cs</DependentUpon>

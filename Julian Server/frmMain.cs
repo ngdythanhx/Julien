@@ -72,7 +72,7 @@ namespace Julian_Server
         private void frmMain_Load(object sender, EventArgs e)
         {
             IniManager iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
-            Config.ConnectionString = iniManager.GetString("Default", "ConnectionString");
+            Config.Instance.ConnectionString = iniManager.GetString("Default", "ConnectionString");
             tsDatabase.Enabled = false;
 
             //tsEmployeeTask.PerformClick();

@@ -162,7 +162,7 @@ namespace ThuDamBao_LHG
                         }
                     }
                     doc.SaveToFile(path);
-                    doc.SaveToFile(path,FileFormat.PDF);
+                    doc.SaveToFile(path.Replace(".docx",".pdf"),FileFormat.PDF);
                     if (File.Exists(path))
                     {
                         MessageBox.Show("Tạo thành công!");

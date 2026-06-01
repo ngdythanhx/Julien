@@ -95,7 +95,6 @@
             this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filterProductionReport_MaKH = new Julian_Server.ucFilter();
             this.lblProductionReport_TotalRows = new System.Windows.Forms.Label();
             this.btnProductionReport_Apply = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -105,7 +104,6 @@
             this.dtpProductionReport_FromDate = new System.Windows.Forms.DateTimePicker();
             this.btnProductionReport_ExportReport = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.filterHoiHang_MaKH = new Julian_Server.ucFilter();
             this.dgvHoiHang = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,6 +125,9 @@
             this.dtpHoiHang_FromDate = new System.Windows.Forms.DateTimePicker();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tpDebitNote = new System.Windows.Forms.TabPage();
+            this.tpVita = new System.Windows.Forms.TabPage();
+            this.filterProductionReport_MaKH = new Julian_Server.ucFilter();
+            this.filterHoiHang_MaKH = new Julian_Server.ucFilter();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -331,6 +332,7 @@
             this.tcMain.Controls.Add(this.tabPage1);
             this.tcMain.Controls.Add(this.tabPage3);
             this.tcMain.Controls.Add(this.tpDebitNote);
+            this.tcMain.Controls.Add(this.tpVita);
             this.tcMain.Location = new System.Drawing.Point(6, 378);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
@@ -634,14 +636,6 @@
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
             // 
-            // filterProductionReport_MaKH
-            // 
-            this.filterProductionReport_MaKH.FilterText = "Mã Khách Hàng";
-            this.filterProductionReport_MaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterProductionReport_MaKH.Name = "filterProductionReport_MaKH";
-            this.filterProductionReport_MaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterProductionReport_MaKH.TabIndex = 246;
-            // 
             // lblProductionReport_TotalRows
             // 
             this.lblProductionReport_TotalRows.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -741,14 +735,6 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Hối hàng";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // filterHoiHang_MaKH
-            // 
-            this.filterHoiHang_MaKH.FilterText = "Mã Khách Hàng";
-            this.filterHoiHang_MaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterHoiHang_MaKH.Name = "filterHoiHang_MaKH";
-            this.filterHoiHang_MaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterHoiHang_MaKH.TabIndex = 261;
             // 
             // dgvHoiHang
             // 
@@ -976,6 +962,32 @@
             this.tpDebitNote.Text = "Công nợ";
             this.tpDebitNote.UseVisualStyleBackColor = true;
             // 
+            // tpVita
+            // 
+            this.tpVita.Location = new System.Drawing.Point(4, 22);
+            this.tpVita.Name = "tpVita";
+            this.tpVita.Padding = new System.Windows.Forms.Padding(3);
+            this.tpVita.Size = new System.Drawing.Size(1564, 351);
+            this.tpVita.TabIndex = 5;
+            this.tpVita.Text = "Vita";
+            this.tpVita.UseVisualStyleBackColor = true;
+            // 
+            // filterProductionReport_MaKH
+            // 
+            this.filterProductionReport_MaKH.FilterText = "Mã Khách Hàng";
+            this.filterProductionReport_MaKH.Location = new System.Drawing.Point(6, 6);
+            this.filterProductionReport_MaKH.Name = "filterProductionReport_MaKH";
+            this.filterProductionReport_MaKH.Size = new System.Drawing.Size(100, 222);
+            this.filterProductionReport_MaKH.TabIndex = 246;
+            // 
+            // filterHoiHang_MaKH
+            // 
+            this.filterHoiHang_MaKH.FilterText = "Mã Khách Hàng";
+            this.filterHoiHang_MaKH.Location = new System.Drawing.Point(6, 6);
+            this.filterHoiHang_MaKH.Name = "filterHoiHang_MaKH";
+            this.filterHoiHang_MaKH.Size = new System.Drawing.Size(100, 222);
+            this.filterHoiHang_MaKH.TabIndex = 261;
+            // 
             // frmReporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1082,5 +1094,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tpDebitNote;
+        private System.Windows.Forms.TabPage tpVita;
     }
 }

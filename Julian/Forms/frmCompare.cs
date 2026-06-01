@@ -84,7 +84,7 @@ namespace Julian.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+
             {
                 gb1.Enabled = true;
             }
@@ -136,7 +136,7 @@ namespace Julian.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+
             {
                 gb2.Enabled = true;
             }
@@ -296,7 +296,7 @@ namespace Julian.Forms
                 MessageBox.Show(ex.Message, "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lblRowsCount.Text = "_";
             }
-            finally
+
             {
                 btnStart.Enabled = true;
             }

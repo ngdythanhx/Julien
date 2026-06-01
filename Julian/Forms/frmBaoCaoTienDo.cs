@@ -107,7 +107,7 @@ namespace Julian.Forms
                 MessageBox.Show(ex.Message, "Lỗi!");
                 WriteLog("Error: " + ex.Message);
             }
-            finally
+
             {
                 gb_Customer.Enabled = true;
                 if (cbSheets_Customer.DataSource != null &&
@@ -163,7 +163,7 @@ namespace Julian.Forms
                 MessageBox.Show(ex.Message, "Lỗi!");
                 WriteLog("Error: " + ex.Message);
             }
-            finally
+
             {
                 gb_OrderForm.Enabled = true;
                 if (cbSheets_Customer.DataSource != null &&
@@ -284,7 +284,7 @@ namespace Julian.Forms
                             WriteLog($"Load dữ liệu file {Path.GetFileName(path)}...");
                             Console.WriteLine(ex.Message);
                         }
-                        finally
+            
                         {
                             WriteLog($"Load xong: {Path.GetFileName(path)}");
                         }
@@ -359,7 +359,7 @@ namespace Julian.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+
             {
                 btnStart.Enabled = true;
             }

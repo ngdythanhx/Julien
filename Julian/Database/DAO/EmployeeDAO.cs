@@ -17,13 +17,13 @@ namespace Julian.Database.DAO
         {
             get { return _instance.Value; }
         }
-        public List<Employee> GetEmployees()
+        public async Task<List<Employee>> GetEmployees()
         {
             DBHelper db = null;
             try
             {
-                db = new DBHelper(Config.ConnectionString);
-                var lst = db.GetList<Employee>("SP_Employee_GetAll");
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var lst = await db.GetListAsync<Employee>("SP_Employee_GetAll");
                 return lst;
             }
             catch (Exception ex)
@@ -31,21 +31,17 @@ namespace Julian.Database.DAO
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+
         }
-        public Employee GetEmployee(string employeeCode)
+        public async Task<Employee> GetEmployee(string employeeCode)
         {
             DBHelper db = null;
             try
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@_EmployeeCode", employeeCode);
-                db = new DBHelper(Config.ConnectionString);
-                var em = db.GetInstanceSP<Employee>("SP_Employee_GetBy_EmployeeCode",pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var em =await db.GetInstanceSPAsync<Employee>("SP_Employee_GetBy_EmployeeCode",default,pars);
                 return em;
             }
             catch (Exception ex)
@@ -53,13 +49,8 @@ namespace Julian.Database.DAO
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
         }
-        public ResponseSP CreateEmployee(string employeeCode,string employeeName, DateTime brithday)
+        public async Task<ResponseSP> CreateEmployee(string employeeCode,string employeeName, DateTime brithday)
         {
             DBHelper db = null;
             try
@@ -68,21 +59,16 @@ namespace Julian.Database.DAO
                 pars[0] = new SqlParameter("@_EmployeeCode", employeeCode);
                 pars[1] = new SqlParameter("@_EmployeeName", employeeName);
                 pars[2] = new SqlParameter("@_Birthday", brithday);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_Employee_Create", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_Employee_Create",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
         }
-        public ResponseSP UpdateEmployee(int id,string employeeCode, string employeeName, DateTime brithday)
+        public async Task<ResponseSP> UpdateEmployee(int id,string employeeCode, string employeeName, DateTime brithday)
         {
             DBHelper db = null;
             try
@@ -92,40 +78,32 @@ namespace Julian.Database.DAO
                 pars[1] = new SqlParameter("@_EmployeeCode", employeeCode);
                 pars[2] = new SqlParameter("@_EmployeeName", employeeName);
                 pars[3] = new SqlParameter("@_Birthday", brithday);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_Employee_UpdateBy_Id", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_Employee_UpdateBy_Id",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+
         }
-        public ResponseSP DeleteEmployee(int EmployeeId)
+        public async Task<ResponseSP> DeleteEmployee(int EmployeeId)
         {
             DBHelper db = null;
             try
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@_Id", EmployeeId);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_Employee_DelBy_Id", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_Employee_DelBy_Id",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+ 
         }
     }
 }

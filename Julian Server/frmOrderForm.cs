@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Office2021.Excel.NamedSheetViews;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Julian.Database.DTO;
 using Julian.Helper;
@@ -20,19 +21,19 @@ namespace Julian_Server
     public partial class frmOrderForm : Form
     {
         List<OrderForm> _lstOrderForm = null;
+        public List<OrderForm> LstOrderForm => _lstOrderForm;
         BindingSource _bindingSource = new BindingSource();
         private List<OrderForm> _lstProductionReport = null;
         private List<OrderForm> _lstHoiHang = null;
         public frmOrderForm()
         {
             InitializeComponent();
-            dgvMain.AutoGenerateColumns = false;
-            dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            tcMain.AutoGenerateColumns = false;
+            tcMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             dgvProductionReport.AutoGenerateColumns = false;
             dgvProductionReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
-
         private void frmOrderForm_Shown(object sender, EventArgs e)
         {
             frmLoadOrderForm frmLoadOrder = new frmLoadOrderForm();
@@ -50,19 +51,19 @@ namespace Julian_Server
             var a = sw.ElapsedMilliseconds;
             _bindingSource.DataSource = dt;
             var a1 = sw.ElapsedMilliseconds;
-            dgvMain.DataSource = _bindingSource;
+            tcMain.DataSource = _bindingSource;
             var b = sw.ElapsedMilliseconds;
-            dgvMain.AutoGenerateContextFilters = true;
+            tcMain.AutoGenerateContextFilters = true;
 
-            dgvMain.FilterStringChanged += (s, ee) =>
+            tcMain.FilterStringChanged += (s, ee) =>
             {
-                _bindingSource.Filter = dgvMain.FilterString;
-                dgvMain.Refresh();
+                _bindingSource.Filter = tcMain.FilterString;
+                tcMain.Refresh();
             };
 
-            dgvMain.SortStringChanged += (s, ee) =>
+            tcMain.SortStringChanged += (s, ee) =>
             {
-                _bindingSource.Sort = dgvMain.SortString;
+                _bindingSource.Sort = tcMain.SortString;
             };
             var sw1 = Stopwatch.StartNew();
 
@@ -89,7 +90,7 @@ namespace Julian_Server
             frm.ShowDialog();
             var lstFilter = frm.LstFilterByText;
             if (lstFilter.Count == 0) return;
-            var curSource = dgvMain.DataSource as SortableBindingList<OrderForm>;
+            var curSource = tcMain.DataSource as SortableBindingList<OrderForm>;
             var filtered = curSource.Where(order =>
                 lstFilter.Any(f =>
                      order.MaDonKH == f.MaDonKH &&
@@ -98,8 +99,8 @@ namespace Julian_Server
                     (f.NgayGiao == DateTime.MinValue || order.NgayXuat.Date == f.NgayGiao.Date)
                 )
             ).ToList();
-            dgvMain.DataSource = new SortableBindingList<OrderForm>(filtered);
-            lblProductionReport_TotalRows.Text = dgvMain.Rows.Count.ToString();
+            tcMain.DataSource = new SortableBindingList<OrderForm>(filtered);
+            lblProductionReport_TotalRows.Text = tcMain.Rows.Count.ToString();
         }
         private void btnProductionReport_Apply_Click(object sender, EventArgs e)
         {
@@ -157,10 +158,10 @@ namespace Julian_Server
                 PoNhuom = o.PONhuomMoi,
                 o.NgayDat,
                 Qty = o.SLDat,
-                Lieu =!string.IsNullOrEmpty( o.LieuThayThe) && o.LieuThayThe.Length >=2?  o.LieuThayThe : o.LieuKH,
+                Lieu = !string.IsNullOrEmpty(o.LieuThayThe) && o.LieuThayThe.Length >= 2 ? o.LieuThayThe : o.LieuKH,
                 Mau = !string.IsNullOrEmpty(o.MauThayThe) && o.MauThayThe.Length >= 2 ? o.MauThayThe : o.MauKH,
             }).ToList();
-            dgvHoiHang.DataSource =ConvertData.ToDataTable(newData);
+            dgvHoiHang.DataSource = ConvertData.ToDataTable(newData);
             lblHoiHang_TotalRows.Text = dgvHoiHang.RowCount.ToString("#,##0");
         }
         private void btnHoiHang_Apply_Click(object sender, EventArgs e)

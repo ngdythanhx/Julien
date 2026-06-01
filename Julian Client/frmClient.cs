@@ -108,7 +108,7 @@ namespace Julian_Client
         private void frmClient_Load(object sender, EventArgs e)
         {
             IniManager iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
-            Config.ConnectionString = iniManager.GetString("Default", "ConnectionString");
+            Config.Instance.ConnectionString = iniManager.GetString("Default", "ConnectionString");
             _employeeCode = iniManager.GetString("Client", "EmployeeCode");
             _employee = EmployeeDAO.Instance.GetEmployee(_employeeCode);
             LoadData();

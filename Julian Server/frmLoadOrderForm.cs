@@ -168,7 +168,8 @@ namespace Julian_Server
                                         Article = ini.GetString("OrderForm", "Article"),
                                         BillNumber = ini.GetString("OrderForm", "BillNumber"),
                                         ShippingMethod = ini.GetString("OrderForm", "ShippingMethod"),
-                                        
+                                        T1 = ini.GetString("OrderForm", "T1"),
+                                        Season = ini.GetString("OrderForm", "Season"),
                                     };
                                     var lst = new ConcurrentBag<OrderForm>();
                                     ParallelOptions parallelOptions = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
@@ -199,6 +200,8 @@ namespace Julian_Server
                                             Article = row.Cell(c.Article).GetString(),
                                             BillNumber = row.Cell(c.BillNumber).GetString(),
                                             ShippingMethod = row.Cell(c.ShippingMethod).GetString(),
+                                            T1 = row.Cell(c.T1).GetString(),
+                                            Season = row.Cell(c.Season).GetString(),
                                         };
                                         if (!string.IsNullOrEmpty(order.MaKH))
                                             lst.Add(order);

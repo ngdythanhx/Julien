@@ -36,6 +36,8 @@ namespace Julian.Database.DTO
         public string Article { get; set; }
         public string BillNumber { get; set; }
         public string ShippingMethod { get; set; }
-        
+        public string T1 {  get; set; }
+        public string Season {  get; set; }
+
     }
 }

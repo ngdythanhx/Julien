@@ -3,738 +3,350 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Julian.Helper
 {
     public class DBHelper
     {
-        private string _cnnString = "";
+        private readonly string _connectionString;
 
-        public string cnnString
+        public DBHelper(string connectionString)
         {
-            get
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                return _cnnString;
+                throw new ArgumentException("Connection string can not null", nameof(connectionString));
             }
-            set
-            {
-                _cnnString = value;
-            }
+
+            _connectionString = FixConnectionString(connectionString, true);
         }
 
-        /// <summary>
-        /// Chuẩn hoá connection string
-        /// </summary>
-        public string FixCNN(string connStr, bool Pooling)
+        public static string FixConnectionString(string connectionString, bool pooling)
         {
-            var aconnStr = connStr.Split(';');
-            var sTemp = "";
+            var parts = connectionString
+                .Split(';')
+                .Where(x =>
+                    !x.StartsWith("pooling=", StringComparison.OrdinalIgnoreCase) &&
+                    !x.StartsWith("min pool size=", StringComparison.OrdinalIgnoreCase) &&
+                    !x.StartsWith("max pool size=", StringComparison.OrdinalIgnoreCase) &&
+                    !x.StartsWith("connect timeout=", StringComparison.OrdinalIgnoreCase));
 
-            for (var i = 0; i < aconnStr.Length; i++)
-            {
-                if (aconnStr[i].ToLower().StartsWith("pooling=") ||
-                    aconnStr[i].ToLower().StartsWith("min pool size=") ||
-                    aconnStr[i].ToLower().StartsWith("max pool size=") ||
-                    aconnStr[i].ToLower().StartsWith("connect timeout="))
-                {
-                    continue;
-                }
-                if (!aconnStr[i].Equals(""))
-                {
-                    sTemp += string.Format("{0};", aconnStr[i]);
-                }
-            }
+            var result = string.Join(";", parts) + ";";
 
-            if (Pooling)
+            if (pooling)
             {
-                sTemp += "Pooling=true;Min Pool Size=5;Max Pool Size=25;Connect Timeout=3;";
+                result += "Pooling=true;Min Pool Size=5;Max Pool Size=100;Connect Timeout=5;";
             }
             else
             {
-                sTemp += "Pooling=false;Connect Timeout=5;";
+                result += "Pooling=false;Connect Timeout=10;";
             }
-            return sTemp;
+
+            return result;
         }
 
-        public DBHelper()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connStr"></param>
-        public DBHelper(string connStr)
-        {
-            _cnnString = connStr;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private SqlConnection _ConnectionToDB;
-
-        public SqlConnection ConnectionToDB
-        {
-            get
-            {
-                return _ConnectionToDB;
-            }
-            set
-            {
-                _ConnectionToDB = value;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Open()
-        {
-            if (_cnnString == "")
-            {
-                throw new Exception("Connection String can not null");
-            }
-            _ConnectionToDB = OpenConnection();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Close()
-        {
-            CloseConnection(_ConnectionToDB);
-        }
-
-        /// <summary>
-        /// return an Open SqlConnection
-        /// </summary>
-
-        public SqlConnection OpenConnection(string connectionString)
+        public async Task<SqlConnection> OpenConnectionAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                _cnnString = connectionString;
-                return OpenConnection();
+                var connection = new SqlConnection(_connectionString);
+
+                await connection.OpenAsync(cancellationToken);
+
+                return connection;
             }
-            catch (SqlException myException)
+            catch
             {
-                throw myException;// (new Exception(myException.Message));
+                var connection = new SqlConnection(FixConnectionString(_connectionString, false));
+
+                await connection.OpenAsync(cancellationToken);
+
+                return connection;
             }
         }
 
-        /// <summary>
-        /// return an Open SqlConnection
-        /// </summary>
-        public SqlConnection OpenConnection()
+        #region ExecuteNonQuery
+
+        public async Task<int> ExecuteNonQueryAsync(
+            string sql,
+            CommandType commandType = CommandType.Text,
+            int timeout = 30,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
         {
-            if (_cnnString == "")
+            using var connection = await OpenConnectionAsync(cancellationToken);
+
+            using var command = new SqlCommand(sql, connection)
             {
-                throw new Exception("Connection String can not null");
+                CommandType = commandType,
+                CommandTimeout = timeout
+            };
+
+            if (parameters != null && parameters.Length > 0)
+            {
+                command.Parameters.AddRange(parameters);
             }
 
-            SqlConnection mySqlConnection;
-
-            try
-            {
-                mySqlConnection = new SqlConnection(FixCNN(_cnnString, true));
-                mySqlConnection.Open();
-                return mySqlConnection;
-            }
-            catch (Exception)
-            {
-                // De phong truong hop bi max pool thi se fix lai connection string pooling=false
-                mySqlConnection = new SqlConnection(FixCNN(_cnnString, false));
-                mySqlConnection.Open();
-                return mySqlConnection;
-                // throw (new Exception(myException.Message));
-            }
+            return await command.ExecuteNonQueryAsync(cancellationToken);
         }
 
-        /// <summary>
-        /// close an SqlConnection
-        /// </summary>
-        public void CloseConnection(SqlConnection mySqlConnection)
+        public async Task<int> ExecuteNonQuerySPAsync(
+            string spName,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
         {
+            return await ExecuteNonQueryAsync(
+                spName,
+                CommandType.StoredProcedure,
+                30,
+                cancellationToken,
+                parameters);
+        }
+
+        #endregion
+
+        #region ExecuteScalar
+
+        public async Task<object> ExecuteScalarAsync(
+            string sql,
+            CommandType commandType = CommandType.Text,
+            int timeout = 30,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+        {
+            using var connection = await OpenConnectionAsync(cancellationToken);
+
+            using var command = new SqlCommand(sql, connection)
+            {
+                CommandType = commandType,
+                CommandTimeout = timeout
+            };
+
+            if (parameters != null && parameters.Length > 0)
+            {
+                command.Parameters.AddRange(parameters);
+            }
+
+            return await command.ExecuteScalarAsync(cancellationToken);
+        }
+
+        public async Task<object> ExecuteScalarSPAsync(
+            string spName,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+        {
+            return await ExecuteScalarAsync(
+                spName,
+                CommandType.StoredProcedure,
+                30,
+                cancellationToken,
+                parameters);
+        }
+
+        #endregion
+
+        #region ExecuteReader
+
+        public async Task<SqlDataReader> ExecuteReaderAsync(
+            string sql,
+            CommandType commandType = CommandType.Text,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+        {
+            var connection = await OpenConnectionAsync(cancellationToken);
+
             try
             {
-                if (mySqlConnection != null)
+                var command = new SqlCommand(sql, connection)
                 {
-                    if (mySqlConnection.State == ConnectionState.Open)
-                    {
-                        mySqlConnection.Close();
-                    }
+                    CommandType = commandType
+                };
+
+                if (parameters != null && parameters.Length > 0)
+                {
+                    command.Parameters.AddRange(parameters);
                 }
+
+                return await command.ExecuteReaderAsync(
+                    CommandBehavior.CloseConnection,
+                    cancellationToken);
             }
-            catch (SqlException myException)
+            catch
             {
-                throw myException;// (new Exception(myException.Message));
+                connection.Dispose();
+                throw;
             }
         }
-        public static List<T> ConvertToList<T>(DataTable dt) where T : new()
+
+        public async Task<SqlDataReader> ExecuteReaderSPAsync(
+            string spName,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+        {
+            return await ExecuteReaderAsync(
+                spName,
+                CommandType.StoredProcedure,
+                cancellationToken,
+                parameters);
+        }
+
+        #endregion
+
+        #region GetDataTable
+
+        public async Task<DataTable> GetDataTableAsync(
+            string sql,
+            CommandType commandType = CommandType.Text,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+        {
+            var dataTable = new DataTable();
+
+            using var connection = await OpenConnectionAsync(cancellationToken);
+
+            using var command = new SqlCommand(sql, connection)
+            {
+                CommandType = commandType
+            };
+
+            if (parameters != null && parameters.Length > 0)
+            {
+                command.Parameters.AddRange(parameters);
+            }
+
+            using var reader = await command.ExecuteReaderAsync(cancellationToken);
+
+            dataTable.Load(reader);
+
+            return dataTable;
+        }
+
+        public async Task<DataTable> GetDataTableSPAsync(
+            string spName,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+        {
+            return await GetDataTableAsync(
+                spName,
+                CommandType.StoredProcedure,
+                cancellationToken,
+                parameters);
+        }
+
+        #endregion
+
+        #region GetList
+
+        public async Task<List<T>> GetListAsync<T>(
+            string sql,
+            CommandType commandType = CommandType.Text,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+            where T : new()
         {
             var list = new List<T>();
 
-            foreach (DataRow row in dt.Rows)
-            {
-                T obj = new T();
+            using var connection = await OpenConnectionAsync(cancellationToken);
 
-                foreach (var prop in typeof(T).GetProperties())
+            using var command = new SqlCommand(sql, connection)
+            {
+                CommandType = commandType
+            };
+
+            if (parameters != null && parameters.Length > 0)
+            {
+                command.Parameters.AddRange(parameters);
+            }
+
+            using var reader = await command.ExecuteReaderAsync(cancellationToken);
+
+            var properties = typeof(T)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            var propertyMap = properties
+                .ToDictionary(x => x.Name, x => x, StringComparer.OrdinalIgnoreCase);
+
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                var item = new T();
+
+                for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    if (dt.Columns.Contains(prop.Name) && row[prop.Name] != DBNull.Value)
+                    var columnName = reader.GetName(i);
+
+                    if (!propertyMap.TryGetValue(columnName, out var property))
                     {
-                        prop.SetValue(obj, Convert.ChangeType(row[prop.Name], prop.PropertyType));
+                        continue;
                     }
+
+                    if (reader.IsDBNull(i))
+                    {
+                        continue;
+                    }
+
+                    var value = reader.GetValue(i);
+
+                    var targetType = Nullable.GetUnderlyingType(property.PropertyType)
+                                     ?? property.PropertyType;
+
+                    value = Convert.ChangeType(value, targetType);
+
+                    property.SetValue(item, value);
                 }
 
-                list.Add(obj);
+                list.Add(item);
             }
 
             return list;
         }
 
-        #region ExcuteDataReader
-
-        /// <summary>
-        /// Trả về datareader với trường hợp CommandType=CommandType.StoreProcedure
-        /// </summary>
-        /// <param name="connection">connection</param>
-        /// <param name="commandText"></param>
-        /// <param name="sqlparam">sqlparametrer</param>
-        public IDataReader ExecuteReader(string commandText, SqlParameter[] sqlparam)
+        public async Task<List<T>> GetListSPAsync<T>(
+            string spName,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+            where T : new()
         {
-            try
-            {
-                SqlConnection con = _ConnectionToDB ?? OpenConnection();
-                var com = new SqlCommand
-                {
-                    Connection = con,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = commandText
-                };
-                if (sqlparam != null)
-                {
-                    com.Parameters.AddRange(sqlparam);
-                }
-                return com.ExecuteReader(CommandBehavior.CloseConnection);
-            }
-            catch (DataException)
-            {
-                return null;
-            }
-        }
-
-        public IDataReader ExecuteReader(string commandText, SqlParameter[] sqlparam, out SqlCommand comx)
-        {
-            try
-            {
-                SqlConnection con = _ConnectionToDB ?? OpenConnection();
-                var com = new SqlCommand
-                {
-                    Connection = con,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = commandText
-                };
-                if (sqlparam != null)
-                {
-                    com.Parameters.AddRange(sqlparam);
-                }
-                comx = com;
-                return com.ExecuteReader(CommandBehavior.CloseConnection);
-            }
-            catch (DataException)
-            {
-                comx = null;
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Trả về datareader với trường hợp CommandType=CommandType.Textr
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="commndText"></param>
-        public IDataReader ExecuteReader(string commndText)
-        {
-            try
-            {
-                SqlConnection con = _ConnectionToDB ?? OpenConnection();
-                var com = new SqlCommand
-                {
-                    CommandText = commndText,
-                    CommandType = CommandType.Text,
-                    Connection = con
-                };
-                return com.ExecuteReader(CommandBehavior.CloseConnection);
-            }
-            catch (DataException)
-            {
-                return null;
-            }
+            return await GetListAsync<T>(
+                spName,
+                CommandType.StoredProcedure,
+                cancellationToken,
+                parameters);
         }
 
         #endregion
 
-        # region GetDataTable
+        #region GetInstance
 
-        public DataTable GetDataTable(SqlCommand sqlCommand)
+        public async Task<T> GetInstanceAsync<T>(
+            string sql,
+            CommandType commandType = CommandType.Text,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+            where T : new()
         {
-            SqlConnection conn = null;
-            try
-            {
-                if (_ConnectionToDB == null)
-                {
-                    conn = OpenConnection();
-                    sqlCommand.Connection = conn;
-                }
-                else
-                {
-                    sqlCommand.Connection = _ConnectionToDB;
-                }
-                var myDataAdapter = new SqlDataAdapter(sqlCommand);
-                var dt = new DataTable();
-                myDataAdapter.Fill(dt);
-                myDataAdapter.Dispose();
-                return dt;
-            }
-            catch (SqlException myException)
-            {
-                throw myException; //(new Exception(myException.Message));
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    CloseConnection(conn);
-                }
-            }
+            var list = await GetListAsync<T>(
+                sql,
+                commandType,
+                cancellationToken,
+                parameters);
+
+            return list.FirstOrDefault();
         }
 
-        public DataTable GetDataTable(SqlCommand sqlCommand, params SqlParameter[] Parameters)
+        public async Task<T> GetInstanceSPAsync<T>(
+            string spName,
+            CancellationToken cancellationToken = default,
+            params SqlParameter[] parameters)
+            where T : new()
         {
-            sqlCommand.Parameters.AddRange(Parameters);
-            return GetDataTable(sqlCommand);
-        }
-
-        public DataTable GetDataTable(string strSQL)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return GetDataTable(sqlCommand);
-        }
-
-        public DataTable GetDataTable(string strSQL, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return GetDataTable(sqlCommand, Parameters);
-        }
-
-        #endregion
-
-        # region ExecuteScalar
-
-        public object ExecuteScalar(SqlCommand sqlCommand)
-        {
-            SqlConnection conn = null;
-            try
-            {
-                if (_ConnectionToDB == null)
-                {
-                    conn = OpenConnection();
-                    sqlCommand.Connection = conn;
-                }
-                else
-                {
-                    sqlCommand.Connection = _ConnectionToDB;
-                }
-                return sqlCommand.ExecuteScalar();
-            }
-            catch (SqlException myException)
-            {
-                throw myException;// (new Exception(myException.Message));
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    CloseConnection(conn);
-                }
-            }
-        }
-
-        public object ExecuteScalar(SqlCommand sqlCommand, params SqlParameter[] Parameters)
-        {
-            sqlCommand.Parameters.AddRange(Parameters);
-            return ExecuteScalar(sqlCommand);
-        }
-
-        public object ExecuteScalar(string strSQL)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return ExecuteScalar(sqlCommand);
-        }
-
-        public object ExecuteScalar(string strSQL, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return ExecuteScalar(sqlCommand, Parameters);
-        }
-
-        #endregion
-
-        # region ExecuteNonQuery
-
-        public int ExecuteNonQuery(SqlCommand sqlCommand, int timeout)
-        {
-            SqlConnection conn = null;
-            try
-            {
-                if (_ConnectionToDB == null)
-                {
-                    conn = OpenConnection();
-
-                    sqlCommand.Connection = conn;
-                }
-                else
-                {
-                    sqlCommand.Connection = _ConnectionToDB;
-                }
-
-                sqlCommand.CommandTimeout = timeout;
-                return sqlCommand.ExecuteNonQuery();
-            }
-            catch (SqlException myException)
-            {
-                throw myException;
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    CloseConnection(conn);
-                }
-            }
-        }
-
-        public int ExecuteNonQuery(SqlCommand sqlCommand)
-        {
-            SqlConnection conn = null;
-            try
-            {
-                if (_ConnectionToDB == null)
-                {
-                    conn = OpenConnection();
-                    sqlCommand.Connection = conn;
-                }
-                else
-                {
-                    sqlCommand.Connection = _ConnectionToDB;
-                }
-                return sqlCommand.ExecuteNonQuery();
-            }
-            catch (SqlException myException)
-            {
-                throw myException; //(new Exception(myException.Message));
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    CloseConnection(conn);
-                }
-            }
-        }
-
-        public int ExecuteNonQuery(SqlCommand sqlCommand, int timeout, params SqlParameter[] Parameters)
-        {
-            sqlCommand.Parameters.AddRange(Parameters);
-            return ExecuteNonQuery(sqlCommand, timeout);
-        }
-
-        public int ExecuteNonQuery(SqlCommand sqlCommand, params SqlParameter[] Parameters)
-        {
-            sqlCommand.Parameters.AddRange(Parameters);
-            return ExecuteNonQuery(sqlCommand);
-        }
-
-        public int ExecuteNonQuery(string strSQL)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return ExecuteNonQuery(sqlCommand);
-        }
-
-        public int ExecuteNonQuery(string strSQL, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return ExecuteNonQuery(sqlCommand, Parameters);
-        }
-
-        #endregion
-
-        #region ExecuteScalarSP
-
-        public object ExecuteScalarSP(string SPName)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return ExecuteScalar(sqlCommand);
-        }
-
-        public object ExecuteScalarSP(string SPName, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return ExecuteScalar(sqlCommand, Parameters);
-        }
-
-        #endregion
-
-        #region ExecuteNonQuerySP
-
-        public int ExecuteNonQuerySP(string SPName)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return ExecuteNonQuery(sqlCommand);
-        }
-
-        public int ExecuteNonQuerySP(string SPName, int timeout, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return ExecuteNonQuery(sqlCommand, timeout, Parameters);
-        }
-
-        public int ExecuteNonQuerySP(string SPName, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-
-            return ExecuteNonQuery(sqlCommand, Parameters);
-        }
-
-        public int ExecuteNonQuery(string commandText, SqlParameter[] sqlparam, out SqlCommand comx)
-        {
-            try
-            {
-                SqlConnection con = _ConnectionToDB ?? OpenConnection();
-                using (con)
-                {
-                    var com = new SqlCommand
-                    {
-                        CommandText = commandText,
-                        CommandType = CommandType.StoredProcedure,
-                        Connection = con
-                    };
-                    if (sqlparam != null)
-                    {
-                        com.Parameters.AddRange(sqlparam);
-                    }
-                    comx = com;
-                    return com.ExecuteNonQuery();
-                }
-            }
-            catch (DataException)
-            {
-                comx = null;
-                return -1;
-            }
-        }
-
-        #endregion
-
-        #region GetDataTableSP
-
-        public DataTable GetDataTableSP(string SPName)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return GetDataTable(sqlCommand);
-        }
-
-        public DataTable GetDataTableSP(string SPName, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return GetDataTable(sqlCommand, Parameters);
-        }
-
-        #endregion
-
-        #region[ListGenerate]
-
-        public List<T> GetList<T>(SqlCommand sqlCommand)
-        {
-            try
-            {
-                sqlCommand.Connection = _ConnectionToDB ?? OpenConnection();
-                var dr = sqlCommand.ExecuteReader();
-                if (dr == null || dr.FieldCount == 0)
-                {
-                    return null;
-                }
-                var fCount = dr.FieldCount;
-                var m_Type = typeof(T);
-                var l_Property = m_Type.GetProperties();
-                object obj;
-                var m_List = new List<T>();
-                string pName;
-                while (dr.Read())
-                {
-                    obj = Activator.CreateInstance(m_Type);
-                    for (var i = 0; i < fCount; i++)
-                    {
-                        pName = dr.GetName(i);
-                        if (l_Property.Where(a => a.Name == pName).Select(a => a.Name).Count() <= 0)
-                        {
-                            continue;
-                        }
-                        if (dr[i] != DBNull.Value)
-                        {
-                            m_Type.GetProperty(pName).SetValue(obj, dr[i], null);
-                        }
-                        else
-                        {
-                            m_Type.GetProperty(pName).SetValue(obj, null, null);
-                        }
-                    }
-                    m_List.Add((T)obj);
-                }
-                dr.Close();
-                return m_List;
-            }
-            catch (SqlException myException)
-            {
-                throw myException; //(new Exception(myException.Message));
-            }
-            finally
-            {
-                CloseConnection(sqlCommand.Connection);
-            }
-        }
-
-        public List<T> GetList<T>(SqlCommand sqlCommand, params SqlParameter[] Parameters)
-        {
-            sqlCommand.Parameters.AddRange(Parameters);
-            return GetList<T>(sqlCommand);
-        }
-
-        public List<T> GetList<T>(string strSQL)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return GetList<T>(sqlCommand);
-        }
-
-        public List<T> GetList<T>(string strSQL, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            sqlCommand.Parameters.AddRange(Parameters);
-            return GetList<T>(sqlCommand);
-        }
-
-        #endregion
-
-        #region[ListGenerateSP]
-
-        public List<T> GetListSP<T>(string SPName)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return GetList<T>(sqlCommand);
-        }
-
-        public List<T> GetListSP<T>(string SPName, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-
-            return GetList<T>(sqlCommand, Parameters);
-        }
-
-        #endregion
-
-        #region[GetInstance]
-
-        public T GetInstance<T>(SqlCommand sqlCommand)
-        {
-            try
-            {
-                T temp = default(T);
-
-                sqlCommand.Connection = _ConnectionToDB ?? OpenConnection();
-                var dr = sqlCommand.ExecuteReader();
-                if (dr.Read())
-                {
-                    var fCount = dr.FieldCount;
-                    var m_Type = typeof(T);
-                    var l_Property = m_Type.GetProperties();
-                    object obj;
-                    var m_List = new List<T>();
-                    string pName;
-
-                    obj = Activator.CreateInstance(m_Type);
-                    for (var i = 0; i < fCount; i++)
-                    {
-                        pName = dr.GetName(i);
-                        if (l_Property.Where(a => a.Name == pName).Select(a => a.Name).Count() <= 0)
-                        {
-                            continue;
-                        }
-                        if (dr[i] != DBNull.Value)
-                        {
-                            m_Type.GetProperty(pName).SetValue(obj, dr[i], null);
-                        }
-                        else
-                        {
-                            m_Type.GetProperty(pName).SetValue(obj, null, null);
-                        }
-                    }
-                    dr.Close();
-                    return (T)obj;
-                }
-                else
-                {
-                    return temp;
-                }
-            }
-            catch (SqlException myException)
-            {
-                throw myException; //(new Exception(myException.Message));
-            }
-            finally
-            {
-                CloseConnection(sqlCommand.Connection);
-            }
-        }
-
-        public T GetInstance<T>(SqlCommand sqlCommand, params SqlParameter[] Parameters)
-        {
-            sqlCommand.Parameters.AddRange(Parameters);
-            return GetInstance<T>(sqlCommand);
-        }
-
-        public T GetInstance<T>(string strSQL)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            return GetInstance<T>(sqlCommand);
-        }
-
-        public T GetInstance<T>(string strSQL, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(strSQL);
-            sqlCommand.Parameters.AddRange(Parameters);
-            return GetInstance<T>(sqlCommand);
-        }
-
-        #endregion
-
-        #region[GetInstanceSP]
-
-        public T GetInstanceSP<T>(string SPName)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure };
-            return GetInstance<T>(sqlCommand);
-        }
-
-        public T GetInstanceSP<T>(string SPName, params SqlParameter[] Parameters)
-        {
-            var sqlCommand = new SqlCommand(SPName) { CommandType = CommandType.StoredProcedure, CommandTimeout = 1 };
-            return GetInstance<T>(sqlCommand, Parameters);
+            return await GetInstanceAsync<T>(
+                spName,
+                CommandType.StoredProcedure,
+                cancellationToken,
+                parameters);
         }
 
         #endregion

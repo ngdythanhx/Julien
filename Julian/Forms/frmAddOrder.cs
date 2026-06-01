@@ -51,8 +51,8 @@ namespace Julian.Forms
             DBHelper db = null;
             try
             {
-                db = new DBHelper(Config.ConnectionString);
-                var lstRs = await Task.FromResult(db.GetListSP<Customer>("SP_Customer_GetAll"));
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var lstRs = await db.GetListSPAsync<Customer>("SP_Customer_GetAll");
                 return lstRs;
             }
             catch (Exception ex)
@@ -60,11 +60,7 @@ namespace Julian.Forms
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+ 
         }
         private async void frmAddOrder_Load(object sender, EventArgs e)
         {
@@ -129,19 +125,14 @@ namespace Julian.Forms
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@_MaterialCode", materialCode);
-                db = new DBHelper(Config.ConnectionString);
-                var lstRs = await Task.FromResult(db.GetListSP<Material>("SP_Material_Get_ByCode", pars));
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var lstRs =await db.GetListSPAsync<Material>("SP_Material_Get_ByCode",default, pars);
                 return lstRs;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;
-            }
-            finally
-            {
-                if (db != null)
-                    db.Close();
             }
         }
         private string GetStringCell(IXLRangeRow rangeRow, object column)
@@ -306,7 +297,7 @@ namespace Julian.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+
             {
                 btnExport.Enabled = true;
             }

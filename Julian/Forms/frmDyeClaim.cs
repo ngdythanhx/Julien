@@ -70,18 +70,18 @@ namespace Julian.Forms
             }*/
             return true;
         }
-        public void LoadData()
+        public async Task LoadData()
         {
         }
-        public bool CreateData()
-        {
-            return true;
-        }
-        public bool UpdateData()
+        public async Task<bool> CreateData()
         {
             return true;
         }
-        public bool DeleteData()
+        public async Task<bool> UpdateData()
+        {
+            return true;
+        }
+        public async Task<bool> DeleteData()
         {
             return true;
         }

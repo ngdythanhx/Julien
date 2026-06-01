@@ -104,7 +104,7 @@ namespace Julian.Forms
                 MessageBox.Show(ex.Message, "Lỗi!");
                 WriteLog("Error: " + ex.Message);
             }
-            finally
+
             {
                 gb1.Enabled = true;
             }
@@ -155,7 +155,7 @@ namespace Julian.Forms
                 MessageBox.Show(ex.Message, "Lỗi!");
                 WriteLog("Error: " + ex.Message);
             }
-            finally
+
             {
                 gb2.Enabled = true;
             }

@@ -18,13 +18,13 @@ namespace Julian.Database.DAO
         {
             get { return _instance.Value; }
         }
-        public List<Material> GetMaterials()
+        public async Task<List<Material>> GetMaterials()
         {
             DBHelper db = null;
             try
             {
-                db = new DBHelper(Config.ConnectionString);
-                var lstRs = db.GetListSP<Material>("SP_Material_GetAll");
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var lstRs =await db.GetListSPAsync<Material>("SP_Material_GetAll");
                 return lstRs;
             }
             catch (Exception ex)
@@ -32,13 +32,9 @@ namespace Julian.Database.DAO
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+ 
         }
-        public ResponseSP CreateMaterial(string materialCode,string materialColor,string customerColor,string standardColor,string description)
+        public async Task<ResponseSP> CreateMaterial(string materialCode,string materialColor,string customerColor,string standardColor,string description)
         {
             DBHelper db = null;
             try
@@ -49,21 +45,17 @@ namespace Julian.Database.DAO
                 pars[2] = new SqlParameter("@_CustomerColor", customerColor);
                 pars[3] = new SqlParameter("@_StandardColor", standardColor);
                 pars[4] = new SqlParameter("@_Description",description);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_Material_Create", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_Material_Create",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+ 
         }
-        public ResponseSP UpdateMaterial(int id,string materialCode, string materialColor, string customerColor, string standardColor, string description)
+        public async Task<ResponseSP> UpdateMaterial(int id,string materialCode, string materialColor, string customerColor, string standardColor, string description)
         {
             DBHelper db = null;
             try
@@ -75,40 +67,32 @@ namespace Julian.Database.DAO
                 pars[3] = new SqlParameter("@_CustomerColor", customerColor);
                 pars[4] = new SqlParameter("@_StandardColor", standardColor);
                 pars[5] = new SqlParameter("@_Description", description);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_Material_UpdateBy_Id", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_Material_UpdateBy_Id",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+ 
         }
-        public ResponseSP DeleteMaterial(int MaterialId)
+        public async Task<ResponseSP> DeleteMaterial(int MaterialId)
         {
             DBHelper db = null;
             try
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@_Id", MaterialId);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_Material_DelBy_Id", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_Material_DelBy_Id",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+ 
         }
     }
 }

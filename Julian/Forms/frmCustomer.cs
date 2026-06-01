@@ -25,9 +25,9 @@ namespace  Julian.Forms
             this.Text = "Khách Hàng";
             dgvCustomers.AutoGenerateColumns = false;
         }
-        public void LoadData()
+        public async Task LoadData()
         {
-            Customers = CustomerDAO.Instance.GetCustomers();
+            Customers =await CustomerDAO.Instance.GetCustomers();
             dgvCustomers.DataSource = Customers;
             if (dgvCustomers.Rows.Count == 0)
                 ClearUIData();
@@ -92,7 +92,7 @@ namespace  Julian.Forms
             else
                 _curCustomer = null;
         }
-        public bool CreateData()
+        public async Task<bool> CreateData()
         {
             if (!ValidateData())
             {
@@ -101,7 +101,7 @@ namespace  Julian.Forms
             string code = txtCustomerCode.Text;
             string name = txtCustomerName.Text;
             string address = txtAddress.Text;
-            var response = CustomerDAO.Instance.CreateCustomer(code, name, address);
+            var response =await CustomerDAO.Instance.CreateCustomer(code, name, address);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -116,7 +116,7 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool UpdateData()
+        public async Task<bool> UpdateData()
         {
             if (_curCustomer == null)
             {
@@ -131,7 +131,7 @@ namespace  Julian.Forms
             string code = txtCustomerCode.Text;
             string name = txtCustomerName.Text;
             string address = txtAddress.Text;
-            var response = CustomerDAO.Instance.UpdateCustomer(id, code, name, address);
+            var response =await CustomerDAO.Instance.UpdateCustomer(id, code, name, address);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -146,14 +146,14 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool DeleteData()
+        public async Task<bool> DeleteData()
         {
             if (_curCustomer == null) return false;
             try
             {
                 if (MessageBox.Show($"'{_curCustomer.CustomerName}' và các dữ liệu liên quan sẽ bị xóa vĩnh viễn.\nĐồng ý?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    var response = CustomerDAO.Instance.DeleteCustomer(_curCustomer.Id);
+                    var response =await CustomerDAO.Instance.DeleteCustomer(_curCustomer.Id);
                     if ((response.ErrCode == 0))
                     {
                         MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

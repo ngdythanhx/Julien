@@ -19,13 +19,13 @@ namespace Julian.Database.DAO
         {
             get { return _instance.Value; }
         }
-        public List<DyeClaim> GetDyeClaimAll()
+        public async Task<List<DyeClaim>> GetDyeClaimAll()
         {
             DBHelper db = null;
             try
             {
-                db = new DBHelper(Config.ConnectionString);
-                var lstRs = db.GetListSP<DyeClaim>("SP_DyeClaim_GetAll");
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var lstRs =await db.GetListSPAsync<DyeClaim>("SP_DyeClaim_GetAll");
                 return lstRs;
             }
             catch (Exception ex)
@@ -33,21 +33,16 @@ namespace Julian.Database.DAO
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
         }
-        public List<DyeClaim> GetDyeClaim(string employeeCode)
+        public async Task<List<DyeClaim>> GetDyeClaim(string employeeCode)
         {
             DBHelper db = null;
             try
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@_EmployeeCode", employeeCode);
-                db = new DBHelper(Config.ConnectionString);
-                var lstRs = db.GetListSP<DyeClaim>("SP_DyeClaim_GetBy_EmployeeCode", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                var lstRs =await db.GetListSPAsync<DyeClaim>("SP_DyeClaim_GetBy_EmployeeCode",default, pars);
                 return lstRs;
             }
             catch (Exception ex)
@@ -55,13 +50,9 @@ namespace Julian.Database.DAO
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+
         }
-        public ResponseSP Add(int Id, string EmployeeCode, string DyePO, string MaterialCode, string ColorCode, string CkNO, int Width,
+        public async Task<ResponseSP> Add(int Id, string EmployeeCode, string DyePO, string MaterialCode, string ColorCode, string CkNO, int Width,
                                          decimal InitialStockQty, decimal CurrentStockQty, decimal ShipmentQty, decimal DefectiveQty, decimal DefectivePercent,
                                          DateTime ShipDate, DateTime ReturnDate, DateTime ETD, decimal NGQty, string NGDescription, string ProductSolution, string DyeCompanyCode,
                                          string Note, string PurchaseSolution, string WarehouseSolution, string CreatedDate)
@@ -92,21 +83,17 @@ namespace Julian.Database.DAO
                 pars[19] = new SqlParameter("@_PurchaseSolution", PurchaseSolution);
                 pars[20] = new SqlParameter("@_WarehouseSolution", WarehouseSolution);
                 pars[21] = new SqlParameter("@_CreatedDate", CreatedDate);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_DyeClaim_Add", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_DyeClaim_Add",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
+
         }
-        public ResponseSP Update(int Id, string EmployeeCode, string DyePO, string MaterialCode, string ColorCode, string CkNO, int Width,
+        public async Task<ResponseSP> Update(int Id, string EmployeeCode, string DyePO, string MaterialCode, string ColorCode, string CkNO, int Width,
                                          decimal InitialStockQty, decimal CurrentStockQty, decimal ShipmentQty, decimal DefectiveQty, decimal DefectivePercent,
                                          DateTime ShipDate, DateTime ReturnDate, DateTime ETD, decimal NGQty, string NGDescription, string ProductSolution, string DyeCompanyCode,
                                          string Note, string PurchaseSolution, string WarehouseSolution, string CreatedDate)
@@ -137,39 +124,29 @@ namespace Julian.Database.DAO
                 pars[19] = new SqlParameter("@_PurchaseSolution", PurchaseSolution);
                 pars[20] = new SqlParameter("@_WarehouseSolution", WarehouseSolution);
                 pars[21] = new SqlParameter("@_CreatedDate", CreatedDate);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_DyeClaim_UpdateBy_Id", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_DyeClaim_UpdateBy_Id",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
             }
-            finally
-            {
-                if (db != null)
-                    db.Close();
-            }
         }
-        public ResponseSP Delete(int DyeClaimId)
+        public async Task<ResponseSP> Delete(int DyeClaimId)
         {
             DBHelper db = null;
             try
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@_Id", DyeClaimId);
-                db = new DBHelper(Config.ConnectionString);
-                return db.GetInstanceSP<ResponseSP>("SP_DyeClaim_DelBy_Id", pars);
+                db = new DBHelper(Config.Instance.ConnectionString);
+                return await db.GetInstanceSPAsync<ResponseSP>("SP_DyeClaim_DelBy_Id",default, pars);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return new ResponseSP() { ErrCode = -1, Msg = ex.Message };
-            }
-            finally
-            {
-                if (db != null)
-                    db.Close();
             }
         }
     }

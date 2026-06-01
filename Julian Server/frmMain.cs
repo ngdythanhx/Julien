@@ -187,14 +187,14 @@ namespace Julian_Server
             var frm = FormHanlers[tabPage.Name.Substring(2)];
             frm.DeleteData();
         }
-        private void tsSave_Click(object sender, EventArgs e)
+        private async void tsSave_Click(object sender, EventArgs e)
         {
             var tabPage = tcMain.SelectedTab;
             if (tabPage == null) return;
             var frm = FormHanlers[tabPage.Name.Substring(2)];
             if (frm.ActionType == 1)
             {
-                if (frm.CreateData())
+                if (await frm.CreateData())
                 {
                     frm.ActionType = 0;
                     EnabledActionsButton(true, false);
@@ -206,7 +206,7 @@ namespace Julian_Server
             }
             else if (frm.ActionType == 2)
             {
-                if (frm.UpdateData())
+                if (await frm.UpdateData())
                 {
                     frm.ActionType = 0;
                     EnabledActionsButton(true, false);

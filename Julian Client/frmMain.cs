@@ -72,8 +72,8 @@ namespace Julian_Client
         }
         private async void frmMain_Shown(object sender, EventArgs e)
         {
-            Config.ConnectionString = _iniManager.GetString("Default", "ConnectionString");
-            if (string.IsNullOrEmpty(Config.ConnectionString))
+            Config.Instance.ConnectionString = _iniManager.GetString("Default", "ConnectionString");
+            if (string.IsNullOrEmpty(Config.Instance.ConnectionString))
             {
                 MessageBox.Show("ConnectionString không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

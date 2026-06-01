@@ -25,9 +25,9 @@ namespace  Julian.Forms
             this.Text = "Vật Liệu";
             dgvMaterials.AutoGenerateColumns = false;
         }
-        public void LoadData()
+        public async Task LoadData()
         {
-            Materials = MaterialDAO.Instance.GetMaterials();
+            Materials =await MaterialDAO.Instance.GetMaterials();
             dgvMaterials.DataSource = Materials;
             if (dgvMaterials.Rows.Count == 0)
                 ClearUIData();
@@ -96,7 +96,7 @@ namespace  Julian.Forms
             else
                 _curMaterial = null;
         }
-        public bool CreateData()
+        public async Task<bool> CreateData()
         {
             if (!ValidateData())
             {
@@ -107,11 +107,11 @@ namespace  Julian.Forms
             string cusColor = txtCustomerColor.Text;
             string saColoer = txtStandardColor.Text;
             string des = txtDescription.Text;
-            var response = MaterialDAO.Instance.CreateMaterial(code, maColor, cusColor,saColoer,des);
+            var response =await MaterialDAO.Instance.CreateMaterial(code, maColor, cusColor,saColoer,des);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData();
+                await LoadData();
                 LockInputs();
                 return true;
             }
@@ -122,7 +122,7 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool UpdateData()
+        public async Task<bool> UpdateData()
         {
             if (_curMaterial == null)
             {
@@ -139,11 +139,11 @@ namespace  Julian.Forms
             string cusColor = txtCustomerColor.Text;
             string saColoer = txtStandardColor.Text;
             string des = txtDescription.Text;
-            var response = MaterialDAO.Instance.UpdateMaterial(id, code, maColor, cusColor, saColoer, des);
+            var response =await MaterialDAO.Instance.UpdateMaterial(id, code, maColor, cusColor, saColoer, des);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData();
+               await LoadData();
                 LockInputs();
                 return true;
             }
@@ -154,18 +154,18 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool DeleteData()
+        public async Task<bool> DeleteData()
         {
             if (_curMaterial == null) return false;
             try
             {
                 if (MessageBox.Show($"'{_curMaterial.MaterialCode}' và các dữ liệu liên quan(Nhiệm Vụ,..) sẽ bị xóa vĩnh viễn.\nĐồng ý?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    var response = MaterialDAO.Instance.DeleteMaterial(_curMaterial.Id);
+                    var response =await MaterialDAO.Instance.DeleteMaterial(_curMaterial.Id);
                     if ((response.ErrCode == 0))
                     {
                         MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadData();
+                     await   LoadData();
                         LockInputs();
                         return true;
                     }

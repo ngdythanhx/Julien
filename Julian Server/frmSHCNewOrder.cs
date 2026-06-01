@@ -14,6 +14,7 @@ namespace Julian_Server
 {
     public partial class frmSHCNewOrder : Form
     {
+        IniManager _iniManager = new IniManager("config.ini");
         public frmSHCNewOrder()
         {
             InitializeComponent();
@@ -22,6 +23,11 @@ namespace Julian_Server
         private void frmSHCNewOrder_Load(object sender, EventArgs e)
         {
             Config.Instance.ConnectionString = _iniManager.GetString("Database", "ConnectionString", "Data Source=DESKTOP-TLNO6C7;Initial Catalog=Julian;User ID=client;Password=dythanh94@;Connect Timeout=1;");
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

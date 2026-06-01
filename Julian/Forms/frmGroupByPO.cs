@@ -296,7 +296,7 @@ namespace  Julian.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+
             {
                 btnExport.Enabled = true;
             }

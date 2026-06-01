@@ -32,9 +32,9 @@ namespace  Julian.Forms
             dgvTask.AutoGenerateColumns = false;
 
         }
-        public void LoadData()
+        public async Task LoadData()
         {
-            Employees = EmployeeDAO.Instance.GetEmployees();
+            Employees =await EmployeeDAO.Instance.GetEmployees();
             dgvEmployee.DataSource = Employees;
             if (dgvEmployee.Rows.Count == 0)
                 ClearUIData();
@@ -127,7 +127,7 @@ namespace  Julian.Forms
             rb2.Checked = _curEmployeeTask.CompleteState;
             txtDescription.Text = _curEmployeeTask.Description;
         }
-        private void LoadEmployeTasks()
+        private async void LoadEmployeTasks()
         {
             if (dgvEmployee.CurrentRow != null)
             {
@@ -135,7 +135,7 @@ namespace  Julian.Forms
                 _curEmployee = em;
                 lblEmployeeCode.Text = em.EmployeeCode;
                 lblEmployeeName.Text = em.EmployeeName;
-                var lstTask = EmployeeTaskDAO.Instance.GetEmployeeTasks(em.Id);
+                var lstTask =await EmployeeTaskDAO.Instance.GetEmployeeTasks(em.Id);
                 dgvTask.DataSource = lstTask;
                 if (lstTask == null || lstTask.Count == 0)
                 {
@@ -151,7 +151,7 @@ namespace  Julian.Forms
                 ClearUIData();
             }
         }
-        private void dgvEmployee_SelectionChanged(object sender, EventArgs e)
+        private async void dgvEmployee_SelectionChanged(object sender, EventArgs e)
         {
             LoadEmployeTasks();
         }
@@ -171,7 +171,7 @@ namespace  Julian.Forms
                 _curEmployeeTask = null;
             }
         }
-        public bool CreateData()
+        public async Task<bool> CreateData()
         {
             if (!ValidateData())
             {
@@ -182,7 +182,7 @@ namespace  Julian.Forms
             DateTime createDatetime = dtpCreateDatetime.Value;
             DateTime completeDatetime = dtpComplateDatetime.Value;
             string description = txtDescription.Text;
-            var response = EmployeeTaskDAO.Instance.CreateEmployeeTask(employeeId, taskName, createDatetime, completeDatetime, description);
+            var response =await EmployeeTaskDAO.Instance.CreateEmployeeTask(employeeId, taskName, createDatetime, completeDatetime, description);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -197,7 +197,7 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool UpdateData()
+        public async Task<bool> UpdateData()
         {
             if (_curEmployee == null)
             {
@@ -219,7 +219,7 @@ namespace  Julian.Forms
             DateTime createDatetime = dtpCreateDatetime.Value;
             DateTime completeDatetime = dtpComplateDatetime.Value;
             string description = txtDescription.Text;
-            var response = EmployeeTaskDAO.Instance.UpdateEmployeeTask(taskId, employeeId, taskName, createDatetime, completeDatetime, rb2.Checked, description);
+            var response =await EmployeeTaskDAO.Instance.UpdateEmployeeTask(taskId, employeeId, taskName, createDatetime, completeDatetime, rb2.Checked, description);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -234,14 +234,14 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool DeleteData()
+        public async Task<bool> DeleteData()
         {
             if (_curEmployee == null) return false;
             try
             {
                 if (MessageBox.Show($"Nhiệm vụ '{_curEmployeeTask.TaskName}' sẽ bị xóa vĩnh viễn.\nĐồng ý?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    var response = EmployeeTaskDAO.Instance.DeleteEmployeeTask(_curEmployeeTask.Id);
+                    var response =await EmployeeTaskDAO.Instance.DeleteEmployeeTask(_curEmployeeTask.Id);
                     if ((response.ErrCode == 0))
                     {
                         MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -268,7 +268,7 @@ namespace  Julian.Forms
             while (true)
             {
                 await Task.Delay(1000);
-                var lst = EmployeeTaskDAO.Instance.GetEmployeeTasks();
+                var lst =await EmployeeTaskDAO.Instance.GetEmployeeTasks();
                 if (EmployeeTasks == null)
                 {
                     EmployeeTasks = lst;

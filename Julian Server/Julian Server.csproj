@@ -2,6 +2,9 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E268B3A0-C012-4861-9B1E-B88DFB66025B}</ProjectGuid>
@@ -257,6 +260,18 @@
     <Compile Include="frmThoaBeSHD.Designer.cs">
       <DependentUpon>frmThoaBeSHD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmVita.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVita.Designer.cs">
+      <DependentUpon>frmVita.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVitaViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVitaViewer.Designer.cs">
+      <DependentUpon>frmVitaViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,6 +283,7 @@
     <Compile Include="ucFilter.Designer.cs">
       <DependentUpon>ucFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vita.cs" />
     <EmbeddedResource Include="frmDebitNote.resx">
       <DependentUpon>frmDebitNote.cs</DependentUpon>
     </EmbeddedResource>
@@ -309,6 +325,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmThoaBeSHD.resx">
       <DependentUpon>frmThoaBeSHD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVita.resx">
+      <DependentUpon>frmVita.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVitaViewer.resx">
+      <DependentUpon>frmVitaViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

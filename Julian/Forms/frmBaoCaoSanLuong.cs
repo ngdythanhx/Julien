@@ -142,7 +142,7 @@ namespace Julian.Forms
                 MessageBox.Show(ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            finally
+
             {
                 btnStart.Enabled = true;
             }

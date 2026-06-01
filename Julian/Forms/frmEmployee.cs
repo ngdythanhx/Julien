@@ -25,9 +25,9 @@ namespace  Julian.Forms
             this.Text = "Nhân Viên";
             dgvEmployees.AutoGenerateColumns = false;
         }
-        public void LoadData()
+        public async Task LoadData()
         {
-            Employees = EmployeeDAO.Instance.GetEmployees();
+            Employees =await EmployeeDAO.Instance.GetEmployees();
             dgvEmployees.DataSource = Employees;
             if (dgvEmployees.Rows.Count == 0)
                 ClearUIData();
@@ -98,7 +98,7 @@ namespace  Julian.Forms
             else
                 _curEmployee = null;
         }
-        public bool CreateData()
+        public async Task<bool> CreateData()
         {
             if (!ValidateData())
             {
@@ -108,7 +108,7 @@ namespace  Julian.Forms
             string name = txtEmployeeName.Text;
             int year = int.Parse(txtBrithday.Text);
             DateTime brithday = new DateTime(year, 01, 01);
-            var response = EmployeeDAO.Instance.CreateEmployee(code, name, brithday);
+            var response =await EmployeeDAO.Instance.CreateEmployee(code, name, brithday);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -123,7 +123,7 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool UpdateData()
+        public async Task<bool> UpdateData()
         {
             if (_curEmployee == null)
             {
@@ -139,7 +139,7 @@ namespace  Julian.Forms
             string name = txtEmployeeName.Text;
             int year = int.Parse(txtBrithday.Text);
             DateTime brithday = new DateTime(year, 01, 01);
-            var response = EmployeeDAO.Instance.UpdateEmployee(id, code, name, brithday);
+            var response =await EmployeeDAO.Instance.UpdateEmployee(id, code, name, brithday);
             if ((response.ErrCode == 0))
             {
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -154,14 +154,14 @@ namespace  Julian.Forms
                 return false;
             }
         }
-        public bool DeleteData()
+        public async Task<bool> DeleteData()
         {
             if (_curEmployee == null) return false;
             try
             {
                 if (MessageBox.Show($"'{_curEmployee.EmployeeName}' và các dữ liệu liên quan(Nhiệm Vụ,..) sẽ bị xóa vĩnh viễn.\nĐồng ý?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    var response = EmployeeDAO.Instance.DeleteEmployee(_curEmployee.Id);
+                    var response =await EmployeeDAO.Instance.DeleteEmployee(_curEmployee.Id);
                     if ((response.ErrCode == 0))
                     {
                         MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

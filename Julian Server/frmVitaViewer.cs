@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Julian.Database.DTO;
+using Julian.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,15 +19,21 @@ namespace Julian_Server
         {
             InitializeComponent();
             _lstVita = lstVita;
-            dgvSubTotal.AutoGenerateColumns = false;
+            dgvSubTotalByNgayXuat.AutoGenerateColumns = false;
+            WindowState = FormWindowState.Maximized;
         }
-        private class SubtotalData
+        private class SubtotalByNgayXuat
         {
-            public string MaKH { get; set; }
             public DateTime NgayXuat { get; set; }
-            public double Total { get; set; }
+            public double TotalQty { get; set; }
+            public double TotalAmount { get; set; }
         }
-
+        private class SubtotalByLieuKH
+        {
+            public string LieuKH { get; set; }
+            public double TotalQty { get; set; }
+            public double TotalAmount { get; set; }
+        }
         private void frmVitaViewer_Load(object sender, EventArgs e)
         {
             if (_lstVita == null)
@@ -36,14 +44,26 @@ namespace Julian_Server
             filterMaKH.ItemCheckedChange += () =>
             {
                 var lstChecked = filterMaKH.GetItemsChecked();
-                var lstNewOrderForm = _lstVita.Where(order => lstChecked.Contains(order.MaKH)).ToList();
-                var subtotal = lstNewOrderForm.GroupBy(o =>o.NgayXuat).Select(o => new SubtotalData
+                var lstNewVita = _lstVita.Where(order => lstChecked.Contains(order.MaKH)).ToList();
+                var subtotalByNgayXuat = lstNewVita.GroupBy(o => o.NgayXuat).Select(o => new SubtotalByNgayXuat
                 {
                     NgayXuat = o.First().NgayXuat,
-                    Total = o.Sum(x => x.Qty1)
+                    TotalQty = o.Sum(x => x.Qty1),
+                    TotalAmount = o.Sum(x => x.TongTien),
                 }).OrderBy(s => s.NgayXuat).ToList();
-                dgvMain.DataSource = lstNewOrderForm;
-                dgvSubTotal.DataSource = subtotal;
+                var subtotalByLieuKH = lstNewVita.GroupBy(o => o.NgayXuat).Select(o =>
+                {
+                    string lieukh = o.First().LieuKH.Replace(" ", "").Replace("\"", "");
+                    return new SubtotalByLieuKH
+                    {
+                        LieuKH = lieukh == "YH-M1093EPM558" ? "YH-M1093EPM5" : lieukh,
+                        TotalQty = o.Sum(x => x.Qty1),
+                        TotalAmount = o.Sum(x => x.TongTien),
+                    };
+                }).OrderBy(s => s.LieuKH).ToList();
+                dgvMain.DataSource = new SortableBindingList<Vita>(lstNewVita);
+                dgvSubTotalByNgayXuat.DataSource = new SortableBindingList<SubtotalByNgayXuat>(subtotalByNgayXuat);
+                dgvSubtotalByLieuKH.DataSource = new SortableBindingList<SubtotalByLieuKH>(subtotalByLieuKH);
             };
             filterMaKH.SetDataSource(lstMaKH);
         }

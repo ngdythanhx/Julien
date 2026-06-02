@@ -190,109 +190,120 @@ namespace Julian_Server
         private async void btnLoadVita_Click(object sender, EventArgs e)
         {
             btnLoadVita.Enabled = false;
-            string filePath = cbVitaList.SelectedValue.ToString();
-            filePath = XoaPivotLoi(filePath);
-            var lstVita = await Task.Run(() =>
-             {
-                 var lst = new List<Vita>();
-                 try
-                 {
-                     using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                     {
-                         using (XLWorkbook workbook = new XLWorkbook(fs))
-                         {
-                             IXLWorksheet sheet = null;
-                             foreach (var s in workbook.Worksheets.ToList())
-                             {
-                                 if (s.Name.ToUpper().Contains("VITA"))
-                                 {
-                                     sheet = s;
-                                     break;
-                                 }
-                             }
-                             if (sheet != null)
-                             {
-                                 var rows = sheet.RangeUsed().RowsUsed().Skip(3).ToList();
-                                 var rowHeader = rows[0];
-                                 var vitaConfig = new VitaConfig();
-                                 foreach (var cell in rowHeader.Cells())
-                                 {
-                                     if (cell.GetString().Contains("KHACH HANG"))
-                                         vitaConfig.MaKH = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Ngày xuất hàng"))
-                                         vitaConfig.NgayXuat = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("SEASON"))
-                                         vitaConfig.Season = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Đơn đặt hàng của KH"))
-                                         vitaConfig.MaDonKH = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Sản phẩm"))
-                                         vitaConfig.LieuKH = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("lieu thay the"))
-                                         vitaConfig.LieuThayThe = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Tên đơn hàng"))
-                                         vitaConfig.PONhuom = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Màu sắc"))
-                                         vitaConfig.MauSac = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Màu sắc"))
-                                         vitaConfig.MauSac = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Số lượng đặt"))
-                                         vitaConfig.Qty1 = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Số lượng xuất"))
-                                         vitaConfig.Qty2 = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Đơn vị"))
-                                         vitaConfig.DonVi = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Đơn giá"))
-                                         vitaConfig.DonGia = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("Tổng tiền"))
-                                         vitaConfig.TongTien = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("INVOICE NO"))
-                                         vitaConfig.Invoice = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("MATERIAL") && cell.GetString().Contains("MATERIAL"))
-                                         vitaConfig.MaHangKH = cell.Address.ColumnLetter;
-                                     else if (cell.GetString().Contains("CODE"))
-                                         vitaConfig.T1 = cell.Address.ColumnLetter;
+            try
+            {
+                string filePath = cbVitaList.SelectedValue?.ToString();
+                if (!File.Exists(filePath))
+                    return;
+                filePath = XoaPivotLoi(filePath);
+                var lstVita = await Task.Run(() =>
+                {
+                    var lst = new List<Vita>();
+                    try
+                    {
+                        using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        {
+                            using (XLWorkbook workbook = new XLWorkbook(fs))
+                            {
+                                IXLWorksheet sheet = null;
+                                foreach (var s in workbook.Worksheets.ToList())
+                                {
+                                    if (s.Name.ToUpper().Contains("VITA"))
+                                    {
+                                        sheet = s;
+                                        break;
+                                    }
+                                }
+                                if (sheet != null)
+                                {
+                                    var rows = sheet.RangeUsed().RowsUsed().Skip(3).ToList();
+                                    var rowHeader = rows[0];
+                                    var vitaConfig = new VitaConfig();
+                                    foreach (var cell in rowHeader.Cells())
+                                    {
+                                        if (cell.GetString().Contains("KHACH HANG"))
+                                            vitaConfig.MaKH = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Ngày xuất hàng"))
+                                            vitaConfig.NgayXuat = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("SEASON"))
+                                            vitaConfig.Season = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Đơn đặt hàng của KH"))
+                                            vitaConfig.MaDonKH = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Sản phẩm"))
+                                            vitaConfig.LieuKH = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("lieu thay the"))
+                                            vitaConfig.LieuThayThe = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Tên đơn hàng"))
+                                            vitaConfig.PONhuom = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Màu sắc"))
+                                            vitaConfig.MauSac = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Màu sắc"))
+                                            vitaConfig.MauSac = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Số lượng đặt"))
+                                            vitaConfig.Qty1 = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Số lượng xuất"))
+                                            vitaConfig.Qty2 = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Đơn vị"))
+                                            vitaConfig.DonVi = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Đơn giá"))
+                                            vitaConfig.DonGia = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("Tổng tiền"))
+                                            vitaConfig.TongTien = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("INVOICE NO"))
+                                            vitaConfig.Invoice = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("MATERIAL") && cell.GetString().Contains("MATERIAL"))
+                                            vitaConfig.MaHangKH = cell.Address.ColumnLetter;
+                                        else if (cell.GetString().Contains("CODE"))
+                                            vitaConfig.T1 = cell.Address.ColumnLetter;
 
-                                 }
-                                 foreach (var row in rows.Skip(1))
-                                 {
-                                     var vita = new Vita()
-                                     {
-                                         MaKH = row.Cell(vitaConfig.MaKH).GetString(),
-                                         NgayXuat = row.Cell(vitaConfig.NgayXuat).TryGetValue(out DateTime ngayxuathang) ? ngayxuathang : DateTime.MinValue,
-                                         Season = string.IsNullOrEmpty(vitaConfig.Season) ? "" : row.Cell(vitaConfig.Season).GetString(),
-                                         MaDonKH = row.Cell(vitaConfig.MaDonKH).GetString(),
-                                         LieuKH = row.Cell(vitaConfig.LieuKH).GetString(),
-                                         LieuThayThe = row.Cell(vitaConfig.LieuThayThe).GetString(),
-                                         PONhuom = row.Cell(vitaConfig.PONhuom).GetString(),
-                                         MauSac = row.Cell(vitaConfig.MauSac).GetString(),
-                                         Qty1 = row.Cell(vitaConfig.Qty1).TryGetValue(out float qty1) ? qty1 : 0,
-                                         Qty2 = row.Cell(vitaConfig.Qty2).TryGetValue(out float qty2) ? qty2 : 0,
-                                         DonVi = row.Cell(vitaConfig.LieuThayThe).GetString(),
-                                         DonGia = row.Cell(vitaConfig.DonGia).TryGetValue(out float dongia) ? dongia : 0,
-                                         TongTien = row.Cell(vitaConfig.TongTien).TryGetValue(out float tongtien) ? tongtien : -1,
-                                         Invoice = row.Cell(vitaConfig.LieuThayThe).GetString(),
-                                         MaHangKH = row.Cell(vitaConfig.LieuThayThe).GetString(),
-                                         T1 = row.Cell(vitaConfig.LieuThayThe).GetString(),
-                                     };
-                                     lst.Add(vita);
-                                 }
+                                    }
+                                    foreach (var row in rows.Skip(1))
+                                    {
+                                        var vita = new Vita()
+                                        {
+                                            MaKH = row.Cell(vitaConfig.MaKH).GetString(),
+                                            NgayXuat = row.Cell(vitaConfig.NgayXuat).TryGetValue(out DateTime ngayxuathang) ? ngayxuathang : DateTime.MinValue,
+                                            Season = string.IsNullOrEmpty(vitaConfig.Season) ? "" : row.Cell(vitaConfig.Season).GetString(),
+                                            MaDonKH = row.Cell(vitaConfig.MaDonKH).GetString(),
+                                            LieuKH = row.Cell(vitaConfig.LieuKH).GetString(),
+                                            LieuThayThe = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                            PONhuom = row.Cell(vitaConfig.PONhuom).GetString(),
+                                            MauSac = row.Cell(vitaConfig.MauSac).GetString(),
+                                            Qty1 = row.Cell(vitaConfig.Qty1).TryGetValue(out float qty1) ? qty1 : 0,
+                                            Qty2 = row.Cell(vitaConfig.Qty2).TryGetValue(out float qty2) ? qty2 : 0,
+                                            DonVi = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                            DonGia = row.Cell(vitaConfig.DonGia).TryGetValue(out float dongia) ? dongia : 0,
+                                            TongTien = row.Cell(vitaConfig.TongTien).TryGetValue(out float tongtien) ? tongtien : -1,
+                                            Invoice = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                            MaHangKH = row.Cell(vitaConfig.MaHangKH).GetString(),
+                                            T1 = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                        };
+                                        lst.Add(vita);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
 
-                             }
-                         }
-                     }
-                 }
-                 catch (Exception ex)
-                 {
-                     Console.WriteLine(ex.ToString());
-
-                     if (ex.InnerException != null)
-                         Console.WriteLine(ex.InnerException.ToString());
-                 }
-                 return lst;
-             });
-            frmVitaViewer frmVitaViewer = new frmVitaViewer(lstVita);
-            frmVitaViewer.Show();
-            btnLoadVita.Enabled = true;
+                        if (ex.InnerException != null)
+                            Console.WriteLine(ex.InnerException.ToString());
+                    }
+                    return lst;
+                });
+                frmVitaViewer frmVitaViewer = new frmVitaViewer(lstVita);
+                frmVitaViewer.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi hệ thống");
+            }
+            finally
+            {
+                btnLoadVita.Enabled = true;
+            }
         }
         private class VitaConfig
         {

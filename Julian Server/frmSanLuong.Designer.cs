@@ -78,7 +78,6 @@
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chkFilerUnitPrice = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.filterMaKH = new Julian_Server.ucFilter();
             this.btnExportExcelReport = new System.Windows.Forms.Button();
@@ -496,17 +495,6 @@
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
             // 
-            // chkFilerUnitPrice
-            // 
-            this.chkFilerUnitPrice.AutoSize = true;
-            this.chkFilerUnitPrice.Location = new System.Drawing.Point(331, 273);
-            this.chkFilerUnitPrice.Name = "chkFilerUnitPrice";
-            this.chkFilerUnitPrice.Size = new System.Drawing.Size(91, 17);
-            this.chkFilerUnitPrice.TabIndex = 299;
-            this.chkFilerUnitPrice.Text = "Bỏ Đơn giá=0";
-            this.chkFilerUnitPrice.UseVisualStyleBackColor = true;
-            this.chkFilerUnitPrice.CheckedChanged += new System.EventHandler(this.chkFilerUnitPrice_CheckedChanged);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -540,7 +528,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1450, 350);
             this.Controls.Add(this.btnExportExcelReport);
-            this.Controls.Add(this.chkFilerUnitPrice);
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.dgvSubtotalByLieuKH);
             this.Controls.Add(this.filterMaKH);
@@ -587,7 +574,6 @@
         private System.Windows.Forms.Label lblTotalRows;
         private System.Windows.Forms.DataGridView dgvSubtotalByLieuKH;
         private System.Windows.Forms.DataGridView dgvMain;
-        private System.Windows.Forms.CheckBox chkFilerUnitPrice;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;

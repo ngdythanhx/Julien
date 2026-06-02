@@ -147,7 +147,7 @@ namespace Julian_Server
                     var sheetInfo = sheetInfoGroupBySheetName.First();
                     var worksheets = _workbooks[sheetInfo.FilePath].Worksheets.ToArray();
                     //var lstItem = listView1.Items.Cast<ListViewItem>().Where(item => item.SubItems[2].Text == sheetInfo.SheetName).ToArray();
-                    var sheet = worksheets.FirstOrDefault(s => s.Name == sheetInfo.SheetName);
+                    var sheet = worksheets.FirstOrDefault(s => s.Name == sheetInfo.SheetName && s.Visibility == XLWorksheetVisibility.Visible);
                     if (sheet == null)
                     {
                         foreach (var s in sheetInfoGroupBySheetName)

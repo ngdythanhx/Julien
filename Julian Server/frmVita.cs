@@ -251,7 +251,7 @@ namespace Julian_Server
                                             vitaConfig.TongTien = cell.Address.ColumnLetter;
                                         else if (cell.GetString().Contains("INVOICE NO"))
                                             vitaConfig.Invoice = cell.Address.ColumnLetter;
-                                        else if (cell.GetString().Contains("MATERIAL") && cell.GetString().Contains("MATERIAL"))
+                                        else if (cell.GetString().Contains("CODE") && cell.GetString().Contains("MATERIAL"))
                                             vitaConfig.MaHangKH = cell.Address.ColumnLetter;
                                         else if (cell.GetString().Contains("CODE"))
                                             vitaConfig.T1 = cell.Address.ColumnLetter;
@@ -259,13 +259,15 @@ namespace Julian_Server
                                     }
                                     foreach (var row in rows.Skip(1))
                                     {
+                                        string lieuKh = row.Cell(vitaConfig.LieuKH).GetString();
+                                        lieuKh = lieuKh.Replace(" ", "").Replace("\"", "").Replace("'", "");
                                         var vita = new Vita()
                                         {
                                             MaKH = row.Cell(vitaConfig.MaKH).GetString(),
                                             NgayXuat = row.Cell(vitaConfig.NgayXuat).TryGetValue(out DateTime ngayxuathang) ? ngayxuathang : DateTime.MinValue,
                                             Season = string.IsNullOrEmpty(vitaConfig.Season) ? "" : row.Cell(vitaConfig.Season).GetString(),
                                             MaDonKH = row.Cell(vitaConfig.MaDonKH).GetString(),
-                                            LieuKH = row.Cell(vitaConfig.LieuKH).GetString(),
+                                            LieuKH = lieuKh == "YHM1093EPM558" ? "YHM1093EPM5" : lieuKh,
                                             LieuThayThe = row.Cell(vitaConfig.LieuThayThe).GetString(),
                                             PONhuom = row.Cell(vitaConfig.PONhuom).GetString(),
                                             MauSac = row.Cell(vitaConfig.MauSac).GetString(),
@@ -294,6 +296,7 @@ namespace Julian_Server
                     return lst;
                 });
                 frmVitaViewer frmVitaViewer = new frmVitaViewer(lstVita);
+                frmVitaViewer.Text = "Vita: " + Path.GetFileName(filePath);
                 frmVitaViewer.Show();
             }
             catch (Exception ex)

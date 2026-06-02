@@ -22,21 +22,6 @@ namespace TyXuan
         private void button1_Click(object sender, EventArgs e)
         {
 
-            //var dt = extractor.Extract(@"C:\Users\Admin\Desktop\TyXuan\20260402248 JULIEN.pdf");
-            var extractor = new Extractor();
-
-            string pdfPath = @"C:\Users\Admin\Desktop\TyXuan\20260402248 JULIEN.pdf";
-
-            DataTable dt = extractor.Run(pdfPath);
-
-            // 🔥 In ra console
-            foreach (DataRow row in dt.Rows)
-            {
-                Console.WriteLine(
-                    $"{row["Item"]} | {row["MatNo"]} | {row["Name"]} | {row["Qty"]}");
-            }
-
-            Console.WriteLine("DONE");
 
         }
     }

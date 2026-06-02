@@ -1,4 +1,5 @@
-﻿using Julian.Database.DTO;
+﻿using ClosedXML.Excel;
+using Julian.Database.DTO;
 using Julian.Helper;
 using Julian.Utils;
 using System;
@@ -46,7 +47,7 @@ namespace Julian_Server
             var fromDate = dtpFromDate.Value.Date;
             var toDate = dtpToDate.Value.Date;
             var checkedItems = filterMaKH.GetItemsChecked().ToList();
-            var filterUnitPrice = chkFilerUnitPrice.Checked;
+            //var filterUnitPrice = chkFilerUnitPrice.Checked;
 
             var result = await Task.Run(() =>
             {
@@ -56,12 +57,12 @@ namespace Julian_Server
                     o.NgayDat.Date <= toDate
                 ).ToList();
 
-                List<OrderForm> data;
+                List<OrderForm> data = productionReport.Where(order => order.DonGia > 0).ToList();
 
-                if (filterUnitPrice)
+                /*if (filterUnitPrice)
                     data = productionReport.Where(order => order.DonGia > 0).ToList();
                 else
-                    data = productionReport;
+                    data = productionReport;*/
 
                 var lst = new List<SanLuong>();
                 foreach (var order in data)
@@ -108,7 +109,7 @@ namespace Julian_Server
 
                 return new
                 {
-                    Data = data,
+                    Data = lst,
                     Subtotal = subtotalByLieuKH,
                     TotalQty = totalQty,
                     TotalAmount = totalAmount,
@@ -116,7 +117,7 @@ namespace Julian_Server
                 };
             });
 
-            dgvMain.DataSource = new SortableBindingList<OrderForm>(result.Data);
+            dgvMain.DataSource = new SortableBindingList<SanLuong>(result.Data);
 
             dgvSubtotalByLieuKH.DataSource = new SortableBindingList<SubtotalByLieuKH>(result.Subtotal);
 
@@ -129,7 +130,7 @@ namespace Julian_Server
             btnApply.Enabled = true;
 
         }
-        private async void btnApply_Click(object sender, EventArgs e)
+        private void btnApply_Click(object sender, EventArgs e)
         {
             Apply();
         }
@@ -184,9 +185,96 @@ namespace Julian_Server
 
         }
 
-        private void btnExportExcelReport_Click(object sender, EventArgs e)
+        private async void btnExportExcelReport_Click(object sender, EventArgs e)
         {
+            btnExportExcelReport.Enabled = false;
+            try
+            {
+                var source = dgvMain.DataSource as BindingList<SanLuong>;
+                var lst = source.ToList();
+                await Task.Run(() =>
+                {
+                    if (lst == null || lst.Count == 0)
+                    {
+                        MessageBox.Show("Không có dữ liệu để xuất!");
+                        return;
+                    }
+                    string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Template", "ProductionReport.xlsx");
+                    if (!File.Exists(templatePath))
+                    {
+                        MessageBox.Show("Không tìm thấy file:\n" + templatePath);
+                        return;
+                    }
+                    //string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".xlsx");
+                    //File.Copy(templatePath, tempFile, true);
+                    using var fs = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using var workbook = new XLWorkbook(fs);
+                    var sheets = workbook.Worksheets.ToList();
+                    var sheet = sheets.FirstOrDefault(s => s.Name == "Main");
+                    if (sheet == null)
+                    {
+                        MessageBox.Show("Không tìm thấy sheet 'Main'");
+                        return;
+                    }
+                    var rangRows = sheet.Range("A4:V" + (3 + lst.Count)).Rows().ToList();
+                    for (int i = 0; i < rangRows.Count; i++)
+                    {
+                        var row = rangRows[i];
+                        row.Cell("A").Value = lst[i].NgayDat.Date;
+                        row.Cell("A").Style.DateFormat.Format = "yyyy-MM-dd";
+                        row.Cell("B").Value = lst[i].Brand;
+                        row.Cell("C").Value = lst[i].MaKH;
+                        row.Cell("D").Value = lst[i].MaDonKH;
+                        row.Cell("E").Value = lst[i].MaHangKH;
+                        row.Cell("F").Value = lst[i].PONhuom;
+                        row.Cell("G").Value = lst[i].PONhuomMoi;
+                        row.Cell("H").Value = lst[i].LieuKH;
+                        row.Cell("I").Value = lst[i].MauKH;
+                        row.Cell("J").Value = lst[i].Qty;
+                        row.Cell("K").Value = lst[i].DonViDo;
+                        row.Cell("L").Value = lst[i].DonGia;
+                        row.Cell("M").Value = lst[i].NgayGiao== DateTime.MinValue?"":lst[i].NgayGiao.Date;
+                        row.Cell("M").Style.DateFormat.Format = "yyyy-MM-dd";
+                        row.Cell("N").Value = lst[i].Season;
+                        row.Cell("O").Value = Math.Round(lst[i].TongTien, 3); ;
+                        row.Cell("P").Value = lst[i].LieuThayThe;
+                        row.Cell("Q").Value = lst[i].ETD;
+                        row.Cell("R").Value = lst[i].ETDNote;
+                        row.Cell("S").Value = lst[i].T1;
+                        //row.Cell("T").Value = lst[i].TrongLuong;
+                        row.Cell("T").FormulaA1 = $"Index(tbMtl[GSM],Match(H{i + 4},tbMtl[Code],0))";
+                        //row.Cell("U").Value = lst[i].TyLeBaoVeMoiTruong;
+                        row.Cell("U").FormulaA1 = $"Index(tbMtl[REC],Match(H{i + 4},tbMtl[Code],0))";
 
+                        row.Cell("V").Value = lst[i].LieuKH.ToUpper().Contains("EPM5") || lst[i].LieuThayThe.ToUpper().Contains("EPM5") ? "YES" : "NO";
+                    }
+                    if (!Directory.Exists(@"Output\ProductionReport"))
+                    {
+                        Directory.CreateDirectory(@"Output\ProductionReport");
+                    }
+                    string fileName = "ProductionReport_" + DateTime.Now.ToString("dd-MM-yyyy_") + DateTime.Now.Ticks + ".xlsx";
+                    string filePath = @"Output\ProductionReport\" + fileName;
+                    workbook.SaveAs(filePath);
+                    if (File.Exists(filePath))
+                    {
+                        System.Diagnostics.Process.Start("explorer.exe", @"/select, " + filePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi không xác định!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            finally
+            {
+                btnExportExcelReport.Enabled = true;
+            }
         }
     }
 }

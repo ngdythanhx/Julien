@@ -64,6 +64,9 @@ namespace Julian_Server
                 dgvMain.DataSource = new SortableBindingList<Vita>(lstNewVita);
                 dgvSubTotalByNgayXuat.DataSource = new SortableBindingList<SubtotalByNgayXuat>(subtotalByNgayXuat);
                 dgvSubtotalByLieuKH.DataSource = new SortableBindingList<SubtotalByLieuKH>(subtotalByLieuKH);
+                lblRowCount.Text = lstNewVita.Count.ToString("#,##0");
+                lblTotalQty.Text = lstNewVita.Sum(v => v.Qty1).ToString("#,##0.00");
+                lblTotalAmount.Text = lstNewVita.Sum(v => v.TongTien).ToString("#,##0.00");
             };
             filterMaKH.SetDataSource(lstMaKH);
         }

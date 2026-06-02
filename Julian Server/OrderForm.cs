@@ -29,7 +29,7 @@ namespace Julian.Database.DTO
         public float SLDat { get; set; }
         public float DonGia { get; set; }
         public double TongTien { get; set; }
-        public DateTime ETD { get; set; }
+        public string ETD { get; set; }
         public DateTime NgayXuat { get; set; }
         public string InvoiceHoaDon { get; set; }
         public string InvoicePGH { get; set; }
@@ -38,6 +38,7 @@ namespace Julian.Database.DTO
         public string ShippingMethod { get; set; }
         public string T1 {  get; set; }
         public string Season {  get; set; }
+        public string ETDNote { get; set; }
 
     }
 }

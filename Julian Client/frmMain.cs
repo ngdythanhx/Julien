@@ -81,7 +81,7 @@ namespace Julian_Client
             this.Enabled = false;
             string emCode = _iniManager.GetString("Client", "EmployeeCode");
             lblEmployeeCode.Text = emCode;
-            await Task.Run(() => _employee = EmployeeDAO.Instance.GetEmployee(emCode));
+            await Task.Run(async () => _employee =await EmployeeDAO.Instance.GetEmployee(emCode));
             if (_employee == null)
             {
                 MessageBox.Show($"Không thể tải dữ liệu Nhân viên '{emCode}'", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -153,14 +153,14 @@ namespace Julian_Client
             var frm = FormHanlers[tabPage.Name.Substring(2)];
             frm.DeleteData();
         }
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             var tabPage = tcMain.SelectedTab;
             if (tabPage == null) return;
             var frm = FormHanlers[tabPage.Name.Substring(2)];
             if (frm.ActionType == 1)
             {
-                if (frm.CreateData())
+                if (await frm.CreateData())
                 {
                     frm.ActionType = 0;
                     EnabledActionsButton(true, false);
@@ -172,7 +172,7 @@ namespace Julian_Client
             }
             else if (frm.ActionType == 2)
             {
-                if (frm.UpdateData())
+                if (await frm.UpdateData())
                 {
                     frm.ActionType = 0;
                     EnabledActionsButton(true, false);

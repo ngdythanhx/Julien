@@ -39,15 +39,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.col_makh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_ngaydathang = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,39 +62,9 @@
             this.col_invoicephieugiaohang = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_article = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcMain = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lblProductionReport_TotalAmount = new System.Windows.Forms.Label();
-            this.lblProductionReport_TotalQty = new System.Windows.Forms.Label();
-            this.chkProductionReport_FilerUnitPrice = new System.Windows.Forms.CheckBox();
-            this.dgvProductionReport_Subtotal = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvProductionReport = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn33 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblProductionReport_TotalRows = new System.Windows.Forms.Label();
-            this.btnProductionReport_Apply = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dtpProductionReport_ToDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpProductionReport_FromDate = new System.Windows.Forms.DateTimePicker();
-            this.btnProductionReport_ExportReport = new System.Windows.Forms.Button();
+            this.tpSanLuong = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.filterHoiHang_MaKH = new Julian_Server.ucFilter();
             this.dgvHoiHang = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -126,13 +87,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tpDebitNote = new System.Windows.Forms.TabPage();
             this.tpVita = new System.Windows.Forms.TabPage();
-            this.filterProductionReport_MaKH = new Julian_Server.ucFilter();
-            this.filterHoiHang_MaKH = new Julian_Server.ucFilter();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.tcMain.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductionReport_Subtotal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductionReport)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoiHang)).BeginInit();
             this.SuspendLayout();
@@ -328,7 +284,7 @@
             // 
             this.tcMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tcMain.Controls.Add(this.tabPage2);
+            this.tcMain.Controls.Add(this.tpSanLuong);
             this.tcMain.Controls.Add(this.tabPage1);
             this.tcMain.Controls.Add(this.tabPage3);
             this.tcMain.Controls.Add(this.tpDebitNote);
@@ -339,380 +295,15 @@
             this.tcMain.Size = new System.Drawing.Size(1572, 377);
             this.tcMain.TabIndex = 227;
             // 
-            // tabPage2
+            // tpSanLuong
             // 
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.lblProductionReport_TotalAmount);
-            this.tabPage2.Controls.Add(this.lblProductionReport_TotalQty);
-            this.tabPage2.Controls.Add(this.chkProductionReport_FilerUnitPrice);
-            this.tabPage2.Controls.Add(this.dgvProductionReport_Subtotal);
-            this.tabPage2.Controls.Add(this.dgvProductionReport);
-            this.tabPage2.Controls.Add(this.filterProductionReport_MaKH);
-            this.tabPage2.Controls.Add(this.lblProductionReport_TotalRows);
-            this.tabPage2.Controls.Add(this.btnProductionReport_Apply);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.dtpProductionReport_ToDate);
-            this.tabPage2.Controls.Add(this.dtpProductionReport_FromDate);
-            this.tabPage2.Controls.Add(this.btnProductionReport_ExportReport);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1564, 351);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Sản lượng";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(116, 10);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(77, 13);
-            this.label9.TabIndex = 253;
-            this.label9.Text = "Bảng tổng hợp";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(428, 10);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(66, 13);
-            this.label8.TabIndex = 253;
-            this.label8.Text = "Bảng chi tiết";
-            // 
-            // lblProductionReport_TotalAmount
-            // 
-            this.lblProductionReport_TotalAmount.Location = new System.Drawing.Point(343, 270);
-            this.lblProductionReport_TotalAmount.Name = "lblProductionReport_TotalAmount";
-            this.lblProductionReport_TotalAmount.Size = new System.Drawing.Size(57, 16);
-            this.lblProductionReport_TotalAmount.TabIndex = 252;
-            this.lblProductionReport_TotalAmount.Text = "0.00";
-            this.lblProductionReport_TotalAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblProductionReport_TotalQty
-            // 
-            this.lblProductionReport_TotalQty.Location = new System.Drawing.Point(271, 270);
-            this.lblProductionReport_TotalQty.Name = "lblProductionReport_TotalQty";
-            this.lblProductionReport_TotalQty.Size = new System.Drawing.Size(66, 16);
-            this.lblProductionReport_TotalQty.TabIndex = 252;
-            this.lblProductionReport_TotalQty.Text = "0.00";
-            this.lblProductionReport_TotalQty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // chkProductionReport_FilerUnitPrice
-            // 
-            this.chkProductionReport_FilerUnitPrice.AutoSize = true;
-            this.chkProductionReport_FilerUnitPrice.Location = new System.Drawing.Point(119, 271);
-            this.chkProductionReport_FilerUnitPrice.Name = "chkProductionReport_FilerUnitPrice";
-            this.chkProductionReport_FilerUnitPrice.Size = new System.Drawing.Size(116, 17);
-            this.chkProductionReport_FilerUnitPrice.TabIndex = 250;
-            this.chkProductionReport_FilerUnitPrice.Text = "Lọc bỏ  đơn giá =0";
-            this.chkProductionReport_FilerUnitPrice.UseVisualStyleBackColor = true;
-            // 
-            // dgvProductionReport_Subtotal
-            // 
-            this.dgvProductionReport_Subtotal.AllowUserToAddRows = false;
-            this.dgvProductionReport_Subtotal.AllowUserToDeleteRows = false;
-            this.dgvProductionReport_Subtotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvProductionReport_Subtotal.BackgroundColor = System.Drawing.Color.LightGray;
-            this.dgvProductionReport_Subtotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProductionReport_Subtotal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvProductionReport_Subtotal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProductionReport_Subtotal.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dgvProductionReport_Subtotal.GridColor = System.Drawing.SystemColors.Control;
-            this.dgvProductionReport_Subtotal.Location = new System.Drawing.Point(119, 26);
-            this.dgvProductionReport_Subtotal.Name = "dgvProductionReport_Subtotal";
-            this.dgvProductionReport_Subtotal.ReadOnly = true;
-            this.dgvProductionReport_Subtotal.RowHeadersVisible = false;
-            this.dgvProductionReport_Subtotal.RowHeadersWidth = 30;
-            this.dgvProductionReport_Subtotal.Size = new System.Drawing.Size(303, 241);
-            this.dgvProductionReport_Subtotal.TabIndex = 249;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "MaKH";
-            this.Column1.HeaderText = "KH";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 50;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Lieu";
-            this.Column2.HeaderText = "Liệu";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 120;
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Qty";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "#,##0.00";
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Column3.HeaderText = "Qty";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 60;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "SoTien";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "#,##0.00";
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Column4.HeaderText = "Số tiền";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 70;
-            // 
-            // dgvProductionReport
-            // 
-            this.dgvProductionReport.AllowUserToAddRows = false;
-            this.dgvProductionReport.AllowUserToDeleteRows = false;
-            this.dgvProductionReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvProductionReport.BackgroundColor = System.Drawing.Color.LightGray;
-            this.dgvProductionReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProductionReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dgvProductionReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn27,
-            this.dataGridViewTextBoxColumn28,
-            this.Column5,
-            this.dataGridViewTextBoxColumn31,
-            this.dataGridViewTextBoxColumn32,
-            this.dataGridViewTextBoxColumn29,
-            this.dataGridViewTextBoxColumn33,
-            this.dataGridViewTextBoxColumn35,
-            this.dataGridViewTextBoxColumn37,
-            this.dataGridViewTextBoxColumn38,
-            this.Column8,
-            this.Column9});
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProductionReport.DefaultCellStyle = dataGridViewCellStyle16;
-            this.dgvProductionReport.GridColor = System.Drawing.SystemColors.Control;
-            this.dgvProductionReport.Location = new System.Drawing.Point(428, 26);
-            this.dgvProductionReport.Name = "dgvProductionReport";
-            this.dgvProductionReport.ReadOnly = true;
-            this.dgvProductionReport.RowHeadersWidth = 30;
-            this.dgvProductionReport.Size = new System.Drawing.Size(1130, 241);
-            this.dgvProductionReport.TabIndex = 249;
-            // 
-            // dataGridViewTextBoxColumn27
-            // 
-            this.dataGridViewTextBoxColumn27.DataPropertyName = "MaKH";
-            this.dataGridViewTextBoxColumn27.HeaderText = "KH";
-            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
-            this.dataGridViewTextBoxColumn27.ReadOnly = true;
-            this.dataGridViewTextBoxColumn27.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn28
-            // 
-            this.dataGridViewTextBoxColumn28.DataPropertyName = "NgayDat";
-            this.dataGridViewTextBoxColumn28.HeaderText = "Ngày đặt";
-            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
-            this.dataGridViewTextBoxColumn28.ReadOnly = true;
-            this.dataGridViewTextBoxColumn28.Width = 85;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "Brand";
-            this.Column5.HeaderText = "Brand";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn31
-            // 
-            this.dataGridViewTextBoxColumn31.DataPropertyName = "MaDonKH";
-            this.dataGridViewTextBoxColumn31.FillWeight = 24F;
-            this.dataGridViewTextBoxColumn31.HeaderText = "Mã Đơn";
-            this.dataGridViewTextBoxColumn31.Name = "dataGridViewTextBoxColumn31";
-            this.dataGridViewTextBoxColumn31.ReadOnly = true;
-            this.dataGridViewTextBoxColumn31.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn32
-            // 
-            this.dataGridViewTextBoxColumn32.DataPropertyName = "MaHangKH";
-            this.dataGridViewTextBoxColumn32.HeaderText = "Mã Hàng";
-            this.dataGridViewTextBoxColumn32.Name = "dataGridViewTextBoxColumn32";
-            this.dataGridViewTextBoxColumn32.ReadOnly = true;
-            this.dataGridViewTextBoxColumn32.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn29
-            // 
-            this.dataGridViewTextBoxColumn29.DataPropertyName = "PONhuom";
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dataGridViewTextBoxColumn29.FillWeight = 24F;
-            this.dataGridViewTextBoxColumn29.HeaderText = "Mã Nhuộm Sd";
-            this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
-            this.dataGridViewTextBoxColumn29.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn33
-            // 
-            this.dataGridViewTextBoxColumn33.DataPropertyName = "LieuKH";
-            this.dataGridViewTextBoxColumn33.FillWeight = 18F;
-            this.dataGridViewTextBoxColumn33.HeaderText = "Mã Liệu";
-            this.dataGridViewTextBoxColumn33.Name = "dataGridViewTextBoxColumn33";
-            this.dataGridViewTextBoxColumn33.ReadOnly = true;
-            this.dataGridViewTextBoxColumn33.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn35
-            // 
-            this.dataGridViewTextBoxColumn35.DataPropertyName = "MauKH";
-            this.dataGridViewTextBoxColumn35.HeaderText = "Mã Màu";
-            this.dataGridViewTextBoxColumn35.Name = "dataGridViewTextBoxColumn35";
-            this.dataGridViewTextBoxColumn35.ReadOnly = true;
-            this.dataGridViewTextBoxColumn35.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn37
-            // 
-            this.dataGridViewTextBoxColumn37.DataPropertyName = "Kho";
-            this.dataGridViewTextBoxColumn37.HeaderText = "Khổ";
-            this.dataGridViewTextBoxColumn37.Name = "dataGridViewTextBoxColumn37";
-            this.dataGridViewTextBoxColumn37.ReadOnly = true;
-            this.dataGridViewTextBoxColumn37.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn38
-            // 
-            this.dataGridViewTextBoxColumn38.DataPropertyName = "SlDat";
-            this.dataGridViewTextBoxColumn38.HeaderText = "Sl đặt";
-            this.dataGridViewTextBoxColumn38.Name = "dataGridViewTextBoxColumn38";
-            this.dataGridViewTextBoxColumn38.ReadOnly = true;
-            this.dataGridViewTextBoxColumn38.Width = 50;
-            // 
-            // Column8
-            // 
-            this.Column8.DataPropertyName = "UnitPrice";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "#,##0.00";
-            this.Column8.DefaultCellStyle = dataGridViewCellStyle14;
-            this.Column8.HeaderText = "Đơn giá";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column9
-            // 
-            this.Column9.DataPropertyName = "Amount";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "#,##0.00";
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle15;
-            this.Column9.HeaderText = "Số tiền";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // lblProductionReport_TotalRows
-            // 
-            this.lblProductionReport_TotalRows.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblProductionReport_TotalRows.AutoSize = true;
-            this.lblProductionReport_TotalRows.Location = new System.Drawing.Point(575, 273);
-            this.lblProductionReport_TotalRows.Margin = new System.Windows.Forms.Padding(3);
-            this.lblProductionReport_TotalRows.Name = "lblProductionReport_TotalRows";
-            this.lblProductionReport_TotalRows.Size = new System.Drawing.Size(13, 13);
-            this.lblProductionReport_TotalRows.TabIndex = 248;
-            this.lblProductionReport_TotalRows.Text = "0";
-            // 
-            // btnProductionReport_Apply
-            // 
-            this.btnProductionReport_Apply.Location = new System.Drawing.Point(6, 316);
-            this.btnProductionReport_Apply.Name = "btnProductionReport_Apply";
-            this.btnProductionReport_Apply.Size = new System.Drawing.Size(98, 23);
-            this.btnProductionReport_Apply.TabIndex = 243;
-            this.btnProductionReport_Apply.Text = "Áp dụng";
-            this.btnProductionReport_Apply.UseVisualStyleBackColor = true;
-            this.btnProductionReport_Apply.Click += new System.EventHandler(this.btnProductionReport_Apply_Click);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(521, 273);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 247;
-            this.label2.Text = "Số dòng:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 274);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 241;
-            this.label4.Text = "Đến ngày";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 231);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 13);
-            this.label3.TabIndex = 242;
-            this.label3.Text = "Từ ngày";
-            // 
-            // dtpProductionReport_ToDate
-            // 
-            this.dtpProductionReport_ToDate.CustomFormat = "yyyy/MM/dd";
-            this.dtpProductionReport_ToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpProductionReport_ToDate.Location = new System.Drawing.Point(6, 290);
-            this.dtpProductionReport_ToDate.Name = "dtpProductionReport_ToDate";
-            this.dtpProductionReport_ToDate.Size = new System.Drawing.Size(98, 20);
-            this.dtpProductionReport_ToDate.TabIndex = 239;
-            // 
-            // dtpProductionReport_FromDate
-            // 
-            this.dtpProductionReport_FromDate.CustomFormat = "yyyy/MM/dd";
-            this.dtpProductionReport_FromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpProductionReport_FromDate.Location = new System.Drawing.Point(6, 247);
-            this.dtpProductionReport_FromDate.Name = "dtpProductionReport_FromDate";
-            this.dtpProductionReport_FromDate.Size = new System.Drawing.Size(98, 20);
-            this.dtpProductionReport_FromDate.TabIndex = 240;
-            // 
-            // btnProductionReport_ExportReport
-            // 
-            this.btnProductionReport_ExportReport.Location = new System.Drawing.Point(119, 316);
-            this.btnProductionReport_ExportReport.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnProductionReport_ExportReport.Name = "btnProductionReport_ExportReport";
-            this.btnProductionReport_ExportReport.Size = new System.Drawing.Size(122, 23);
-            this.btnProductionReport_ExportReport.TabIndex = 237;
-            this.btnProductionReport_ExportReport.Text = "Xuất báo cáo Excel";
-            this.btnProductionReport_ExportReport.UseVisualStyleBackColor = true;
+            this.tpSanLuong.Location = new System.Drawing.Point(4, 22);
+            this.tpSanLuong.Name = "tpSanLuong";
+            this.tpSanLuong.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSanLuong.Size = new System.Drawing.Size(1564, 351);
+            this.tpSanLuong.TabIndex = 1;
+            this.tpSanLuong.Text = "Sản lượng";
+            this.tpSanLuong.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -736,6 +327,14 @@
             this.tabPage1.Text = "Hối hàng";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // filterHoiHang_MaKH
+            // 
+            this.filterHoiHang_MaKH.FilterText = "Mã Khách Hàng";
+            this.filterHoiHang_MaKH.Location = new System.Drawing.Point(6, 6);
+            this.filterHoiHang_MaKH.Name = "filterHoiHang_MaKH";
+            this.filterHoiHang_MaKH.Size = new System.Drawing.Size(100, 222);
+            this.filterHoiHang_MaKH.TabIndex = 261;
+            // 
             // dgvHoiHang
             // 
             this.dgvHoiHang.AllowUserToAddRows = false;
@@ -744,14 +343,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvHoiHang.BackgroundColor = System.Drawing.Color.LightGray;
             this.dgvHoiHang.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvHoiHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHoiHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvHoiHang.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn3,
@@ -761,14 +360,14 @@
             this.dataGridViewTextBoxColumn9,
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn12});
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvHoiHang.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvHoiHang.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvHoiHang.GridColor = System.Drawing.SystemColors.Control;
             this.dgvHoiHang.Location = new System.Drawing.Point(119, 26);
             this.dgvHoiHang.Name = "dgvHoiHang";
@@ -795,8 +394,8 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "PONhuom";
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewTextBoxColumn6.FillWeight = 24F;
             this.dataGridViewTextBoxColumn6.HeaderText = "Mã Nhuộm Sd";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
@@ -838,9 +437,9 @@
             // dataGridViewTextBoxColumn12
             // 
             this.dataGridViewTextBoxColumn12.DataPropertyName = "TienDo";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.Format = "#,##0.00";
-            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "#,##0.00";
+            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewTextBoxColumn12.HeaderText = "Tiến độ";
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
@@ -972,22 +571,6 @@
             this.tpVita.Text = "Vita";
             this.tpVita.UseVisualStyleBackColor = true;
             // 
-            // filterProductionReport_MaKH
-            // 
-            this.filterProductionReport_MaKH.FilterText = "Mã Khách Hàng";
-            this.filterProductionReport_MaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterProductionReport_MaKH.Name = "filterProductionReport_MaKH";
-            this.filterProductionReport_MaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterProductionReport_MaKH.TabIndex = 246;
-            // 
-            // filterHoiHang_MaKH
-            // 
-            this.filterHoiHang_MaKH.FilterText = "Mã Khách Hàng";
-            this.filterHoiHang_MaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterHoiHang_MaKH.Name = "filterHoiHang_MaKH";
-            this.filterHoiHang_MaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterHoiHang_MaKH.TabIndex = 261;
-            // 
             // frmReporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1002,10 +585,6 @@
             this.Shown += new System.EventHandler(this.frmReporter_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).EndInit();
             this.tcMain.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductionReport_Subtotal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductionReport)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoiHang)).EndInit();
@@ -1038,34 +617,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_invoicephieugiaohang;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_article;
         private System.Windows.Forms.TabControl tcMain;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label lblProductionReport_TotalAmount;
-        private System.Windows.Forms.Label lblProductionReport_TotalQty;
-        private System.Windows.Forms.CheckBox chkProductionReport_FilerUnitPrice;
-        private System.Windows.Forms.DataGridView dgvProductionReport;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn31;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn32;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn33;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn35;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn37;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn38;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private ucFilter filterProductionReport_MaKH;
-        private System.Windows.Forms.Label lblProductionReport_TotalRows;
-        private System.Windows.Forms.Button btnProductionReport_Apply;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dtpProductionReport_ToDate;
-        private System.Windows.Forms.DateTimePicker dtpProductionReport_FromDate;
-        private System.Windows.Forms.Button btnProductionReport_ExportReport;
+        private System.Windows.Forms.TabPage tpSanLuong;
         private System.Windows.Forms.TabPage tabPage1;
         private ucFilter filterHoiHang_MaKH;
         private System.Windows.Forms.DataGridView dgvHoiHang;
@@ -1087,11 +639,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dtpHoiHang_ToDate;
         private System.Windows.Forms.DateTimePicker dtpHoiHang_FromDate;
-        private System.Windows.Forms.DataGridView dgvProductionReport_Subtotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tpDebitNote;
         private System.Windows.Forms.TabPage tpVita;

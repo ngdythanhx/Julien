@@ -89,6 +89,10 @@ namespace Julian_Server
             {
                 item.Checked = checkBox1.Checked;
             }
+            foreach (var s in _lstSheetInfo)
+            {
+                s.Checked = checkBox1.Checked;
+            }
         }
 
         private async void LoadX()
@@ -102,12 +106,12 @@ namespace Julian_Server
             {
                 var tasks1 = new List<Task>();
                 var lstChecked = _lstSheetInfo.Where(s => s.Checked).ToList();
-                foreach (var sheetInfoGroupByFilePath in lstChecked.GroupBy(s=>s.FilePath))
+                foreach (var sheetInfoGroupByFilePath in lstChecked.GroupBy(s => s.FilePath))
                 {
-                    foreach(var s in sheetInfoGroupByFilePath)
+                    foreach (var s in sheetInfoGroupByFilePath)
                     {
                         s.Status = "Đường dẫn không hợp lệ!";
-                    }    
+                    }
                     var sheetInfo = sheetInfoGroupByFilePath.First();
                     if (!File.Exists(sheetInfo.FilePath))
                     {
@@ -138,7 +142,7 @@ namespace Julian_Server
                 }
                 await Task.WhenAll(tasks1);
                 var tasks2 = new List<Task>();
-                foreach (var sheetInfoGroupBySheetName in lstChecked.GroupBy(s => new {s.SheetName,s.FilePath}))
+                foreach (var sheetInfoGroupBySheetName in lstChecked.GroupBy(s => new { s.SheetName, s.FilePath }))
                 {
                     var sheetInfo = sheetInfoGroupBySheetName.First();
                     var worksheets = _workbooks[sheetInfo.FilePath].Worksheets.ToArray();
@@ -193,12 +197,15 @@ namespace Julian_Server
                                         ShippingMethod = ini.GetString("OrderForm", "ShippingMethod"),
                                         T1 = ini.GetString("OrderForm", "T1"),
                                         Season = ini.GetString("OrderForm", "Season"),
+                                        ETDNote = ini.GetString("OrderForm", "ETDNote"),
                                     };
                                     var lst = new ConcurrentBag<OrderForm>();
                                     ParallelOptions parallelOptions = new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount };
                                     Parallel.For(0, rangeRows.Length, i =>
                                     {
                                         var row = rangeRows[i];
+                                        string lieuKh = row.Cell(c.LieuKH).GetString();
+                                        lieuKh = lieuKh.Replace(" ", "").Replace("\"", "").Replace("'","");
                                         var order = new OrderForm()
                                         {
                                             MaKH = row.Cell(c.MaKH).GetString(),
@@ -208,7 +215,7 @@ namespace Julian_Server
                                             PONhuomMoi = row.Cell(c.PONhuomMoi).GetString(),
                                             MaHangKH = row.Cell(c.MaHangKH).GetString(),
                                             MaDonKH = row.Cell(c.MaDonKH).GetString(),
-                                            LieuKH = row.Cell(c.LieuKH).GetString(),
+                                            LieuKH = lieuKh == "YHM1093EPM558" ? "YHM1093EPM5" : lieuKh,
                                             LieuThayThe = row.Cell(c.LieuThayThe).GetString(),
                                             Kho = row.Cell(c.Kho).TryGetValue<int>(out var w) ? w : -1,
                                             MauKH = row.Cell(c.MauKH).GetString(),
@@ -216,7 +223,8 @@ namespace Julian_Server
                                             SLDat = row.Cell(c.SLDat).TryGetValue<float>(out var slDat) ? slDat : -1,
                                             DonGia = row.Cell(c.DonGia).TryGetValue<float>(out var unitPrice) ? unitPrice : -1,
                                             TongTien = row.Cell(c.TongTien).TryGetValue<double>(out var amount) ? amount : -1,
-                                            ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
+                                            //ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
+                                            ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd.ToString("yyyy-MM-dd") : "",
                                             NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,
                                             InvoiceHoaDon = row.Cell(c.InvoiceHoaDon).GetString(),
                                             InvoicePGH = row.Cell(c.InvoicePGH).GetString(),
@@ -225,6 +233,7 @@ namespace Julian_Server
                                             ShippingMethod = row.Cell(c.ShippingMethod).GetString(),
                                             T1 = row.Cell(c.T1).GetString(),
                                             Season = row.Cell(c.Season).GetString(),
+                                            ETDNote = row.Cell(c.ETDNote).GetString(),
                                         };
                                         if (!string.IsNullOrEmpty(order.MaKH))
                                             lst.Add(order);
@@ -265,7 +274,8 @@ namespace Julian_Server
         }
         private async void btnLoad_Click(object sender, EventArgs e)
         {
-            _workbooks.Clear();
+            LoadX();
+           /* _workbooks.Clear();
             btnLoad.Enabled = false;
             listView1.Enabled = false;
             checkBox1.Enabled = false;
@@ -427,6 +437,8 @@ namespace Julian_Server
                 listView1.Enabled = true;
                 checkBox1.Enabled = true;
             }
+           */
+
         }
         public class SheetInfo
         {

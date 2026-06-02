@@ -51,13 +51,13 @@ namespace Julian_Client
                 var lst = EmployeeTaskDAO.Instance.GetEmployeeTasks(_employee.Id);
             }
         }
-        private void LoadData()
+        private async Task LoadData()
         {
             if (_employee != null)
             {
                 tsEmployeeCode.Text = $"Mã NV: {_employee.EmployeeCode}";
                 tsEmployeeName.Text = $"Tên NV: {_employee.EmployeeName}";
-                var lst = EmployeeTaskDAO.Instance.GetEmployeeTasks(_employee.Id);
+                var lst = await EmployeeTaskDAO.Instance.GetEmployeeTasks(_employee.Id);
                 _employeeTasks = new BindingList<EmployeeTask>(lst);
                 dgvEmployeeTasks.DataSource = _employeeTasks;
             }
@@ -105,13 +105,13 @@ namespace Julian_Client
                 frm.Show();
             }
         }
-        private void frmClient_Load(object sender, EventArgs e)
+        private async void frmClient_Load(object sender, EventArgs e)
         {
             IniManager iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
             Config.Instance.ConnectionString = iniManager.GetString("Default", "ConnectionString");
             _employeeCode = iniManager.GetString("Client", "EmployeeCode");
-            _employee = EmployeeDAO.Instance.GetEmployee(_employeeCode);
-            LoadData();
+            _employee = await EmployeeDAO.Instance.GetEmployee(_employeeCode);
+            await LoadData();
             _ = AutoUpdateData();
             if (_employee != null && _employee.Id != 0)
             {
@@ -168,7 +168,7 @@ namespace Julian_Client
             UnlockInputs();
         }
 
-        private void tsSave_Click(object sender, EventArgs e)
+        private async void tsSave_Click(object sender, EventArgs e)
         {
             if (dgvEmployeeTasks.CurrentRow.DataBoundItem is EmployeeTask employeeTask)
             {
@@ -181,7 +181,7 @@ namespace Julian_Client
                 {
                     completedDatetime = DateTime.Now;
                 }
-                var response = EmployeeTaskDAO.Instance.UpdateComplateState(employeeTask.Id, rb2.Checked, completedDatetime);
+                var response = await EmployeeTaskDAO.Instance.UpdateComplateState(employeeTask.Id, rb2.Checked, completedDatetime);
                 if (response.ErrCode == 0)
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -195,10 +195,10 @@ namespace Julian_Client
             }
         }
 
-        private void tsCancel_Click(object sender, EventArgs e)
+        private async void tsCancel_Click(object sender, EventArgs e)
         {
             EnabledActionsButton(true, false);
-            LoadData();
+          await  LoadData();
             LockInputs();
         }
         private async Task AutoUpdateData()
@@ -208,7 +208,7 @@ namespace Julian_Client
                 await Task.Delay(1000);
                 if (_employee == null)
                     continue;
-                var lst = EmployeeTaskDAO.Instance.GetEmployeeTasks(_employee.Id);
+                var lst =await EmployeeTaskDAO.Instance.GetEmployeeTasks(_employee.Id);
                 if (lst != null)
                 {
                     int countNew = 0;

@@ -58,8 +58,6 @@ namespace Julian_Server
             var lst = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
             //HoiHang
             filterHoiHang_MaKH.SetDataSource(lst);
-            dtpHoiHang_FromDate.Value = _lstOrderForm.Min(o => o.NgayDat);
-            dtpHoiHang_ToDate.Value = _lstOrderForm.Max(o => o.NgayDat);
 
             _frmVita.SetDataSource();
             _frmSanLuong.SetDataSource();
@@ -111,7 +109,7 @@ namespace Julian_Server
                      order.MaDonKH == f.MaDonKH &&
                     order.MaHangKH == f.MaHangKH &&
                     (f.SlDat == -1 || order.SLDat == f.SlDat) &&
-                    (f.NgayGiao == DateTime.MinValue || order.NgayXuat.Date == f.NgayGiao.Date)
+                    (f.NgayGiao == DateTime.MinValue || order.NgayXuat?.Date == f.NgayGiao.Date)
                 )
             ).ToList();
             dgvMain.DataSource = new SortableBindingList<OrderForm>(filtered);

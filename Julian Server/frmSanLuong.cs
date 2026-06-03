@@ -53,8 +53,8 @@ namespace Julian_Server
             {
                 var productionReport = _lstOrderForm.Where(o =>
                     checkedItems.Any(maKh => maKh == o.MaKH) &&
-                    o.NgayDat.Date >= fromDate &&
-                    o.NgayDat.Date <= toDate
+                    o.NgayDat?.Date >= fromDate &&
+                    o.NgayDat?.Date <= toDate
                 ).ToList();
 
                 List<OrderForm> data = productionReport.Where(order => order.DonGia > 0).ToList();
@@ -81,7 +81,7 @@ namespace Julian_Server
                         Qty = order.SLDat,
                         DonViDo = "YD",
                         DonGia = order.DonGia,
-                        NgayGiao = order.NgayXuat,
+                        NgayXuat = order.NgayXuat,
                         Season = order.Season,
                         TongTien = order.SLDat * order.DonGia,
                         LieuThayThe = order.LieuThayThe,
@@ -220,7 +220,7 @@ namespace Julian_Server
                     for (int i = 0; i < rangRows.Count; i++)
                     {
                         var row = rangRows[i];
-                        row.Cell("A").Value = lst[i].NgayDat.Date;
+                        row.Cell("A").Value = lst[i].NgayDat?.Date;
                         row.Cell("A").Style.DateFormat.Format = "yyyy-MM-dd";
                         row.Cell("B").Value = lst[i].Brand;
                         row.Cell("C").Value = lst[i].MaKH;
@@ -233,19 +233,19 @@ namespace Julian_Server
                         row.Cell("J").Value = lst[i].Qty;
                         row.Cell("K").Value = lst[i].DonViDo;
                         row.Cell("L").Value = lst[i].DonGia;
-                        row.Cell("M").Value = lst[i].NgayGiao== DateTime.MinValue?"":lst[i].NgayGiao.Date;
+                        row.Cell("M").Value = lst[i].NgayXuat == DateTime.MinValue ? "" : lst[i].NgayXuat?.Date;
                         row.Cell("M").Style.DateFormat.Format = "yyyy-MM-dd";
                         row.Cell("N").Value = lst[i].Season;
                         row.Cell("O").Value = Math.Round(lst[i].TongTien, 3); ;
                         row.Cell("P").Value = lst[i].LieuThayThe;
-                        row.Cell("Q").Value = lst[i].ETD;
+                        row.Cell("Q").Value = DateTime.TryParse(lst[i].ETD, out DateTime etd) ? etd.Date : lst[i].ETD;
                         row.Cell("R").Value = lst[i].ETDNote;
                         row.Cell("S").Value = lst[i].T1;
                         //row.Cell("T").Value = lst[i].TrongLuong;
                         row.Cell("T").FormulaA1 = $"Index(tbMtl[GSM],Match(H{i + 4},tbMtl[Code],0))";
                         //row.Cell("U").Value = lst[i].TyLeBaoVeMoiTruong;
                         row.Cell("U").FormulaA1 = $"Index(tbMtl[REC],Match(H{i + 4},tbMtl[Code],0))";
-
+                        row.Cell("U").Style.NumberFormat.Format = "0%";
                         row.Cell("V").Value = lst[i].LieuKH.ToUpper().Contains("EPM5") || lst[i].LieuThayThe.ToUpper().Contains("EPM5") ? "YES" : "NO";
                     }
                     if (!Directory.Exists(@"Output\ProductionReport"))

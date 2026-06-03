@@ -60,8 +60,8 @@ namespace Julian_Server
             {
                 var vitaReport = _lstOrderForm.Where(o =>
                     checkedItems.Any(maKh => maKh == o.MaKH) &&
-                    o.NgayXuat.Date >= fromDate &&
-                    o.NgayXuat.Date <= toDate &&
+                    o.NgayXuat?.Date >= fromDate &&
+                    o.NgayXuat?.Date <= toDate &&
                     o.DonGia > 0
                 ).ToList();
                 var newData = vitaReport
@@ -120,7 +120,7 @@ namespace Julian_Server
         private class SubtotalData
         {
             public string MaKH { get; set; }
-            public DateTime NgayXuat { get; set; }
+            public DateTime? NgayXuat { get; set; }
             public double Total { get; set; }
         }
 
@@ -195,13 +195,13 @@ namespace Julian_Server
                 string filePath = cbVitaList.SelectedValue?.ToString();
                 if (!File.Exists(filePath))
                     return;
-                filePath = XoaPivotLoi(filePath);
+               string tempPath = XoaPivotLoi(filePath);
                 var lstVita = await Task.Run(() =>
                 {
                     var lst = new List<Vita>();
                     try
                     {
-                        using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        using (FileStream fs = new FileStream(tempPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
                             using (XLWorkbook workbook = new XLWorkbook(fs))
                             {

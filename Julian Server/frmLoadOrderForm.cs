@@ -102,8 +102,8 @@ namespace Julian_Server
             checkBox1.Enabled = false;
             col_checked.ReadOnly = true;
             dgvMain.Enabled = false;
-            try
-            {
+            //try
+            //{
                 var tasks1 = new List<Task>();
                 var lstChecked = _lstSheetInfo.Where(s => s.Checked).ToList();
                 foreach (var sheetInfoGroupByFilePath in lstChecked.GroupBy(s => s.FilePath))
@@ -158,8 +158,8 @@ namespace Julian_Server
                     }
                     tasks2.Add(Task.Run(() =>
                     {
-                        try
-                        {
+                        //try
+                        //{
                             var ini = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "OrderForms", sheetInfo.SheetID + ".ini"));
                             int startIndex = ini.GetInt("Info", "StartIndex");
                             if (startIndex > 1)
@@ -168,7 +168,7 @@ namespace Julian_Server
                                 var lastRowUsedIndex = sheet.LastRowUsed().RowNumber();
                                 if (startIndex > lastRowUsedIndex) return;
                                 var rangeRows = sheet.Range($"A{startIndex}:{lastColumnUsed.ColumnLetter()}{lastRowUsedIndex}").Rows().ToArray();
-                                if (rangeRows.Length > 2)
+                                if (rangeRows.Length > 0)
                                 {
                                     var c = new
                                     {
@@ -225,7 +225,7 @@ namespace Julian_Server
                                             TongTien = row.Cell(c.TongTien).TryGetValue<double>(out var amount) ? amount : -1,
                                             //ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
                                             ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd.ToString("yyyy-MM-dd") : "",
-                                            NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,
+                                            NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : null,
                                             InvoiceHoaDon = row.Cell(c.InvoiceHoaDon).GetString(),
                                             InvoicePGH = row.Cell(c.InvoicePGH).GetString(),
                                             Article = row.Cell(c.Article).GetString(),
@@ -241,11 +241,11 @@ namespace Julian_Server
                                     _lstOrder.AddRange(lst);
                                 }
                             }
-                        }
-                        catch
-                        {
+                        //}
+                        //catch
+                        //{
 
-                        }
+                        //}
                     }));
                     foreach (var s in sheetInfoGroupBySheetName)
                     {
@@ -259,7 +259,7 @@ namespace Julian_Server
                     _frmReporter.SetDataSourceControl(_lstOrder);
                 }
                 this.Close();
-            }
+            /*}
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -270,7 +270,7 @@ namespace Julian_Server
                 checkBox1.Enabled = true;
                 col_checked.ReadOnly = false;
                 dgvMain.Enabled = true;
-            }
+            }*/
         }
         private async void btnLoad_Click(object sender, EventArgs e)
         {

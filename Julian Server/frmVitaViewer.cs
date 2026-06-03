@@ -24,7 +24,7 @@ namespace Julian_Server
         }
         private class SubtotalByNgayXuat
         {
-            public DateTime NgayXuat { get; set; }
+            public DateTime? NgayXuat { get; set; }
             public double TotalQty { get; set; }
             public double TotalAmount { get; set; }
         }

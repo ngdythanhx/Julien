@@ -9,7 +9,7 @@ namespace Julian_Server
     public class Vita
     {
         public string MaKH { get; set; }
-        public DateTime NgayXuat { get; set; }
+        public DateTime? NgayXuat { get; set; }
         public string Season { get; set; }
         public string MaDonKH { get; set; }
         public string LieuKH { get; set; }

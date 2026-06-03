@@ -57,6 +57,9 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvMain = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.filterMaKH = new Julian_Server.ucFilter();
+            this.btnExportExcelReport = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,9 +81,6 @@
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label4 = new System.Windows.Forms.Label();
-            this.filterMaKH = new Julian_Server.ucFilter();
-            this.btnExportExcelReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubtotalByLieuKH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.SuspendLayout();
@@ -328,6 +328,33 @@
             this.dgvMain.Size = new System.Drawing.Size(1013, 241);
             this.dgvMain.TabIndex = 298;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(428, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 281;
+            this.label4.Text = "Bảng báo cáo";
+            // 
+            // filterMaKH
+            // 
+            this.filterMaKH.FilterText = "Mã Khách Hàng";
+            this.filterMaKH.Location = new System.Drawing.Point(6, 6);
+            this.filterMaKH.Name = "filterMaKH";
+            this.filterMaKH.Size = new System.Drawing.Size(100, 222);
+            this.filterMaKH.TabIndex = 291;
+            // 
+            // btnExportExcelReport
+            // 
+            this.btnExportExcelReport.Location = new System.Drawing.Point(119, 316);
+            this.btnExportExcelReport.Name = "btnExportExcelReport";
+            this.btnExportExcelReport.Size = new System.Drawing.Size(122, 23);
+            this.btnExportExcelReport.TabIndex = 300;
+            this.btnExportExcelReport.Text = "Xuất báo cáo Excel";
+            this.btnExportExcelReport.UseVisualStyleBackColor = true;
+            this.btnExportExcelReport.Click += new System.EventHandler(this.btnExportExcelReport_Click);
+            // 
             // dataGridViewTextBoxColumn27
             // 
             this.dataGridViewTextBoxColumn27.DataPropertyName = "MaKH";
@@ -405,7 +432,7 @@
             // 
             // dataGridViewTextBoxColumn38
             // 
-            this.dataGridViewTextBoxColumn38.DataPropertyName = "SlDat";
+            this.dataGridViewTextBoxColumn38.DataPropertyName = "Qty";
             this.dataGridViewTextBoxColumn38.HeaderText = "Sl đặt";
             this.dataGridViewTextBoxColumn38.Name = "dataGridViewTextBoxColumn38";
             this.dataGridViewTextBoxColumn38.ReadOnly = true;
@@ -431,8 +458,8 @@
             // 
             // Column3
             // 
-            this.Column3.DataPropertyName = "NgayGiaoHang";
-            this.Column3.HeaderText = "Ngày giao";
+            this.Column3.DataPropertyName = "NgayXuat";
+            this.Column3.HeaderText = "Ngày xuất";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
@@ -495,33 +522,6 @@
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(428, 10);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 281;
-            this.label4.Text = "Bảng báo cáo";
-            // 
-            // filterMaKH
-            // 
-            this.filterMaKH.FilterText = "Mã Khách Hàng";
-            this.filterMaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterMaKH.Name = "filterMaKH";
-            this.filterMaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterMaKH.TabIndex = 291;
-            // 
-            // btnExportExcelReport
-            // 
-            this.btnExportExcelReport.Location = new System.Drawing.Point(119, 316);
-            this.btnExportExcelReport.Name = "btnExportExcelReport";
-            this.btnExportExcelReport.Size = new System.Drawing.Size(122, 23);
-            this.btnExportExcelReport.TabIndex = 300;
-            this.btnExportExcelReport.Text = "Xuất báo cáo Excel";
-            this.btnExportExcelReport.UseVisualStyleBackColor = true;
-            this.btnExportExcelReport.Click += new System.EventHandler(this.btnExportExcelReport_Click);
-            // 
             // frmSanLuong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -575,6 +575,10 @@
         private System.Windows.Forms.DataGridView dgvSubtotalByLieuKH;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.Button btnExportExcelReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
@@ -596,9 +600,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.Button btnExportExcelReport;
     }
 }

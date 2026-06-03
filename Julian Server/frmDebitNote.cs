@@ -34,8 +34,8 @@ namespace Julian_Server
             {
                 var lstFiltered = _frmReporter.LstOrderForm.Where(o =>
                     checkedItems.Contains(o.MaKH) &&
-                    o.NgayDat.Date >= fromDate &&
-                    o.NgayDat.Date <= toDate
+                    o.NgayDat?.Date >= fromDate &&
+                    o.NgayDat?.Date <= toDate
                 ).ToList();
 
                 var newData = lstFiltered.Select(o => new ReportItem

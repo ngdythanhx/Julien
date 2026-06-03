@@ -70,12 +70,8 @@ namespace Julian_Server
             var lst = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
             //Production Report
             filterProductionReport_MaKH.SetDataSource(lst);
-            dtpProductionReport_FromDate.Value = _lstOrderForm.Min(o => o.NgayDat);
-            dtpProductionReport_ToDate.Value = _lstOrderForm.Max(o => o.NgayDat);
             //HoiHang
             filterHoiHang_MaKH.SetDataSource(lst);
-            dtpHoiHang_FromDate.Value = _lstOrderForm.Min(o => o.NgayDat);
-            dtpHoiHang_ToDate.Value = _lstOrderForm.Max(o => o.NgayDat);
             var c = sw1.ElapsedMilliseconds;
         }
         private void frmOrderForm_Load(object sender, EventArgs e)
@@ -96,7 +92,7 @@ namespace Julian_Server
                      order.MaDonKH == f.MaDonKH &&
                     order.MaHangKH == f.MaHangKH &&
                     (f.SlDat == -1 || order.SLDat == f.SlDat) &&
-                    (f.NgayGiao == DateTime.MinValue || order.NgayXuat.Date == f.NgayGiao.Date)
+                    (f.NgayGiao == DateTime.MinValue || order.NgayXuat?.Date == f.NgayGiao.Date)
                 )
             ).ToList();
             tcMain.DataSource = new SortableBindingList<OrderForm>(filtered);
@@ -106,8 +102,8 @@ namespace Julian_Server
         {
             _lstProductionReport = _lstOrderForm.Where(o =>
                 filterProductionReport_MaKH.GetItemsChecked().Any(maKh => maKh == o.MaKH) &&
-                o.NgayDat.Date >= dtpProductionReport_FromDate.Value.Date &&
-                o.NgayDat.Date <= dtpProductionReport_ToDate.Value.Date
+                o.NgayDat?.Date >= dtpProductionReport_FromDate.Value.Date &&
+                o.NgayDat?.Date <= dtpProductionReport_ToDate.Value.Date
             ).ToList();
             UpdateProductionReport();
         }
@@ -168,9 +164,9 @@ namespace Julian_Server
         {
             _lstHoiHang = _lstOrderForm.Where(o =>
                 filterProductionReport_MaKH.GetItemsChecked().Any(maKh => maKh == o.MaKH) &&
-                o.NgayDat.Date >= dtpProductionReport_FromDate.Value.Date &&
-                o.NgayDat.Date <= dtpProductionReport_ToDate.Value.Date &&
-                (o.NgayXuat.Date == DateTime.MinValue || o.NgayXuat == null)
+                o.NgayDat?.Date >= dtpProductionReport_FromDate.Value.Date &&
+                o.NgayDat?.Date <= dtpProductionReport_ToDate.Value.Date &&
+                (o.NgayXuat?.Date == DateTime.MinValue || o.NgayXuat == null)
             ).ToList();
             UpdateHoiHang();
         }

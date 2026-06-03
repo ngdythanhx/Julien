@@ -9,7 +9,7 @@ namespace Julian_Server
     public class SanLuong
     {
         public string MaKH { get; set; }
-        public DateTime NgayDat { get; set; }
+        public DateTime? NgayDat { get; set; }
         public string Brand { get; set; }
         public string MaDonKH { get; set; }
         public string MaHangKH { get; set; }
@@ -20,7 +20,7 @@ namespace Julian_Server
         public float Qty { get; set; }
         public string DonViDo { get; set; }
         public float DonGia { get; set; }
-        public DateTime NgayGiao { get; set; }
+        public DateTime? NgayXuat { get; set; }
         public string Season { get; set; }
         public float TongTien { get; set; }
         public string LieuThayThe { get; set; }

@@ -15,7 +15,7 @@ namespace Julian.Database.DTO
     public class OrderForm
     {
         public string MaKH { get; set; }
-        public DateTime NgayDat { get; set; }
+        public DateTime? NgayDat { get; set; }
         public string Brand { get; set; }
         public string PONhuom { get; set; }
         public string PONhuomMoi { get; set; }
@@ -30,7 +30,7 @@ namespace Julian.Database.DTO
         public float DonGia { get; set; }
         public double TongTien { get; set; }
         public string ETD { get; set; }
-        public DateTime NgayXuat { get; set; }
+        public DateTime? NgayXuat { get; set; }
         public string InvoiceHoaDon { get; set; }
         public string InvoicePGH { get; set; }
         public string Article { get; set; }

@@ -23,6 +23,7 @@ namespace Julian_Server
     {
         frmReporter _frmReporter = null;
         List<OrderForm> _lstOrderForm => _frmReporter?.LstOrderForm;
+        List<Vita> _lstVita = null;
         IniManager _iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
         public frmVita(frmReporter frmReporter)
         {
@@ -36,6 +37,39 @@ namespace Julian_Server
                 if (files.Length > 0)
                     cbVitaList.DataSource = files;
             }
+            foreach (var col in dgvSubTotal.Columns.Cast<DataGridViewColumn>())
+            {
+                if (col.Name == "col_checked")
+                    col.ReadOnly = false;
+                else
+                    col.ReadOnly = true;
+            }
+            dgvSubTotal.CurrentCellDirtyStateChanged += (s, e) =>
+            {
+                if (dgvSubTotal.IsCurrentCellDirty)
+                {
+                    dgvSubTotal.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+            };
+            dgvSubTotal.CellValueChanged += (obj, e) =>
+            {
+                if (e.RowIndex < 0)
+                    return;
+
+                if (dgvSubTotal.Columns[e.ColumnIndex].Name == "col_checked")
+                {
+                    var source = dgvSubTotal.DataSource as BindingList<SubtotalData>;
+                    var lstCheked = source.ToList().Where(s => s.Checked).ToList();
+                    var lstVita = _lstVita.Where(v => lstCheked.Any(c => c.MaKH == v.MaKH && c.NgayXuat == v.NgayXuat)).OrderBy(v=>v.MaKH).ThenBy(v=>v.NgayXuat).ToList();
+                    dgvMain.DataSource = lstVita;
+                    var totalQty = lstVita.Sum(order => order.Qty1);
+                    var totalAmount = lstVita.Sum(order => order.TongTien);
+                    var rowCount = lstVita.Count;
+                    lblTotalQty.Text = totalQty.ToString("#,##0.00");
+                    lblTotalAmount.Text = totalAmount.ToString("#,##0.00");
+                    lblTotalRows.Text = rowCount.ToString("#,##0");
+                }
+            };
         }
         public void SetDataSource()
         {
@@ -51,7 +85,7 @@ namespace Julian_Server
         private async void btnApply_Click(object sender, EventArgs e)
         {
             btnApply.Enabled = false;
-
+            _lstVita?.Clear();
             var fromDate = dtpFromDate.Value.Date;
             var toDate = dtpToDate.Value.Date;
             var checkedItems = filterMaKH.GetItemsChecked().ToList();
@@ -64,7 +98,7 @@ namespace Julian_Server
                     o.NgayXuat?.Date <= toDate &&
                     o.DonGia > 0
                 ).ToList();
-                var newData = vitaReport
+                _lstVita = vitaReport
                     .Select(o => new Vita
                     {
                         MaKH = o.MaKH,
@@ -86,10 +120,11 @@ namespace Julian_Server
                     }).Reverse().ToList();
                 //}).OrderBy(o => o.NgayXuat).ToList();
 
-                var totalQty = newData.Sum(order => order.Qty1);
-                var totalAmount = newData.Sum(order => order.TongTien);
-                var subtotal = newData.GroupBy(o => new { o.MaKH, o.NgayXuat }).Select(o => new SubtotalData
+                var totalQty = _lstVita.Sum(order => order.Qty1);
+                var totalAmount = _lstVita.Sum(order => order.TongTien);
+                var subtotal = _lstVita.GroupBy(o => new { o.MaKH, o.NgayXuat }).Select(o => new SubtotalData
                 {
+                    Checked = true,
                     MaKH = o.First().MaKH,
                     NgayXuat = o.First().NgayXuat,
                     Total = o.Sum(x => x.Qty1)
@@ -97,15 +132,14 @@ namespace Julian_Server
 
                 return new
                 {
-                    Data = newData,
                     SubtotalData = subtotal,
                     TotalQty = totalQty,
                     TotalAmount = totalAmount,
-                    TotalRows = newData.Count
+                    TotalRows = _lstVita.Count
                 };
             });
 
-            dgvMain.DataSource = new SortableBindingList<Vita>(result.Data);
+            dgvMain.DataSource = new SortableBindingList<Vita>(_lstVita);
             dgvSubTotal.DataSource = new SortableBindingList<SubtotalData>(result.SubtotalData);
             lblTotalRows.Text = result.TotalRows.ToString("#,##0");
 
@@ -119,6 +153,7 @@ namespace Julian_Server
         }
         private class SubtotalData
         {
+            public bool Checked { get; set; }
             public string MaKH { get; set; }
             public DateTime? NgayXuat { get; set; }
             public double Total { get; set; }
@@ -195,7 +230,7 @@ namespace Julian_Server
                 string filePath = cbVitaList.SelectedValue?.ToString();
                 if (!File.Exists(filePath))
                     return;
-               string tempPath = XoaPivotLoi(filePath);
+                string tempPath = XoaPivotLoi(filePath);
                 var lstVita = await Task.Run(() =>
                 {
                     var lst = new List<Vita>();

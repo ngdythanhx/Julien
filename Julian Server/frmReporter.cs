@@ -1,4 +1,5 @@
-﻿using Julian.Database.DTO;
+﻿using DocumentFormat.OpenXml.Office2010.Drawing;
+using Julian.Database.DTO;
 using Julian.Helper;
 using System;
 using System.Collections.Generic;
@@ -32,11 +33,27 @@ namespace Julian_Server
             dgvMain.AutoGenerateColumns = false;
             dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
-
-
             dgvMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             dgvMain.EnableHeadersVisualStyles = false;
+
+            dgvMain.ColumnWidthChanged += (obj, e) =>
+            {
+                //Rectangle rect = dgvMain.GetCellDisplayRectangle(e.Column.Index, -1, true);
+
+                // textBox1.Width = rect.Width;
+                //textBox1.Location = new Point(rect.X + 5, textBox1.Location.Y);
+                for (int i = 0; i < dgvMain.Columns.Count; i++)
+                {
+                    DataGridViewColumn col = dgvMain.Columns[i];
+                    var textBox = pnlFilter.Controls.OfType<TextBox>().ToArray()[col.Index];
+                    Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
+                    textBox.Width = rect.Width;
+                    textBox.Location = new Point(rect.X + 2, 0);
+                }
+            };
+            dgvMain.Scroll += dgvMain_Scroll;
+
         }
 
         private void frmReporter_Shown(object sender, EventArgs e)
@@ -52,8 +69,27 @@ namespace Julian_Server
         {
             _lstOrderForm = lstOrderForm;
             var dt = ConvertData.ToDataTable(_lstOrderForm);
+            dt.CaseSensitive = false;
             _bindingSource.DataSource = dt;
             dgvMain.DataSource = _bindingSource;
+
+            //
+            /*
+            var source = new AutoCompleteStringCollection();
+
+            source.AddRange(
+                dt.AsEnumerable()
+                  .Select(r => string.Join("\t",
+                      r.ItemArray.Select(x => x?.ToString()?.Trim() ?? "")))
+                  .ToArray()
+            );
+
+            comboBox1.AutoCompleteCustomSource = source;
+            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            comboBox1.DataSource = source;
+            */
+            //
 
             var lst = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
             //HoiHang
@@ -68,6 +104,18 @@ namespace Julian_Server
             LoadForm(_frmVita);
             _frmSanLuong = new frmSanLuong(this);
             LoadForm(_frmSanLuong);
+
+            foreach (DataGridViewColumn col in dgvMain.Columns)
+            {
+                var textbox = new TextBox();
+                textbox.Name = "txt" + col.DataPropertyName;
+                textbox.Tag = col.DataPropertyName;
+                Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
+                textbox.Width = rect.Width;
+                textbox.Location = new Point(rect.X + 2, 0);
+                textbox.TextChanged += textBox_TextChanged;
+                pnlFilter.Controls.Add(textbox);
+            }
         }
         private void LoadForm(Form frm)
         {
@@ -117,7 +165,7 @@ namespace Julian_Server
         }
         private void chkFilerUnitPrice_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
         private void UpdateHoiHang()
         {
@@ -137,13 +185,13 @@ namespace Julian_Server
         }
         private void btnHoiHang_Apply_Click(object sender, EventArgs e)
         {
-          /*  _lstHoiHang = _lstOrderForm.Where(o =>
-                filterProductionReport_MaKH.GetItemsChecked().Any(maKh => maKh == o.MaKH) &&
-                o.NgayDat.Date >= dtpProductionReport_FromDate.Value.Date &&
-                o.NgayDat.Date <= dtpProductionReport_ToDate.Value.Date &&
-                (o.NgayXuat.Date == DateTime.MinValue || o.NgayXuat == null)
-            ).ToList();
-            UpdateHoiHang();*/
+            /*  _lstHoiHang = _lstOrderForm.Where(o =>
+                  filterProductionReport_MaKH.GetItemsChecked().Any(maKh => maKh == o.MaKH) &&
+                  o.NgayDat.Date >= dtpProductionReport_FromDate.Value.Date &&
+                  o.NgayDat.Date <= dtpProductionReport_ToDate.Value.Date &&
+                  (o.NgayXuat.Date == DateTime.MinValue || o.NgayXuat == null)
+              ).ToList();
+              UpdateHoiHang();*/
         }
 
         private void btnHoiHang_ThemTienDo_Click(object sender, EventArgs e)
@@ -152,6 +200,78 @@ namespace Julian_Server
             {
                 return;
             }
+        }
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_bindingSource.DataSource is not DataTable dt)
+                return;
+            List<string> conditions = new();
+            foreach (var textBox in pnlFilter.Controls.OfType<TextBox>())
+            {
+                if (!string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    string value = textBox.Text.Replace("'", "''");
+                    conditions.Add($"Convert([{textBox.Name.Substring(3)}], 'System.String') LIKE '%{value}%'");
+                }
+            }
+            var a = string.Join(" AND ", conditions);
+            dt.DefaultView.RowFilter = string.Join(" AND ", conditions);
+        }
+        private void dgvMain_Scroll(object sender, ScrollEventArgs e)
+        {
+            if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+            {
+                UpdateFilterPosition();
+            }
+        }
+        private void dgvMain_LayoutChanged(object sender, EventArgs e)
+        {
+            UpdateFilterPosition();
+        }
+        private void UpdateFilterPosition()
+        {
+            var lstTextBox = pnlFilter.Controls.OfType<TextBox>().ToList();
+            for(int i=0;i<lstTextBox.Count;i++)
+            {
+                TextBox textBox = lstTextBox[i];
+                var col = dgvMain.Columns[i];
+
+                Rectangle rect = dgvMain.GetCellDisplayRectangle(
+                    col.Index,
+                    -1,
+                    true);
+
+                textBox.SetBounds(
+                    rect.X+2,
+                    0,
+                    rect.Width,
+                    pnlFilter.Height);
+
+                textBox.Visible = rect.Width > 0;
+            }
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            /*   if (_bindingSource.DataSource is not DataTable dt)
+                   return;
+
+               string keyword = textBox1.Text.Trim();
+
+               if (string.IsNullOrEmpty(keyword))
+               {
+                   dt.DefaultView.RowFilter = "";
+                   return;
+               }
+
+               // Escape ký tự đặc biệt
+               keyword = keyword.Replace("'", "''");
+
+               var filters = dt.Columns
+                   .Cast<DataColumn>()
+                   .Select(c => $"CONVERT([{c.ColumnName}], 'System.String') LIKE '%{keyword}%'");
+
+               dt.DefaultView.RowFilter = string.Join(" OR ", filters);
+            */
         }
     }
 }

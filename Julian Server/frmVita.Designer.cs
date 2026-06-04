@@ -37,27 +37,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvMain = new System.Windows.Forms.DataGridView();
-            this.lblTotalRows = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.btnApply = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.dtpToDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
-            this.lblTotalAmount = new System.Windows.Forms.Label();
-            this.lblTotalQty = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnCopyData = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnLoadVita = new System.Windows.Forms.Button();
-            this.cbVitaList = new System.Windows.Forms.ComboBox();
-            this.filterMaKH = new Julian_Server.ucFilter();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,7 +58,25 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblTotalRows = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpToDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
+            this.lblTotalAmount = new System.Windows.Forms.Label();
+            this.lblTotalQty = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCopyData = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnLoadVita = new System.Windows.Forms.Button();
+            this.cbVitaList = new System.Windows.Forms.ComboBox();
             this.dgvSubTotal = new System.Windows.Forms.DataGridView();
+            this.filterMaKH = new Julian_Server.ucFilter();
+            this.col_checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -124,164 +126,12 @@
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvMain.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvMain.GridColor = System.Drawing.SystemColors.Control;
-            this.dgvMain.Location = new System.Drawing.Point(380, 26);
+            this.dgvMain.Location = new System.Drawing.Point(395, 26);
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.ReadOnly = true;
             this.dgvMain.RowHeadersWidth = 30;
-            this.dgvMain.Size = new System.Drawing.Size(1064, 241);
+            this.dgvMain.Size = new System.Drawing.Size(1049, 241);
             this.dgvMain.TabIndex = 272;
-            // 
-            // lblTotalRows
-            // 
-            this.lblTotalRows.AutoSize = true;
-            this.lblTotalRows.Location = new System.Drawing.Point(433, 274);
-            this.lblTotalRows.Margin = new System.Windows.Forms.Padding(3);
-            this.lblTotalRows.Name = "lblTotalRows";
-            this.lblTotalRows.Size = new System.Drawing.Size(13, 13);
-            this.lblTotalRows.TabIndex = 271;
-            this.lblTotalRows.Text = "0";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(377, 274);
-            this.label10.Margin = new System.Windows.Forms.Padding(3);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 13);
-            this.label10.TabIndex = 270;
-            this.label10.Text = "Số dòng:";
-            // 
-            // btnApply
-            // 
-            this.btnApply.Location = new System.Drawing.Point(6, 316);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(98, 23);
-            this.btnApply.TabIndex = 267;
-            this.btnApply.Text = "Áp dụng";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(116, 10);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 13);
-            this.label6.TabIndex = 264;
-            this.label6.Text = "Bảng báo cáo";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 274);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 265;
-            this.label1.Text = "Đến ngày";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 231);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 13);
-            this.label5.TabIndex = 266;
-            this.label5.Text = "Từ ngày";
-            // 
-            // dtpToDate
-            // 
-            this.dtpToDate.CustomFormat = "yyyy/MM/dd";
-            this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpToDate.Location = new System.Drawing.Point(6, 290);
-            this.dtpToDate.Name = "dtpToDate";
-            this.dtpToDate.Size = new System.Drawing.Size(98, 20);
-            this.dtpToDate.TabIndex = 262;
-            // 
-            // dtpFromDate
-            // 
-            this.dtpFromDate.CustomFormat = "yyyy/MM/dd";
-            this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFromDate.Location = new System.Drawing.Point(6, 247);
-            this.dtpFromDate.Name = "dtpFromDate";
-            this.dtpFromDate.Size = new System.Drawing.Size(98, 20);
-            this.dtpFromDate.TabIndex = 263;
-            // 
-            // lblTotalAmount
-            // 
-            this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.Location = new System.Drawing.Point(746, 275);
-            this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(28, 13);
-            this.lblTotalAmount.TabIndex = 274;
-            this.lblTotalAmount.Text = "0.00";
-            // 
-            // lblTotalQty
-            // 
-            this.lblTotalQty.AutoSize = true;
-            this.lblTotalQty.Location = new System.Drawing.Point(582, 274);
-            this.lblTotalQty.Name = "lblTotalQty";
-            this.lblTotalQty.Size = new System.Drawing.Size(28, 13);
-            this.lblTotalQty.TabIndex = 275;
-            this.lblTotalQty.Text = "0.00";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(498, 274);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 270;
-            this.label2.Text = "Tổng số lượng:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(671, 275);
-            this.label3.Margin = new System.Windows.Forms.Padding(3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 270;
-            this.label3.Text = "Tổng số tiền:";
-            // 
-            // btnCopyData
-            // 
-            this.btnCopyData.Location = new System.Drawing.Point(119, 287);
-            this.btnCopyData.Name = "btnCopyData";
-            this.btnCopyData.Size = new System.Drawing.Size(122, 23);
-            this.btnCopyData.TabIndex = 276;
-            this.btnCopyData.Text = "Sao chép dữ liệu";
-            this.btnCopyData.UseVisualStyleBackColor = true;
-            this.btnCopyData.Click += new System.EventHandler(this.btnCopyData_Click);
-            // 
-            // btnLoadVita
-            // 
-            this.btnLoadVita.Location = new System.Drawing.Point(119, 316);
-            this.btnLoadVita.Name = "btnLoadVita";
-            this.btnLoadVita.Size = new System.Drawing.Size(122, 23);
-            this.btnLoadVita.TabIndex = 277;
-            this.btnLoadVita.Text = "Load Vita";
-            this.btnLoadVita.UseVisualStyleBackColor = true;
-            this.btnLoadVita.Click += new System.EventHandler(this.btnLoadVita_Click);
-            // 
-            // cbVitaList
-            // 
-            this.cbVitaList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbVitaList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVitaList.FormattingEnabled = true;
-            this.cbVitaList.Location = new System.Drawing.Point(247, 318);
-            this.cbVitaList.Name = "cbVitaList";
-            this.cbVitaList.Size = new System.Drawing.Size(1197, 21);
-            this.cbVitaList.TabIndex = 278;
-            // 
-            // filterMaKH
-            // 
-            this.filterMaKH.FilterText = "Mã Khách Hàng";
-            this.filterMaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterMaKH.Name = "filterMaKH";
-            this.filterMaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterMaKH.TabIndex = 273;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -418,6 +268,150 @@
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             // 
+            // lblTotalRows
+            // 
+            this.lblTotalRows.AutoSize = true;
+            this.lblTotalRows.Location = new System.Drawing.Point(448, 273);
+            this.lblTotalRows.Margin = new System.Windows.Forms.Padding(3);
+            this.lblTotalRows.Name = "lblTotalRows";
+            this.lblTotalRows.Size = new System.Drawing.Size(13, 13);
+            this.lblTotalRows.TabIndex = 271;
+            this.lblTotalRows.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(392, 273);
+            this.label10.Margin = new System.Windows.Forms.Padding(3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(50, 13);
+            this.label10.TabIndex = 270;
+            this.label10.Text = "Số dòng:";
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(6, 316);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(98, 23);
+            this.btnApply.TabIndex = 267;
+            this.btnApply.Text = "Áp dụng";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(116, 10);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 13);
+            this.label6.TabIndex = 264;
+            this.label6.Text = "Bảng báo cáo";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 273);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 265;
+            this.label1.Text = "Đến ngày";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 231);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 266;
+            this.label5.Text = "Từ ngày";
+            // 
+            // dtpToDate
+            // 
+            this.dtpToDate.CustomFormat = "yyyy/MM/dd";
+            this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpToDate.Location = new System.Drawing.Point(6, 289);
+            this.dtpToDate.Name = "dtpToDate";
+            this.dtpToDate.Size = new System.Drawing.Size(98, 20);
+            this.dtpToDate.TabIndex = 262;
+            // 
+            // dtpFromDate
+            // 
+            this.dtpFromDate.CustomFormat = "yyyy/MM/dd";
+            this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFromDate.Location = new System.Drawing.Point(6, 247);
+            this.dtpFromDate.Name = "dtpFromDate";
+            this.dtpFromDate.Size = new System.Drawing.Size(100, 20);
+            this.dtpFromDate.TabIndex = 263;
+            // 
+            // lblTotalAmount
+            // 
+            this.lblTotalAmount.AutoSize = true;
+            this.lblTotalAmount.Location = new System.Drawing.Point(761, 274);
+            this.lblTotalAmount.Name = "lblTotalAmount";
+            this.lblTotalAmount.Size = new System.Drawing.Size(28, 13);
+            this.lblTotalAmount.TabIndex = 274;
+            this.lblTotalAmount.Text = "0.00";
+            // 
+            // lblTotalQty
+            // 
+            this.lblTotalQty.AutoSize = true;
+            this.lblTotalQty.Location = new System.Drawing.Point(597, 273);
+            this.lblTotalQty.Name = "lblTotalQty";
+            this.lblTotalQty.Size = new System.Drawing.Size(28, 13);
+            this.lblTotalQty.TabIndex = 275;
+            this.lblTotalQty.Text = "0.00";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(513, 273);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 270;
+            this.label2.Text = "Tổng số lượng:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(686, 274);
+            this.label3.Margin = new System.Windows.Forms.Padding(3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 270;
+            this.label3.Text = "Tổng số tiền:";
+            // 
+            // btnCopyData
+            // 
+            this.btnCopyData.Location = new System.Drawing.Point(119, 287);
+            this.btnCopyData.Name = "btnCopyData";
+            this.btnCopyData.Size = new System.Drawing.Size(122, 23);
+            this.btnCopyData.TabIndex = 276;
+            this.btnCopyData.Text = "Sao chép dữ liệu";
+            this.btnCopyData.UseVisualStyleBackColor = true;
+            this.btnCopyData.Click += new System.EventHandler(this.btnCopyData_Click);
+            // 
+            // btnLoadVita
+            // 
+            this.btnLoadVita.Location = new System.Drawing.Point(119, 316);
+            this.btnLoadVita.Name = "btnLoadVita";
+            this.btnLoadVita.Size = new System.Drawing.Size(122, 23);
+            this.btnLoadVita.TabIndex = 277;
+            this.btnLoadVita.Text = "Load Vita";
+            this.btnLoadVita.UseVisualStyleBackColor = true;
+            this.btnLoadVita.Click += new System.EventHandler(this.btnLoadVita_Click);
+            // 
+            // cbVitaList
+            // 
+            this.cbVitaList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbVitaList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVitaList.FormattingEnabled = true;
+            this.cbVitaList.Location = new System.Drawing.Point(247, 317);
+            this.cbVitaList.Name = "cbVitaList";
+            this.cbVitaList.Size = new System.Drawing.Size(1197, 21);
+            this.cbVitaList.TabIndex = 278;
+            // 
             // dgvSubTotal
             // 
             this.dgvSubTotal.AllowUserToAddRows = false;
@@ -433,66 +427,85 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvSubTotal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvSubTotal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_checked,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubTotal.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubTotal.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvSubTotal.GridColor = System.Drawing.SystemColors.Control;
             this.dgvSubTotal.Location = new System.Drawing.Point(119, 26);
             this.dgvSubTotal.Name = "dgvSubTotal";
-            this.dgvSubTotal.ReadOnly = true;
             this.dgvSubTotal.RowHeadersVisible = false;
             this.dgvSubTotal.RowHeadersWidth = 30;
-            this.dgvSubTotal.Size = new System.Drawing.Size(255, 241);
+            this.dgvSubTotal.Size = new System.Drawing.Size(270, 241);
             this.dgvSubTotal.TabIndex = 272;
+            // 
+            // filterMaKH
+            // 
+            this.filterMaKH.FilterText = "Mã Khách Hàng";
+            this.filterMaKH.Location = new System.Drawing.Point(6, 6);
+            this.filterMaKH.Name = "filterMaKH";
+            this.filterMaKH.Size = new System.Drawing.Size(100, 222);
+            this.filterMaKH.TabIndex = 292;
+            // 
+            // col_checked
+            // 
+            this.col_checked.DataPropertyName = "Checked";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.NullValue = false;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Window;
+            this.col_checked.DefaultCellStyle = dataGridViewCellStyle9;
+            this.col_checked.HeaderText = "";
+            this.col_checked.Name = "col_checked";
+            this.col_checked.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_checked.Width = 30;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "MaKH";
             this.dataGridViewTextBoxColumn2.HeaderText = "Mã KH";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.Width = 50;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "NgayXuat";
-            dataGridViewCellStyle9.Format = "yyyy-MM-dd";
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle10.Format = "yyyy-MM-dd";
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewTextBoxColumn4.HeaderText = "Ngày xuất";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 95;
+            this.dataGridViewTextBoxColumn4.Width = 90;
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "Total";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "#,##0.00";
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "#,##0.00";
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridViewTextBoxColumn5.HeaderText = "Total";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 85;
+            this.dataGridViewTextBoxColumn5.Width = 80;
             // 
             // frmVita
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1450, 350);
+            this.Controls.Add(this.filterMaKH);
             this.Controls.Add(this.cbVitaList);
             this.Controls.Add(this.btnLoadVita);
             this.Controls.Add(this.btnCopyData);
             this.Controls.Add(this.lblTotalAmount);
             this.Controls.Add(this.lblTotalQty);
-            this.Controls.Add(this.filterMaKH);
             this.Controls.Add(this.dgvSubTotal);
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.lblTotalRows);
@@ -517,8 +530,6 @@
         }
 
         #endregion
-
-        private ucFilter filterMaKH;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.Label lblTotalRows;
         private System.Windows.Forms.Label label10;
@@ -553,6 +564,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridView dgvSubTotal;
+        private ucFilter filterMaKH;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn col_checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;

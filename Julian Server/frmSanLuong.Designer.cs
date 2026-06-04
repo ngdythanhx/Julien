@@ -57,9 +57,6 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvMain = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
-            this.filterMaKH = new Julian_Server.ucFilter();
-            this.btnExportExcelReport = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +78,9 @@
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.filterMaKH = new Julian_Server.ucFilter();
+            this.btnExportExcelReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubtotalByLieuKH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.SuspendLayout();
@@ -165,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 277);
+            this.label1.Location = new System.Drawing.Point(6, 274);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 282;
@@ -174,7 +174,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 234);
+            this.label5.Location = new System.Drawing.Point(6, 231);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 283;
@@ -327,33 +327,6 @@
             this.dgvMain.RowHeadersWidth = 30;
             this.dgvMain.Size = new System.Drawing.Size(1013, 241);
             this.dgvMain.TabIndex = 298;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(428, 10);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 281;
-            this.label4.Text = "Bảng báo cáo";
-            // 
-            // filterMaKH
-            // 
-            this.filterMaKH.FilterText = "Mã Khách Hàng";
-            this.filterMaKH.Location = new System.Drawing.Point(6, 6);
-            this.filterMaKH.Name = "filterMaKH";
-            this.filterMaKH.Size = new System.Drawing.Size(100, 222);
-            this.filterMaKH.TabIndex = 291;
-            // 
-            // btnExportExcelReport
-            // 
-            this.btnExportExcelReport.Location = new System.Drawing.Point(119, 316);
-            this.btnExportExcelReport.Name = "btnExportExcelReport";
-            this.btnExportExcelReport.Size = new System.Drawing.Size(122, 23);
-            this.btnExportExcelReport.TabIndex = 300;
-            this.btnExportExcelReport.Text = "Xuất báo cáo Excel";
-            this.btnExportExcelReport.UseVisualStyleBackColor = true;
-            this.btnExportExcelReport.Click += new System.EventHandler(this.btnExportExcelReport_Click);
             // 
             // dataGridViewTextBoxColumn27
             // 
@@ -521,6 +494,33 @@
             this.Column13.HeaderText = "Tỷ lệ bảo vệ môi trường";
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(428, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 281;
+            this.label4.Text = "Bảng báo cáo";
+            // 
+            // filterMaKH
+            // 
+            this.filterMaKH.FilterText = "Mã Khách Hàng";
+            this.filterMaKH.Location = new System.Drawing.Point(6, 6);
+            this.filterMaKH.Name = "filterMaKH";
+            this.filterMaKH.Size = new System.Drawing.Size(100, 222);
+            this.filterMaKH.TabIndex = 291;
+            // 
+            // btnExportExcelReport
+            // 
+            this.btnExportExcelReport.Location = new System.Drawing.Point(119, 316);
+            this.btnExportExcelReport.Name = "btnExportExcelReport";
+            this.btnExportExcelReport.Size = new System.Drawing.Size(122, 23);
+            this.btnExportExcelReport.TabIndex = 300;
+            this.btnExportExcelReport.Text = "Xuất báo cáo Excel";
+            this.btnExportExcelReport.UseVisualStyleBackColor = true;
+            this.btnExportExcelReport.Click += new System.EventHandler(this.btnExportExcelReport_Click);
             // 
             // frmSanLuong
             // 

@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Julian_Server
@@ -26,6 +27,38 @@ namespace Julian_Server
             _frmReporter = frmReporter;
             dgvMain.AutoGenerateColumns = false;
             dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            UpdateSubtotalLabelPosition(col_subtotal_qty);
+            UpdateSubtotalLabelPosition(col_subtotal_sotien);
+            dgvSubtotalByLieuKH.ColumnWidthChanged += (obj, e) =>
+            {
+                UpdateSubtotalLabelPosition(e.Column);
+            };
+            dgvSubtotalByLieuKH.Scroll += (obj, e) =>
+            {
+                if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+                {
+                    foreach (DataGridViewColumn col in dgvSubtotalByLieuKH.Columns)
+                    {
+                        UpdateSubtotalLabelPosition(col);
+                    }
+                }
+            };
+        }
+        private void UpdateSubtotalLabelPosition( DataGridViewColumn col)
+        {
+            if (col.DataPropertyName == "Qty")
+            {
+                Rectangle rect = dgvSubtotalByLieuKH.GetCellDisplayRectangle(col.Index, -1, true);
+                lblSubtotalQty.Width = rect.Width-3;
+                lblSubtotalQty.Location = new System.Drawing.Point(rect.X+3, 2);
+            }
+            else
+            {
+                Rectangle rect = dgvSubtotalByLieuKH.GetCellDisplayRectangle(col.Index, -1, true);
+                lblSubtotalSoTien.Width = rect.Width-3;
+                lblSubtotalSoTien.Location = new System.Drawing.Point(rect.X+3, 2);
+            }
         }
         public void SetDataSource()
         {
@@ -103,29 +136,34 @@ namespace Julian_Server
                     .OrderBy(x => x.LieuKH)
                     .ToList();
 
-                var totalQty = lst.Sum(order => order.Qty);
-                var totalAmount = lst.Sum(order => order.TongTien);
+                var mainTotalQty = lst.Sum(order => order.Qty);
+                var mainTotalAmount = lst.Sum(order => order.TongTien);
 
+                var subtotalTotalQty = subtotalByLieuKH.Sum(order => order.Qty);
+                var subtotalTotalAmount = subtotalByLieuKH.Sum(order => order.SoTien);
 
                 return new
                 {
-                    Data = lst,
-                    Subtotal = subtotalByLieuKH,
-                    TotalQty = totalQty,
-                    TotalAmount = totalAmount,
-                    TotalRows = data.Count
+                    MainData = lst,
+                    MainTotalQty = mainTotalQty,
+                    MainTotalAmount = mainTotalAmount,
+                    MainTotalRows = data.Count,
+                    SubtotalData = subtotalByLieuKH,
+                    SubtotalTotalQty = subtotalTotalQty,
+                    SubtotalTotalAmount = subtotalTotalAmount,
+                    SubtotalTotalRows = subtotalByLieuKH.Count,
                 };
             });
 
-            dgvMain.DataSource = new SortableBindingList<SanLuong>(result.Data);
+            dgvMain.DataSource = new SortableBindingList<SanLuong>(result.MainData);
 
-            dgvSubtotalByLieuKH.DataSource = new SortableBindingList<SubtotalByLieuKH>(result.Subtotal);
+            dgvSubtotalByLieuKH.DataSource = new SortableBindingList<SubtotalByLieuKH>(result.SubtotalData);
 
-            lblTotalRows.Text = result.TotalRows.ToString("#,##0");
+            lblTotalRows.Text = result.MainTotalRows.ToString("#,##0");
 
-            lblTotalQty.Text = result.TotalQty.ToString("#,##0.00");
+            lblTotalQty.Text = result.MainTotalQty.ToString("#,##0.00");
 
-            lblTotalAmount.Text = result.TotalAmount.ToString("#,##0.00");
+            lblTotalAmount.Text = result.MainTotalAmount.ToString("#,##0.00");
 
             btnApply.Enabled = true;
 

@@ -71,6 +71,15 @@ namespace Julian_Server
                 }
             };
         }
+        private void UpdateSubtotalLabelPosition(DataGridViewColumn col)
+        {
+            if (col.DataPropertyName == "TotalQty")
+            {
+                Rectangle rect = dgvSubTotal.GetCellDisplayRectangle(col.Index, -1, true);
+                //lblSubtotalQty.Width = rect.Width - 3;
+               // lblSubtotalQty.Location = new System.Drawing.Point(rect.X + 3, 2);
+            }
+        }
         public void SetDataSource()
         {
             var lstMaKH = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
@@ -127,7 +136,7 @@ namespace Julian_Server
                     Checked = true,
                     MaKH = o.First().MaKH,
                     NgayXuat = o.First().NgayXuat,
-                    Total = o.Sum(x => x.Qty1)
+                    TotalQty = o.Sum(x => x.Qty1)
                 }).OrderBy(s => s.MaKH).ThenBy(s => s.NgayXuat).ToList();
 
                 return new
@@ -156,7 +165,7 @@ namespace Julian_Server
             public bool Checked { get; set; }
             public string MaKH { get; set; }
             public DateTime? NgayXuat { get; set; }
-            public double Total { get; set; }
+            public double TotalQty { get; set; }
         }
 
         private void CopyDataGridViewToClipboard(DataGridView dgv)

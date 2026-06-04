@@ -39,23 +39,28 @@ namespace Julian_Server
 
             dgvMain.ColumnWidthChanged += (obj, e) =>
             {
-                //Rectangle rect = dgvMain.GetCellDisplayRectangle(e.Column.Index, -1, true);
-
-                // textBox1.Width = rect.Width;
-                //textBox1.Location = new Point(rect.X + 5, textBox1.Location.Y);
-                for (int i = 0; i < dgvMain.Columns.Count; i++)
-                {
-                    DataGridViewColumn col = dgvMain.Columns[i];
-                    var textBox = pnlFilter.Controls.OfType<TextBox>().ToArray()[col.Index];
-                    Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
-                    textBox.Width = rect.Width;
-                    textBox.Location = new Point(rect.X + 2, 0);
-                }
+                UpdateFilterPosition();
             };
-            dgvMain.Scroll += dgvMain_Scroll;
-
+            dgvMain.Scroll += (obj, e) =>
+            {
+                if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+                {
+                    UpdateFilterPosition();
+                }
+            }; 
         }
-
+        private void UpdateFilterPosition()
+        {
+            var lstTextBox = pnlFilter.Controls.OfType<TextBox>().ToList();
+            for (int i = 0; i < lstTextBox.Count; i++)
+            {
+                TextBox textBox = lstTextBox[i];
+                var col = dgvMain.Columns[i];
+                Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
+                textBox.SetBounds(rect.X + 3, 0, rect.Width - 2, pnlFilter.Height);
+                textBox.Visible = rect.Width > 0;
+            }
+        }
         private void frmReporter_Shown(object sender, EventArgs e)
         {
             frmLoadOrderForm frmLoadOrder = new frmLoadOrderForm(this);
@@ -73,28 +78,6 @@ namespace Julian_Server
             _bindingSource.DataSource = dt;
             dgvMain.DataSource = _bindingSource;
 
-            //
-            /*
-            var source = new AutoCompleteStringCollection();
-
-            source.AddRange(
-                dt.AsEnumerable()
-                  .Select(r => string.Join("\t",
-                      r.ItemArray.Select(x => x?.ToString()?.Trim() ?? "")))
-                  .ToArray()
-            );
-
-            comboBox1.AutoCompleteCustomSource = source;
-            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            comboBox1.DataSource = source;
-            */
-            //
-
-            var lst = _lstOrderForm.GroupBy(o => o.MaKH).Select(o => o.First().MaKH).ToList();
-            //HoiHang
-            filterHoiHang_MaKH.SetDataSource(lst);
-
             _frmVita.SetDataSource();
             _frmSanLuong.SetDataSource();
         }
@@ -107,12 +90,11 @@ namespace Julian_Server
 
             foreach (DataGridViewColumn col in dgvMain.Columns)
             {
-                var textbox = new TextBox();
-                textbox.Name = "txt" + col.DataPropertyName;
-                textbox.Tag = col.DataPropertyName;
                 Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
-                textbox.Width = rect.Width;
-                textbox.Location = new Point(rect.X + 2, 0);
+                var textbox = new TextBox();
+                textbox.Tag = col.DataPropertyName;
+                textbox.Width = rect.Width - 2;
+                textbox.Location = new Point(rect.X + 3, 0);
                 textbox.TextChanged += textBox_TextChanged;
                 pnlFilter.Controls.Add(textbox);
             }
@@ -163,26 +145,6 @@ namespace Julian_Server
             dgvMain.DataSource = new SortableBindingList<OrderForm>(filtered);
             //lblProductionReport_TotalRows.Text = dgvMain.Rows.Count.ToString();
         }
-        private void chkFilerUnitPrice_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void UpdateHoiHang()
-        {
-            if (_lstHoiHang == null || _lstHoiHang.Count == 0)
-                return;
-            var newData = _lstHoiHang.Where(o => !string.IsNullOrEmpty(o.PONhuomMoi) && o.PONhuomMoi.Length >= 10 && o.PONhuomMoi.First() == 'P').Select(o => new
-            {
-                o.MaKH,
-                PoNhuom = o.PONhuomMoi,
-                o.NgayDat,
-                Qty = o.SLDat,
-                Lieu = !string.IsNullOrEmpty(o.LieuThayThe) && o.LieuThayThe.Length >= 2 ? o.LieuThayThe : o.LieuKH,
-                Mau = !string.IsNullOrEmpty(o.MauThayThe) && o.MauThayThe.Length >= 2 ? o.MauThayThe : o.MauKH,
-            }).ToList();
-            dgvHoiHang.DataSource = ConvertData.ToDataTable(newData);
-            lblHoiHang_TotalRows.Text = dgvHoiHang.RowCount.ToString("#,##0");
-        }
         private void btnHoiHang_Apply_Click(object sender, EventArgs e)
         {
             /*  _lstHoiHang = _lstOrderForm.Where(o =>
@@ -194,84 +156,42 @@ namespace Julian_Server
               UpdateHoiHang();*/
         }
 
-        private void btnHoiHang_ThemTienDo_Click(object sender, EventArgs e)
-        {
-            if (dgvHoiHang.RowCount == 0)
-            {
-                return;
-            }
-        }
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             if (_bindingSource.DataSource is not DataTable dt)
                 return;
+
             List<string> conditions = new();
-            foreach (var textBox in pnlFilter.Controls.OfType<TextBox>())
+
+            foreach (Control ctrl in pnlFilter.Controls)
             {
-                if (!string.IsNullOrWhiteSpace(textBox.Text))
+                if (string.IsNullOrWhiteSpace(ctrl.Text))
+                    continue;
+
+                string columnName = ctrl.Tag.ToString();
+                string value = ctrl.Text.Trim().Replace("'", "''");
+
+                if (value.Equals("null", StringComparison.OrdinalIgnoreCase))
                 {
-                    string value = textBox.Text.Replace("'", "''");
-                    conditions.Add($"Convert([{textBox.Name.Substring(3)}], 'System.String') LIKE '%{value}%'");
+                    conditions.Add(
+                        $"([{columnName}] IS NULL OR Convert([{columnName}], 'System.String') = '' OR Convert([{columnName}], 'System.String') = 'null')"
+                    );
+                }
+                else if (value.Equals("blank", StringComparison.OrdinalIgnoreCase))
+                {
+                    conditions.Add(
+                        $"([{columnName}] IS NULL OR Convert([{columnName}], 'System.String') = '' OR Convert([{columnName}], 'System.String') = 'blank')"
+                    );
+                }
+                else
+                {
+                    conditions.Add(
+                        $"Convert([{columnName}], 'System.String') LIKE '%{value}%'"
+                    );
                 }
             }
-            var a = string.Join(" AND ", conditions);
+
             dt.DefaultView.RowFilter = string.Join(" AND ", conditions);
-        }
-        private void dgvMain_Scroll(object sender, ScrollEventArgs e)
-        {
-            if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
-            {
-                UpdateFilterPosition();
-            }
-        }
-        private void dgvMain_LayoutChanged(object sender, EventArgs e)
-        {
-            UpdateFilterPosition();
-        }
-        private void UpdateFilterPosition()
-        {
-            var lstTextBox = pnlFilter.Controls.OfType<TextBox>().ToList();
-            for(int i=0;i<lstTextBox.Count;i++)
-            {
-                TextBox textBox = lstTextBox[i];
-                var col = dgvMain.Columns[i];
-
-                Rectangle rect = dgvMain.GetCellDisplayRectangle(
-                    col.Index,
-                    -1,
-                    true);
-
-                textBox.SetBounds(
-                    rect.X+2,
-                    0,
-                    rect.Width,
-                    pnlFilter.Height);
-
-                textBox.Visible = rect.Width > 0;
-            }
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            /*   if (_bindingSource.DataSource is not DataTable dt)
-                   return;
-
-               string keyword = textBox1.Text.Trim();
-
-               if (string.IsNullOrEmpty(keyword))
-               {
-                   dt.DefaultView.RowFilter = "";
-                   return;
-               }
-
-               // Escape ký tự đặc biệt
-               keyword = keyword.Replace("'", "''");
-
-               var filters = dt.Columns
-                   .Cast<DataColumn>()
-                   .Select(c => $"CONVERT([{c.ColumnName}], 'System.String') LIKE '%{keyword}%'");
-
-               dt.DefaultView.RowFilter = string.Join(" OR ", filters);
-            */
         }
     }
 }

@@ -194,6 +194,12 @@
     <Compile Include="frmFilterByText.Designer.cs">
       <DependentUpon>frmFilterByText.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmHoiHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHoiHang.Designer.cs">
+      <DependentUpon>frmHoiHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLoadOrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmFilterByText.resx">
       <DependentUpon>frmFilterByText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHoiHang.resx">
+      <DependentUpon>frmHoiHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLoadOrderForm.resx">
       <DependentUpon>frmLoadOrderForm.cs</DependentUpon>

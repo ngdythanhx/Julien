@@ -222,6 +222,10 @@ namespace Julian_Server
                                     var row = rangeRows[i];
                                     string lieuKh = row.Cell(c.LieuKH).GetString();
                                     lieuKh = lieuKh.Replace(" ", "").Replace("\"", "").Replace("'", "");
+                                    float slDat = -1;
+                                    var tryParseSlDat = row.Cell(c.SLDat).TryGetValue<float>(out  slDat);
+                                    float unitPrice = -1;
+                                    row.Cell(c.DonGia).TryGetValue<float>(out unitPrice);
                                     var order = new OrderForm()
                                     {
                                         MaKH = row.Cell(c.MaKH).GetString(),
@@ -236,12 +240,12 @@ namespace Julian_Server
                                         Kho = row.Cell(c.Kho).TryGetValue<int>(out var w) ? w : -1,
                                         MauKH = row.Cell(c.MauKH).GetString(),
                                         MauThayThe = row.Cell(c.MauThayThe).GetString(),
-                                        SLDat = row.Cell(c.SLDat).TryGetValue<float>(out var slDat) ? slDat : -1,
-                                        DonGia = row.Cell(c.DonGia).TryGetValue<float>(out var unitPrice) ? unitPrice : -1,
-                                        TongTien = row.Cell(c.TongTien).TryGetValue<double>(out var amount) ? amount : -1,
+                                        SLDat = slDat,
+                                        DonGia =unitPrice,
+                                        TongTien = slDat==-1 || unitPrice==-1?0: slDat* unitPrice,
                                         //ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
                                         ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd.ToString("yyyy-MM-dd") : "",
-                                        NgayXuat = row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : null,
+                                        NgayXuat = row.Cell(c.NgayXuat).GetString() == "" ? null : row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,
                                         InvoiceHoaDon = row.Cell(c.InvoiceHoaDon).GetString(),
                                         InvoicePGH = row.Cell(c.InvoicePGH).GetString(),
                                         Article = row.Cell(c.Article).GetString(),
@@ -493,7 +497,7 @@ namespace Julian_Server
                     dgvMain.DataSource = new SortableBindingList<SheetInfo>(_lstSheetInfo);
                 else
                 {
-                    var lst = _lstSheetInfo.Where(s=>s.Employee==curValue).ToList();
+                    var lst = _lstSheetInfo.Where(s => s.Employee == curValue).ToList();
                     dgvMain.DataSource = new SortableBindingList<SheetInfo>(lst);
                 }
             }

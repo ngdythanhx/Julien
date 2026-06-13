@@ -171,5 +171,9 @@ namespace SMTT
             }
         }
 
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

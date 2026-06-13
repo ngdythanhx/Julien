@@ -25,6 +25,7 @@ namespace Julian_Server
 
         frmVita _frmVita = null;
         frmSanLuong _frmSanLuong = null;
+        frmBaoCaoTuan _frmBaoCaoTuan = null;
         public frmReporter()
         {
             InitializeComponent();
@@ -80,6 +81,7 @@ namespace Julian_Server
 
             _frmVita.SetDataSource();
             _frmSanLuong.SetDataSource();
+            _frmBaoCaoTuan.SetDataSource();
         }
         private void frmReporter_Load(object sender, EventArgs e)
         {
@@ -87,7 +89,8 @@ namespace Julian_Server
             LoadForm(_frmVita);
             _frmSanLuong = new frmSanLuong(this);
             LoadForm(_frmSanLuong);
-
+            _frmBaoCaoTuan = new frmBaoCaoTuan(this);
+            LoadForm(_frmBaoCaoTuan);
             foreach (DataGridViewColumn col in dgvMain.Columns)
             {
                 Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);

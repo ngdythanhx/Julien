@@ -37,13 +37,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvMain = new System.Windows.Forms.DataGridView();
-            this.tcMain = new System.Windows.Forms.TabControl();
-            this.tpSanLuong = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tpDebitNote = new System.Windows.Forms.TabPage();
-            this.tpVita = new System.Windows.Forms.TabPage();
-            this.pnlFilter = new System.Windows.Forms.Panel();
             this.col_makh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_ngaydat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,6 +58,13 @@
             this.col_invoicehoadon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_invoicepgh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_article = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tcMain = new System.Windows.Forms.TabControl();
+            this.tpSanLuong = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tpBaoCaoTuan = new System.Windows.Forms.TabPage();
+            this.tpDebitNote = new System.Windows.Forms.TabPage();
+            this.tpVita = new System.Windows.Forms.TabPage();
+            this.pnlFilter = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.tcMain.SuspendLayout();
             this.SuspendLayout();
@@ -104,81 +104,6 @@
             this.dgvMain.Size = new System.Drawing.Size(1572, 343);
             this.dgvMain.TabIndex = 0;
             this.dgvMain.VirtualMode = true;
-            // 
-            // tcMain
-            // 
-            this.tcMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tcMain.Controls.Add(this.tpSanLuong);
-            this.tcMain.Controls.Add(this.tabPage1);
-            this.tcMain.Controls.Add(this.tabPage3);
-            this.tcMain.Controls.Add(this.tpDebitNote);
-            this.tcMain.Controls.Add(this.tpVita);
-            this.tcMain.Location = new System.Drawing.Point(6, 378);
-            this.tcMain.Name = "tcMain";
-            this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(1572, 377);
-            this.tcMain.TabIndex = 227;
-            // 
-            // tpSanLuong
-            // 
-            this.tpSanLuong.Location = new System.Drawing.Point(4, 22);
-            this.tpSanLuong.Name = "tpSanLuong";
-            this.tpSanLuong.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSanLuong.Size = new System.Drawing.Size(1564, 351);
-            this.tpSanLuong.TabIndex = 1;
-            this.tpSanLuong.Text = "Sản lượng";
-            this.tpSanLuong.UseVisualStyleBackColor = true;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1564, 351);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Hối hàng";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1564, 351);
-            this.tabPage3.TabIndex = 3;
-            this.tabPage3.Text = "Báo cáo tuần";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tpDebitNote
-            // 
-            this.tpDebitNote.Location = new System.Drawing.Point(4, 22);
-            this.tpDebitNote.Name = "tpDebitNote";
-            this.tpDebitNote.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDebitNote.Size = new System.Drawing.Size(1564, 351);
-            this.tpDebitNote.TabIndex = 4;
-            this.tpDebitNote.Text = "Công nợ";
-            this.tpDebitNote.UseVisualStyleBackColor = true;
-            // 
-            // tpVita
-            // 
-            this.tpVita.Location = new System.Drawing.Point(4, 22);
-            this.tpVita.Name = "tpVita";
-            this.tpVita.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVita.Size = new System.Drawing.Size(1564, 351);
-            this.tpVita.TabIndex = 5;
-            this.tpVita.Text = "Vita";
-            this.tpVita.UseVisualStyleBackColor = true;
-            // 
-            // pnlFilter
-            // 
-            this.pnlFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlFilter.Location = new System.Drawing.Point(4, 4);
-            this.pnlFilter.Margin = new System.Windows.Forms.Padding(1);
-            this.pnlFilter.Name = "pnlFilter";
-            this.pnlFilter.Size = new System.Drawing.Size(1576, 21);
-            this.pnlFilter.TabIndex = 228;
             // 
             // col_makh
             // 
@@ -334,6 +259,81 @@
             this.col_article.HeaderText = "Article";
             this.col_article.Name = "col_article";
             // 
+            // tcMain
+            // 
+            this.tcMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tcMain.Controls.Add(this.tpSanLuong);
+            this.tcMain.Controls.Add(this.tabPage1);
+            this.tcMain.Controls.Add(this.tpBaoCaoTuan);
+            this.tcMain.Controls.Add(this.tpDebitNote);
+            this.tcMain.Controls.Add(this.tpVita);
+            this.tcMain.Location = new System.Drawing.Point(6, 378);
+            this.tcMain.Name = "tcMain";
+            this.tcMain.SelectedIndex = 0;
+            this.tcMain.Size = new System.Drawing.Size(1572, 377);
+            this.tcMain.TabIndex = 227;
+            // 
+            // tpSanLuong
+            // 
+            this.tpSanLuong.Location = new System.Drawing.Point(4, 22);
+            this.tpSanLuong.Name = "tpSanLuong";
+            this.tpSanLuong.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSanLuong.Size = new System.Drawing.Size(1564, 351);
+            this.tpSanLuong.TabIndex = 1;
+            this.tpSanLuong.Text = "Sản lượng";
+            this.tpSanLuong.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1564, 351);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Hối hàng";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tpBaoCaoTuan
+            // 
+            this.tpBaoCaoTuan.Location = new System.Drawing.Point(4, 22);
+            this.tpBaoCaoTuan.Name = "tpBaoCaoTuan";
+            this.tpBaoCaoTuan.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBaoCaoTuan.Size = new System.Drawing.Size(1564, 351);
+            this.tpBaoCaoTuan.TabIndex = 3;
+            this.tpBaoCaoTuan.Text = "Báo cáo tuần";
+            this.tpBaoCaoTuan.UseVisualStyleBackColor = true;
+            // 
+            // tpDebitNote
+            // 
+            this.tpDebitNote.Location = new System.Drawing.Point(4, 22);
+            this.tpDebitNote.Name = "tpDebitNote";
+            this.tpDebitNote.Padding = new System.Windows.Forms.Padding(3);
+            this.tpDebitNote.Size = new System.Drawing.Size(1564, 351);
+            this.tpDebitNote.TabIndex = 4;
+            this.tpDebitNote.Text = "Công nợ";
+            this.tpDebitNote.UseVisualStyleBackColor = true;
+            // 
+            // tpVita
+            // 
+            this.tpVita.Location = new System.Drawing.Point(4, 22);
+            this.tpVita.Name = "tpVita";
+            this.tpVita.Padding = new System.Windows.Forms.Padding(3);
+            this.tpVita.Size = new System.Drawing.Size(1564, 351);
+            this.tpVita.TabIndex = 5;
+            this.tpVita.Text = "Vita";
+            this.tpVita.UseVisualStyleBackColor = true;
+            // 
+            // pnlFilter
+            // 
+            this.pnlFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlFilter.Location = new System.Drawing.Point(4, 4);
+            this.pnlFilter.Margin = new System.Windows.Forms.Padding(1);
+            this.pnlFilter.Name = "pnlFilter";
+            this.pnlFilter.Size = new System.Drawing.Size(1576, 21);
+            this.pnlFilter.TabIndex = 228;
+            // 
             // frmReporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,7 +359,7 @@
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tpSanLuong;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpBaoCaoTuan;
         private System.Windows.Forms.TabPage tpDebitNote;
         private System.Windows.Forms.TabPage tpVita;
         private System.Windows.Forms.Panel pnlFilter;

@@ -104,6 +104,7 @@
     <Compile Include="Database\DTO\Material.cs" />
     <Compile Include="Database\DTO\ResponseSP.cs" />
     <Compile Include="Database\DTO\Shipment.cs" />
+    <Compile Include="Database\DTO\XacNhanYVai.cs" />
     <Compile Include="Enums\EmployeeTaskActionType.cs" />
     <Compile Include="Enums\ModelType.cs" />
     <Compile Include="Forms\frmAddOrder.cs">
@@ -172,6 +173,12 @@
     <Compile Include="Forms\frmHoiHang.Designer.cs">
       <DependentUpon>frmHoiHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmHoiHang2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmHoiHang2.Designer.cs">
+      <DependentUpon>frmHoiHang2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,10 +210,21 @@
       <DependentUpon>frmThemVaiMoc.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\IFormHanler.cs" />
+    <Compile Include="Forms\frmXNYVConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmXNYVConfig.Designer.cs">
+      <DependentUpon>frmXNYVConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\ConvertData.cs" />
     <Compile Include="Helper\DBHelper.cs" />
     <Compile Include="Helper\SortableBindingList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\IniManager.cs" />
     <Compile Include="Utils\WinApi.cs" />
   </ItemGroup>
@@ -311,6 +329,9 @@
     <EmbeddedResource Include="Forms\frmHoiHang.resx">
       <DependentUpon>frmHoiHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmHoiHang2.resx">
+      <DependentUpon>frmHoiHang2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMaterial.resx">
       <DependentUpon>frmMaterial.cs</DependentUpon>
     </EmbeddedResource>
@@ -326,6 +347,16 @@
     <EmbeddedResource Include="Forms\frmThemVaiMoc.resx">
       <DependentUpon>frmThemVaiMoc.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmXNYVConfig.resx">
+      <DependentUpon>frmXNYVConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

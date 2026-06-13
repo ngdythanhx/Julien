@@ -320,7 +320,7 @@ namespace Julian_Server
                                             DonVi = row.Cell(vitaConfig.LieuThayThe).GetString(),
                                             DonGia = row.Cell(vitaConfig.DonGia).TryGetValue(out float dongia) ? dongia : 0,
                                             TongTien = row.Cell(vitaConfig.TongTien).TryGetValue(out float tongtien) ? tongtien : -1,
-                                            Invoice = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                            Invoice = row.Cell(vitaConfig.Invoice).GetString(),
                                             MaHangKH = row.Cell(vitaConfig.MaHangKH).GetString(),
                                             T1 = row.Cell(vitaConfig.LieuThayThe).GetString(),
                                         };

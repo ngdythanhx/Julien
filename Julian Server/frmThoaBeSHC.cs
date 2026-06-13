@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Julian.Database.DTO;
@@ -87,6 +88,10 @@ namespace Julian_Server
                         MessageBox.Show("File đang mở, đóng lại trước khi thao tác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+
+
+
+
                     workbook_Order?.Dispose();
                     workbook_Order = null;
                     SetStatus("Đang load OrderForm...");
@@ -96,6 +101,37 @@ namespace Julian_Server
                         _filePath1 = selectedPath;
                         workbook_Order = new XLWorkbook(selectedPath);
                     });
+                    //dsadasdsa
+                    foreach (var ws in workbook_Order.Worksheets)
+                    {
+                        foreach (var cell in ws.CellsUsed())
+                        {
+                            try
+                            {
+                                if(cell.DataType== XLDataType.DateTime)
+                                {
+                                    var a = cell.Value;
+                                    DateTime d;
+                                    if(!cell.TryGetValue(out d))
+                                    {
+                                        Console.WriteLine(
+                                            $"Sheet={ws.Name}, Cell={cell.Address}");
+                                    }
+                                    if(d.Month==2 && d.Day>28)
+                                    {
+                                        Console.WriteLine(
+    $"Sheet={ws.Name}, Cell={cell.Address}");
+                                    }
+                                }    
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(
+                                    $"Sheet={ws.Name}, Cell={cell.Address}");
+                            }
+                        }
+                    }
+                    //dsadsadsa
                     var worksheets = workbook_Order.Worksheets.ToList();
                     lblFileName_OrderForm.Text = fileName;
                     cbSheet.DataSource = worksheets;
@@ -227,6 +263,9 @@ namespace Julian_Server
                 {
                     SetStatus($"Không có dữ liệu trong sheet '{cbSheet.DisplayMember}' OrderForm!");
                 }
+
+
+
                 int totalRows = rangeRows_Order.Length;
                 int count = 0;
                 int found = 0;
@@ -248,6 +287,7 @@ namespace Julian_Server
                         SetStatus($"Tiến trình: {count}/{totalRows} Found: {found}");
                     });
                 });
+
                 dgvData.Refresh();
                 SetStatus("Đang lưu dữ liệu...");
                 await Task.Run(() =>
@@ -260,12 +300,11 @@ namespace Julian_Server
                     string fileName = DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + "_" + Path.GetFileName(_filePath1);
                     string outputFilePath = Path.Combine(outputFolder, fileName);
                     workbook_Order.CalculateMode = XLCalculateMode.Manual;
-                    var sw = Stopwatch.StartNew();
-                    workbook_Order.SaveAs(outputFilePath);
-                    var s = sw.ElapsedMilliseconds;
-                    var sw2 = Stopwatch.StartNew();
-                    workbook_Order.Save();
-                    var s2 = sw2.ElapsedMilliseconds;
+                    // workbook_Order.SaveAs(outputFilePath);
+                    using var ms = new MemoryStream();
+                    workbook_Order.SaveAs(ms);
+
+                    File.WriteAllBytes(outputFilePath, ms.ToArray());
                 });
                 SetStatus($"Xong! Rows:{totalRows} Found:{found}");
             }

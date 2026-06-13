@@ -251,7 +251,7 @@ namespace Julian_Server
 
         private void tsHoiHang_Click(object sender, EventArgs e)
         {
-            frmHoiHang frm = new frmHoiHang();
+            Julian.Forms.frmHoiHang2 frm = new Julian.Forms.frmHoiHang2();
             frm.ShowDialog();
             frm?.Dispose();
         }

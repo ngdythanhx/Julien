@@ -60,8 +60,6 @@
             this.lblProcess = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.col_input_lotid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_input_pocustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_input_itemid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +79,8 @@
             this.col_outboundinvoice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_outboundremarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_outbound = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -129,6 +129,7 @@
             this.btnCopy.TabIndex = 126;
             this.btnCopy.Text = "Sao chép";
             this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // txtPassword
             // 
@@ -304,22 +305,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(1341, 408);
             this.dataGridView1.TabIndex = 10;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 6);
-            this.textBox1.MaxLength = 3276700;
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(367, 224);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // col_input_lotid
             // 
             this.col_input_lotid.DataPropertyName = "Input_LotID";
@@ -483,6 +468,22 @@
             this.col_outbound.HeaderText = "Date";
             this.col_outbound.Name = "col_outbound";
             this.col_outbound.Width = 75;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 6);
+            this.textBox1.MaxLength = 3276700;
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(367, 224);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmFinder
             // 

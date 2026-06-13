@@ -47,7 +47,7 @@ namespace ThuDamBao_LHG
 
             foreach (var line in rawLines)
             {
-                if (Regex.IsMatch(line, @"^\d{7}\t"))
+                if (Regex.IsMatch(line, @"^\d+\w*\t"))
                 {
                     if (current.Length > 0)
                     {

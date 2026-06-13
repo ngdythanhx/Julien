@@ -217,9 +217,9 @@ namespace Julian_Client
 
         private void tsHoiHang_Click(object sender, EventArgs e)
         {
-            frmHoiHang frm = new frmHoiHang();
+         /*   frmHoiHang frm = new frmHoiHang();
             frm.ShowDialog();
-            frm?.Dispose();
+            frm?.Dispose();*/
         }
     }
 }

@@ -286,11 +286,11 @@ namespace SMTT
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dgv.Rows)
             {
                 if (row.IsNewRow) continue;
 
-                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                for (int i = 0; i < dgv.Columns.Count; i++)
                 {
                     string value = row.Cells[i].Value?.ToString() ?? "";
 
@@ -300,7 +300,7 @@ namespace SMTT
 
                     sb.Append(value);
 
-                    if (i < dataGridView1.Columns.Count - 1)
+                    if (i < dgv.Columns.Count - 1)
                         sb.Append("\t");
                 }
 

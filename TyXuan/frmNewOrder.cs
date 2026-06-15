@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using HtmlAgilityPack;
+using System.Text.RegularExpressions;
+using System.Globalization;
+using Spire.Doc.AI.Model;
+using Julian.Utils;
 
 namespace TyXuan
 {
@@ -24,129 +28,152 @@ namespace TyXuan
         {
             InitializeComponent();
             _httpClient = new HttpClient();
+            dgvMain.AutoGenerateColumns = false;
         }
-
+        private class NewOrder
+        {
+            public int ID { get; set; }
+            public DateTime IssueDate { get; set; }
+            public string OrderNumber { get; set; }
+            public string Code { get; set; }
+            public string Description { get; set; }
+            public string Season { get; set; }
+            public float Qty { get; set; }
+            public DateTime RequestDate { get; set; }
+            public List<string> Remarks { get; set; } = new List<string>();
+            public string Remarks_ToString => string.Join("\r\n", Remarks);
+        }
         private async void btnLoad_Click(object sender, EventArgs e)
         {
-            var response = await _httpClient.GetStringAsync(
-                "http://b2b.lacty.com.vn/LVL_B2B/adidas_po_format2.php?po=20260601806");
+            btnLoad.Enabled = false;
+            txtInput.Enabled = false;
+            txtUrl.Enabled = false;
+            try
+            {
+                dgvMain.DataSource = null;
+                await Task.Yield();
+                var response = await _httpClient.GetStringAsync(txtUrl.Text + "?po=" + txtInput.Text);
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(response);
+                //var a = GetDataTable(doc);
+                var lstTable = doc.DocumentNode.SelectNodes("//table");
+                var table = lstTable.OrderBy(XacNhanYVai => XacNhanYVai.InnerLength).Last();
+                var lst = await Task.FromResult(HtmlTableToNewOrderList(table));
+                dgvMain.DataSource = lst;
+                if (lst != null && lst.Count > 0)
+                {
+                    lblIssueDate.Text = lst[0].IssueDate.ToString("yyyy-MM-dd");
+                    lblOrderNumber.Text = lst[0].OrderNumber.ToString();
 
-            var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(response);
-            //var a = GetDataTable(doc);
-            var table = doc.DocumentNode
-                .SelectNodes("//table")
-                .Last();
+                    lblTotalRow.Text = lst.Count.ToString("#,##0");
+                    lblTotalQty.Text = lst.Sum(x => x.Qty).ToString("#,##0.0000");
+                }
+                else
+                {
+                    toolTip1.Show("Không có dữ liệu! Xem lại mã PO", txtInput, txtInput.Width, txtInput.Height - 3, 1500);
+                    lblIssueDate.Text = "...";
+                    lblOrderNumber.Text = "...";
 
-            var rows = ParseTable(table);
-            var a = rows[1];
-            var b = HtmlTableToDataTable(table);
-            var c = HtmlTableToDataTableMerge(table);
+                    lblTotalRow.Text = "0";
+                    lblTotalQty.Text = "0";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi hệ thống!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnLoad.Enabled = true;
+                txtUrl.Enabled = true;
+                txtInput.Enabled = true;
+                this.ActiveControl = txtInput;
+            }
         }
-        public DataTable HtmlTableToDataTableMerge(HtmlNode table)
+        private List<NewOrder> HtmlTableToNewOrderList(HtmlNode table)
         {
-            var dt = new DataTable();
-
-            var trs = table.SelectNodes(".//tr");
-            if (trs == null || trs.Count == 0)
-                return dt;
-
-            // Tìm số cột thực
-            int maxCols = trs.Max(r =>
-                r.SelectNodes("./td|./th")?
-                .Sum(c => c.GetAttributeValue("colspan", 1)) ?? 0);
-
-            for (int i = 0; i < maxCols; i++)
-                dt.Columns.Add($"Col{i}");
-
-            var rowspanMap = new Dictionary<int, (int MasterRow, int Remain)>();
-
-            foreach (var tr in trs)
+            try
             {
-                var dr = dt.NewRow();
+                var rows = table.SelectNodes(".//tr");
+                if (rows == null || rows.Count == 0)
+                    return null;
+                var dt = new DataTable();
+                var headerCells = rows[0].SelectNodes("./th|./td");
 
-                int col = 0;
-
-                // fill rowspan cũ
-                while (rowspanMap.ContainsKey(col))
-                    col++;
-
-                var cells = tr.SelectNodes("./td|./th");
-                if (cells == null)
-                    continue;
-
-                foreach (var cell in cells)
+                foreach (var cell in headerCells)
                 {
-                    while (rowspanMap.ContainsKey(col))
-                        col++;
+                    var colName = HtmlEntity.DeEntitize(cell.InnerText).Trim();
 
-                    string value = HtmlEntity.DeEntitize(cell.InnerText).Trim();
+                    if (string.IsNullOrWhiteSpace(colName))
+                        colName = $"Column{dt.Columns.Count + 1}";
 
-                    int rowspan = cell.GetAttributeValue("rowspan", 1);
-                    int colspan = cell.GetAttributeValue("colspan", 1);
+                    if (dt.Columns.Contains(colName))
+                        colName += "_" + dt.Columns.Count;
 
-                    for (int c = 0; c < colspan; c++)
+                    dt.Columns.Add(colName);
+                }
+
+                foreach (var row in rows.Skip(1))
+                {
+                    var cells = row.SelectNodes("./td");
+
+                    if (cells == null)
+                        continue;
+
+                    var dr = dt.NewRow();
+
+                    for (int i = 0; i < Math.Min(dt.Columns.Count, cells.Count); i++)
                     {
-                        dr[col + c] = value;
-
-                        if (rowspan > 1)
+                        if (cells[i].InnerHtml.Contains("<br"))
                         {
-                            rowspanMap[col + c] =
-                                (dt.Rows.Count, rowspan - 1);
+                            var lst = Regex.Split(cells[i].InnerHtml, @"<br\s*/?>", RegexOptions.IgnoreCase);
+                            lst = lst.Where(x => x.Contains("(")).Select(x => x.Replace("\r", "").Replace("\n", "").Replace("\t", "").Trim()).ToArray();
+                            var a = string.Join("\n", lst);
+                            dr[i] = a;
                         }
+                        else
+                        {
+                            dr[i] = HtmlEntity.DeEntitize(cells[i].InnerText)
+                                .Replace("\r", "")
+                                .Replace("\t", "")
+                                .Trim();
+                        }
+
                     }
 
-                    col += colspan;
+                    dt.Rows.Add(dr);
                 }
-
-                dt.Rows.Add(dr);
-
-                // xử lý rowspan
-                foreach (var key in rowspanMap.Keys.ToList())
+                List<NewOrder> lstNewOrder = new List<NewOrder>();
+                if (dt.Rows.Count > 0)
                 {
-                    var info = rowspanMap[key];
-
-                    string master =
-                        dt.Rows[info.MasterRow][key]?.ToString() ?? "";
-
-                    string current =
-                        dt.Rows[dt.Rows.Count - 1][key]?.ToString() ?? "";
-
-                    if (!string.IsNullOrWhiteSpace(current) &&
-                        current != master)
+                    int id = 1;
+                    foreach (DataRow row in dt.Rows)
                     {
-                        dt.Rows[info.MasterRow][key] =
-                            master + Environment.NewLine + current;
-
-                        dt.Rows[dt.Rows.Count - 1][key] = DBNull.Value;
+                        //var a = row["Issue Date:"].ToString();
+                        //var IssueDate = DateTime.ParseExact(row["Issue Date:"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                        //var RequestDate = DateTime.ParseExact(row["Buyer Request Date"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                        var newOrder = new NewOrder()
+                        {
+                            ID = id++,
+                            IssueDate = DateTime.ParseExact(row["Issue Date:"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None),
+                            OrderNumber = (String)row["Order Number:"],
+                            Code = (String)row["Additional Optional 2"],
+                            Description = (String)row["Additional Optional 3"],
+                            Season = (String)row["Season"],
+                            Qty = float.Parse(row["Order Quantity"].ToString().Replace(",", "")),
+                            RequestDate = DateTime.ParseExact(row["Buyer Request Date"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None),
+                            Remarks = ((String)row["Additional Optional 4"]).Split('\n').ToList(),
+                        };
+                        lstNewOrder.Add(newOrder);
                     }
-
-                    if (info.Remain == 1)
-                        rowspanMap.Remove(key);
-                    else
-                        rowspanMap[key] = (info.MasterRow, info.Remain - 1);
                 }
+                return lstNewOrder;
             }
-
-            // Xóa dòng phụ chỉ chứa dữ liệu rowspan
-            for (int i = dt.Rows.Count - 1; i >= 0; i--)
+            catch
             {
-                bool empty = true;
-
-                foreach (DataColumn col in dt.Columns)
-                {
-                    if (!string.IsNullOrWhiteSpace(dt.Rows[i][col]?.ToString()))
-                    {
-                        empty = false;
-                        break;
-                    }
-                }
-
-                if (empty)
-                    dt.Rows.RemoveAt(i);
+                return null;
             }
-
-            return dt;
         }
         private DataTable HtmlTableToDataTable(HtmlNode table)
         {
@@ -186,16 +213,19 @@ namespace TyXuan
                 {
                     if (cells[i].InnerHtml.Contains("<br"))
                     {
-                        // có br
+                        var lst = Regex.Split(cells[i].InnerHtml, @"<br\s*/?>", RegexOptions.IgnoreCase);
+                        lst = lst.Where(x => x.Contains("(")).Select(x => x.Replace("\r", "").Replace("\n", "").Replace("\t", "").Trim()).ToArray();
+                        var a = string.Join("\r\n", lst);
+                        dr[i] = string.Join("\r\n", lst);
                     }
                     else
                     {
-                        // không có br
+                        dr[i] = HtmlEntity.DeEntitize(cells[i].InnerText)
+                            .Replace("\r", "")
+                            .Replace("\t", "")
+                            .Trim();
                     }
-                    dr[i] = HtmlEntity.DeEntitize(cells[i].InnerText)
-                        .Replace("\r", "")
-                        .Replace("\t", "")
-                        .Trim();
+
                 }
 
                 dt.Rows.Add(dr);
@@ -203,99 +233,11 @@ namespace TyXuan
 
             return dt;
         }
-        private List<List<string>> ParseTable(HtmlNode table)
+        private void frmNewOrder_Load(object sender, EventArgs e)
         {
-            var result = new List<List<string>>();
-            var rowspanMap = new Dictionary<int, (string Value, int RemainRows)>();
-
-            foreach (var tr in table.SelectNodes("./tr"))
-            {
-                var row = new List<string>();
-                int colIndex = 0;
-
-                // fill rowspan từ dòng trước
-                while (rowspanMap.TryGetValue(colIndex, out var rs))
-                {
-                    row.Add(rs.Value);
-
-                    if (rs.RemainRows == 1)
-                        rowspanMap.Remove(colIndex);
-                    else
-                        rowspanMap[colIndex] = (rs.Value, rs.RemainRows - 1);
-
-                    colIndex++;
-                }
-
-                foreach (var cell in tr.SelectNodes("./td|./th") ?? Enumerable.Empty<HtmlNode>())
-                {
-                    while (rowspanMap.TryGetValue(colIndex, out (string Value, int RemainRows) rs))
-                    {
-                        row.Add(rs.Value);
-
-                        if (rs.RemainRows == 1)
-                            rowspanMap.Remove(colIndex);
-                        else
-                            rowspanMap[colIndex] = (rs.Value, rs.RemainRows - 1);
-
-                        colIndex++;
-                    }
-
-                    string value = HtmlEntity.DeEntitize(cell.InnerText).Trim();
-
-                    int colspan = cell.GetAttributeValue("colspan", 1);
-                    int rowspan = cell.GetAttributeValue("rowspan", 1);
-
-                    for (int i = 0; i < colspan; i++)
-                    {
-                        row.Add(value);
-
-                        if (rowspan > 1)
-                            rowspanMap[colIndex] = (value, rowspan - 1);
-
-                        colIndex++;
-                    }
-                }
-
-                result.Add(row);
-            }
-
-            return result;
-        }
-        private DataTable GetDataTable(HtmlAgilityPack.HtmlDocument doc)
-        {
-            var table = new DataTable();
-
-            var rows = doc.DocumentNode.SelectNodes("//table//tr");
-
-            // Header
-            var headers = rows[0].SelectNodes("./td|./th")
-                .Select(x => HtmlEntity.DeEntitize(x.InnerText).Trim())
-                .ToList();
-
-            foreach (var header in headers)
-            {
-                table.Columns.Add(header);
-            }
-
-            // Data
-            foreach (var row in rows.Skip(1))
-            {
-                var cells = row.SelectNodes("./td");
-                if (cells == null)
-                    continue;
-
-                var dr = table.NewRow();
-
-                for (int i = 0; i < Math.Min(table.Columns.Count, cells.Count); i++)
-                {
-                    dr[i] = HtmlEntity.DeEntitize(cells[i].InnerText)
-                        .Replace("&nbsp;", "")
-                        .Trim();
-                }
-
-                table.Rows.Add(dr);
-            }
-            return table;
+            this.ActiveControl = txtInput;
+            IniManager iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
+            txtUrl.Text = iniManager.GetString("TX", "GetNewOrder", "http://b2b.lacty.com.vn/LVL_B2B/adidas_po_format2.php");
         }
     }
 }

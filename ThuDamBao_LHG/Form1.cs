@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -166,6 +167,10 @@ namespace ThuDamBao_LHG
                     if (File.Exists(path))
                     {
                         MessageBox.Show("Tạo thành công!");
+                        StringCollection files = new StringCollection();
+                        files.Add(path.Replace(".docx", ".pdf"));
+
+                        Clipboard.SetFileDropList(files);
                     }
                     else
                     {

@@ -1,29 +1,33 @@
 ﻿using ClosedXML.Excel;
+using HtmlAgilityPack;
 using Julian;
-using Julian.Database.DTO;
+
+using Julian.Utils;
+using Spire.Doc.AI.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using HtmlAgilityPack;
-using System.Text.RegularExpressions;
-using System.Globalization;
-using Spire.Doc.AI.Model;
-using Julian.Utils;
+using TyXuan.LocalDatabase.DTO;
 
 namespace TyXuan
 {
     public partial class frmNewOrder : Form
     {
         HttpClient _httpClient = null;
+        List<Material> _lstMaterial = null;
+        List<Follow> _lstFollow = null;
+        List<Price> _lstPrice = null;
         public frmNewOrder()
         {
             InitializeComponent();
@@ -41,7 +45,39 @@ namespace TyXuan
             public float Qty { get; set; }
             public DateTime RequestDate { get; set; }
             public List<string> Remarks { get; set; } = new List<string>();
-            public string Remarks_ToString => string.Join("\r\n", Remarks);
+
+            //public string Remarks_ToString => string.Join("\r\n", Remarks);
+            public string Remarks_ToString => Remarks.Count == 0 ? "" : Remarks.First().Substring(Remarks.First().IndexOf(')') + 1);
+            public int Width => int.TryParse(Description.Substring(0, 2), out int w) ? w : 0;
+            public string MaterialName
+            {
+                get
+                {
+                    string m = Description.Substring(Description.IndexOf(')') + 1);
+                    m = m.Replace("(V)", "");
+                    m = m.Replace(" ", "");
+                    m = m.Replace("YHS", "YH-S");
+                    m = m.Replace("YHS", "YH-S");
+                    m = m.Replace("YHM", "YH-M");
+                    m = m == "YH-M1093EPM558" ? "YH-M1093EPM5" : m;
+                    return m;
+                }
+            }
+        }
+        private async void GetData()
+        {
+            if (_lstMaterial == null)
+            {
+                _lstMaterial = await Task.FromResult(DAO.DAO.Instance.GetMaterials());
+            }
+            if (_lstFollow == null)
+            {
+                _lstFollow = await Task.FromResult(DAO.DAO.Instance.GetFollows());
+            }
+            if (_lstPrice == null)
+            {
+                _lstPrice = await Task.FromResult(DAO.DAO.Instance.GetPrices());
+            }
         }
         private async void btnLoad_Click(object sender, EventArgs e)
         {
@@ -50,9 +86,10 @@ namespace TyXuan
             txtUrl.Enabled = false;
             try
             {
+                GetData();
                 dgvMain.DataSource = null;
                 await Task.Yield();
-                var response = await _httpClient.GetStringAsync(txtUrl.Text + "?po=" + txtInput.Text);
+                var response = await _httpClient.GetStringAsync(txtUrl.Text + "?po=" + txtInput.Text.Trim());
                 var doc = new HtmlAgilityPack.HtmlDocument();
                 doc.LoadHtml(response);
                 //var a = GetDataTable(doc);
@@ -238,6 +275,72 @@ namespace TyXuan
             this.ActiveControl = txtInput;
             IniManager iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
             txtUrl.Text = iniManager.GetString("TX", "GetNewOrder", "http://b2b.lacty.com.vn/LVL_B2B/adidas_po_format2.php");
+        }
+
+        private void BAOGOI()
+        {
+            var clipboardText = Clipboard.GetText();
+            var lines = clipboardText.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            var lstResult = new List<string>();
+            foreach (string line in lines)
+            {
+                string[] lst = line.Split('\n');
+                string result = "";
+                if (lst.Length > 1 && line.Length >= 2 && line.First() == '\"' && line.Last() == '\"')
+                {
+                    var l = new List<string>();
+                    int n = 1;
+                    for (int i = 0; i < lst.Length; i++)
+                    {
+                        string text = lst[i];
+                        if (string.IsNullOrEmpty(text)|| text== "\"")
+                        {
+                            continue;
+                        }
+                        if (text.ToUpper().Contains("BAO G"))
+                        {
+                            continue;
+                        }
+                        if (i == 0 && text.Length > 1 && text[0] == '\"')
+                        {
+                            text = text.Substring(1);
+                        }
+                        else if (i == lst.Length - 1 && text.Length > 1 && text[text.Length - 1] == '\"')
+                        {
+                            text = text.Substring(0, text.Length - 1);
+                        }
+                        text = Regex.Replace(text, @"^\d+\.+\s*", "");
+                        text = n++.ToString() + "." + text;
+                        /*if (text.ToUpper().Contains("BAO G") && i != lst.Length - 1)
+                        {
+                            continue;
+                        }
+                        if (i == 0 && text.Length >= 3 && text[0] == '"' && char.IsDigit(text[1]) && text[2] == '.')
+                        {
+                            text = (n++) + text.Substring(2);
+                        }
+                        if (i > 0 && text.Length >= 2 && char.IsDigit(text[0]) && text[1] == '.')
+                        {
+                            text = (n++) + text.Substring(1);
+                        }
+                        if (text.ToUpper().Contains("BAO G") && i == lst.Length - 1)
+                        {
+                            //text = "\"";
+                            continue;
+                        }*/
+                        l.Add(text);
+                    }
+                    result = l.Count == 1 ? l[0] : "\"" + string.Join("\n", l) + "\"";
+                }
+                else
+                {
+                    result = line;
+                }
+                lstResult.Add(result);
+            }
+            string x = string.Join("\r\n", lstResult);
+            Clipboard.Clear();
+            Clipboard.SetText(x);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Julian_Server
                 {
                     var source = dgvSubTotal.DataSource as BindingList<SubtotalData>;
                     var lstCheked = source.ToList().Where(s => s.Checked).ToList();
-                    var lstVita = _lstVita.Where(v => lstCheked.Any(c => c.MaKH == v.MaKH && c.NgayXuat == v.NgayXuat)).OrderBy(v=>v.MaKH).ThenBy(v=>v.NgayXuat).ToList();
+                    var lstVita = _lstVita.Where(v => lstCheked.Any(c => c.MaKH == v.MaKH && c.NgayXuat == v.NgayXuat)).OrderBy(v => v.MaKH).ThenBy(v => v.NgayXuat).ToList();
                     dgvMain.DataSource = lstVita;
                     var totalQty = lstVita.Sum(order => order.Qty1);
                     var totalAmount = lstVita.Sum(order => order.TongTien);
@@ -77,7 +77,7 @@ namespace Julian_Server
             {
                 Rectangle rect = dgvSubTotal.GetCellDisplayRectangle(col.Index, -1, true);
                 //lblSubtotalQty.Width = rect.Width - 3;
-               // lblSubtotalQty.Location = new System.Drawing.Point(rect.X + 3, 2);
+                // lblSubtotalQty.Location = new System.Drawing.Point(rect.X + 3, 2);
             }
         }
         public void SetDataSource()
@@ -297,7 +297,7 @@ namespace Julian_Server
                                             vitaConfig.Invoice = cell.Address.ColumnLetter;
                                         else if (cell.GetString().Contains("CODE") && cell.GetString().Contains("MATERIAL"))
                                             vitaConfig.MaHangKH = cell.Address.ColumnLetter;
-                                        else if (cell.GetString().Contains("CODE"))
+                                        else if (cell.GetString().Contains("CODE") && cell.Address.ColumnLetter == "P")
                                             vitaConfig.T1 = cell.Address.ColumnLetter;
 
                                     }
@@ -317,12 +317,12 @@ namespace Julian_Server
                                             MauSac = row.Cell(vitaConfig.MauSac).GetString(),
                                             Qty1 = row.Cell(vitaConfig.Qty1).TryGetValue(out float qty1) ? qty1 : 0,
                                             Qty2 = row.Cell(vitaConfig.Qty2).TryGetValue(out float qty2) ? qty2 : 0,
-                                            DonVi = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                            DonVi = row.Cell(vitaConfig.DonVi).GetString(),
                                             DonGia = row.Cell(vitaConfig.DonGia).TryGetValue(out float dongia) ? dongia : 0,
                                             TongTien = row.Cell(vitaConfig.TongTien).TryGetValue(out float tongtien) ? tongtien : -1,
                                             Invoice = row.Cell(vitaConfig.Invoice).GetString(),
                                             MaHangKH = row.Cell(vitaConfig.MaHangKH).GetString(),
-                                            T1 = row.Cell(vitaConfig.LieuThayThe).GetString(),
+                                            T1 = row.Cell(vitaConfig.T1).GetString(),
                                         };
                                         lst.Add(vita);
                                     }

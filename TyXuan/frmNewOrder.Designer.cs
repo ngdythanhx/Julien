@@ -29,25 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnLoad = new System.Windows.Forms.Button();
             this.dgvMain = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblOrderNumber = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblTotalQty = new System.Windows.Forms.Label();
-            this.lblIssueDate = new System.Windows.Forms.Label();
-            this.txtInput = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtUrl = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblTotalRow = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,9 +43,22 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblOrderNumber = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblTotalQty = new System.Windows.Forms.Label();
+            this.lblIssueDate = new System.Windows.Forms.Label();
+            this.txtInput = new System.Windows.Forms.TextBox();
+            this.btnCopyToOrderForm = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtUrl = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblTotalRow = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.btnCopyToOrderForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -80,14 +81,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMain.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMain.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -97,19 +98,76 @@
             this.Column7,
             this.Column5,
             this.Column6});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvMain.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMain.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvMain.Location = new System.Drawing.Point(6, 132);
             this.dgvMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.Size = new System.Drawing.Size(1172, 422);
             this.dgvMain.TabIndex = 3;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "ID";
+            this.Column1.FillWeight = 5F;
+            this.Column1.HeaderText = "ID";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Code";
+            this.Column2.FillWeight = 15F;
+            this.Column2.HeaderText = "Code";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Description";
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column3.FillWeight = 21F;
+            this.Column3.HeaderText = "Description";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "Qty";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "#,##0.0000";
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Column4.FillWeight = 12F;
+            this.Column4.HeaderText = "Qty";
+            this.Column4.Name = "Column4";
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "Season";
+            this.Column7.FillWeight = 15F;
+            this.Column7.HeaderText = "Season";
+            this.Column7.Name = "Column7";
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "RequestDate";
+            this.Column5.FillWeight = 13F;
+            this.Column5.HeaderText = "RequestDate";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "Remarks_ToString";
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Column6.FillWeight = 17F;
+            this.Column6.HeaderText = "Remarks";
+            this.Column6.Name = "Column6";
             // 
             // label2
             // 
@@ -175,27 +233,37 @@
             this.txtInput.Size = new System.Drawing.Size(184, 25);
             this.txtInput.TabIndex = 5;
             // 
-            // groupBox1
+            // btnCopyToOrderForm
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnCopyToOrderForm.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtUrl);
-            this.groupBox1.Controls.Add(this.txtInput);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.btnLoad);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.lblIssueDate);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.lblTotalRow);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.lblTotalQty);
-            this.groupBox1.Controls.Add(this.lblOrderNumber);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1172, 119);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
+            this.btnCopyToOrderForm.Controls.Add(this.button1);
+            this.btnCopyToOrderForm.Controls.Add(this.label1);
+            this.btnCopyToOrderForm.Controls.Add(this.txtUrl);
+            this.btnCopyToOrderForm.Controls.Add(this.txtInput);
+            this.btnCopyToOrderForm.Controls.Add(this.label6);
+            this.btnCopyToOrderForm.Controls.Add(this.btnLoad);
+            this.btnCopyToOrderForm.Controls.Add(this.label2);
+            this.btnCopyToOrderForm.Controls.Add(this.lblIssueDate);
+            this.btnCopyToOrderForm.Controls.Add(this.label3);
+            this.btnCopyToOrderForm.Controls.Add(this.lblTotalRow);
+            this.btnCopyToOrderForm.Controls.Add(this.label4);
+            this.btnCopyToOrderForm.Controls.Add(this.lblTotalQty);
+            this.btnCopyToOrderForm.Controls.Add(this.lblOrderNumber);
+            this.btnCopyToOrderForm.Location = new System.Drawing.Point(6, 6);
+            this.btnCopyToOrderForm.Name = "btnCopyToOrderForm";
+            this.btnCopyToOrderForm.Size = new System.Drawing.Size(1172, 119);
+            this.btnCopyToOrderForm.TabIndex = 6;
+            this.btnCopyToOrderForm.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(964, 83);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(202, 29);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Sao chép OrderForm";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -234,69 +302,12 @@
             this.lblTotalRow.TabIndex = 4;
             this.lblTotalRow.Text = "0";
             // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "ID";
-            this.Column1.FillWeight = 5F;
-            this.Column1.HeaderText = "ID";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Code";
-            this.Column2.FillWeight = 15F;
-            this.Column2.HeaderText = "Code";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Description";
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Column3.FillWeight = 21F;
-            this.Column3.HeaderText = "Description";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "Qty";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "#,##0.0000";
-            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Column4.FillWeight = 12F;
-            this.Column4.HeaderText = "Qty";
-            this.Column4.Name = "Column4";
-            // 
-            // Column7
-            // 
-            this.Column7.DataPropertyName = "Season";
-            this.Column7.FillWeight = 15F;
-            this.Column7.HeaderText = "Season";
-            this.Column7.Name = "Column7";
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "RequestDate";
-            this.Column5.FillWeight = 13F;
-            this.Column5.HeaderText = "RequestDate";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "Remarks_ToString";
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column6.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Column6.FillWeight = 17F;
-            this.Column6.HeaderText = "Remarks";
-            this.Column6.Name = "Column6";
-            // 
             // frmNewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 561);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnCopyToOrderForm);
             this.Controls.Add(this.dgvMain);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -306,8 +317,8 @@
             this.Text = "frmNewOrder";
             this.Load += new System.EventHandler(this.frmNewOrder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.btnCopyToOrderForm.ResumeLayout(false);
+            this.btnCopyToOrderForm.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -322,7 +333,7 @@
         private System.Windows.Forms.Label lblTotalQty;
         private System.Windows.Forms.Label lblIssueDate;
         private System.Windows.Forms.TextBox txtInput;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox btnCopyToOrderForm;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblTotalRow;
         private System.Windows.Forms.Label label1;
@@ -335,5 +346,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button button1;
     }
 }

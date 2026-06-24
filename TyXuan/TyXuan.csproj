@@ -173,6 +173,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chunk.cs" />
+    <Compile Include="DAO.cs" />
+    <Compile Include="LocalDatabase\DTO\Follow.cs" />
+    <Compile Include="LocalDatabase\DTO\Material.cs" />
+    <Compile Include="LocalDatabase\DTO\Price.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +226,9 @@
       <Project>{8885232c-d67e-4be9-9702-dcc0907e9a15}</Project>
       <Name>Julian</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LocalDatabase\DAO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

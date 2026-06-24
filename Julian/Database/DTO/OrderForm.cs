@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace Julian.Database.DTO
 {
-    public class OrderFormInfo
-    {
-        public string CusCode { get; set; }
-        public string SheetName { get; set; }
-        public string FilePath { get; set; }
-    }
     public class OrderForm
     {
         public string MaKH { get; set; }
@@ -25,6 +19,8 @@ namespace Julian.Database.DTO
         public string LieuThayThe { get; set; }
         public int Kho { get; set; }
         public string MauKH { get; set; }
+        //moi
+        public string TenMauDayDu { get; set; }
         public string MauThayThe { get; set; }
         public float SLDat { get; set; }
         public float DonGia { get; set; }
@@ -39,6 +35,10 @@ namespace Julian.Database.DTO
         public string T1 {  get; set; }
         public string Season {  get; set; }
         public string ETDNote { get; set; }
+        //moi
+        public string Category { get; set; }
+        //moi
+        public string TenGiay { get; set; }
 
     }
 }

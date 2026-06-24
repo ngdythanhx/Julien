@@ -284,7 +284,7 @@
     <Compile Include="frmVitaViewer.Designer.cs">
       <DependentUpon>frmVitaViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderForm.cs" />
+    <Compile Include="OrderFormInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SanLuong.cs" />

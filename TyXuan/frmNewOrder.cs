@@ -84,6 +84,7 @@ namespace TyXuan
             btnLoad.Enabled = false;
             txtInput.Enabled = false;
             txtUrl.Enabled = false;
+            btnCopy.Enabled = false;
             try
             {
                 GetData();
@@ -125,6 +126,7 @@ namespace TyXuan
                 btnLoad.Enabled = true;
                 txtUrl.Enabled = true;
                 txtInput.Enabled = true;
+                btnCopy.Enabled = true;
                 this.ActiveControl = txtInput;
             }
         }
@@ -341,6 +343,25 @@ namespace TyXuan
             string x = string.Join("\r\n", lstResult);
             Clipboard.Clear();
             Clipboard.SetText(x);
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            var data = dgvMain.DataSource as List<NewOrder>;
+            if (data ==null)
+            {
+                toolTip1.Show("Dữ liệu rỗng!", btnCopy, btnCopy.Width, 0, 1500);
+                return;
+            }
+            var lst = new List<string>();
+            foreach (var order in data)
+            {
+                string text = $"{order.IssueDate.ToString("yyyy-MM-dd")}\t{order.OrderNumber}\t{order.Code}\t{order.Qty}\t{order.Description}\t{order.Remarks_ToString}";
+                lst.Add(text);
+            }
+            var result = string.Join("\r\n", lst);
+            Clipboard.SetText(result);
+            toolTip1.Show("Đã sao chép!", btnCopy, btnCopy.Width, 0, 1500);
         }
     }
 }

@@ -195,7 +195,7 @@ namespace HSV
             if (_bindingSource.DataSource is not DataTable dt)
                 return;
             string kh = txtKH.Text;
-            string po = txt.Text;
+            string po = txtKH.Text;
             string art = txtKH.Text;
             List<string> conditions_orderform = new();
             conditions_orderform.Add(

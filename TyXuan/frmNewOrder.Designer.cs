@@ -51,7 +51,7 @@
             this.lblIssueDate = new System.Windows.Forms.Label();
             this.txtInput = new System.Windows.Forms.TextBox();
             this.btnCopyToOrderForm = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCopy = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -237,7 +237,7 @@
             // 
             this.btnCopyToOrderForm.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCopyToOrderForm.Controls.Add(this.button1);
+            this.btnCopyToOrderForm.Controls.Add(this.btnCopy);
             this.btnCopyToOrderForm.Controls.Add(this.label1);
             this.btnCopyToOrderForm.Controls.Add(this.txtUrl);
             this.btnCopyToOrderForm.Controls.Add(this.txtInput);
@@ -256,14 +256,15 @@
             this.btnCopyToOrderForm.TabIndex = 6;
             this.btnCopyToOrderForm.TabStop = false;
             // 
-            // button1
+            // btnCopy
             // 
-            this.button1.Location = new System.Drawing.Point(964, 83);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 29);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Sao chép OrderForm";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCopy.Location = new System.Drawing.Point(964, 83);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(202, 29);
+            this.btnCopy.TabIndex = 7;
+            this.btnCopy.Text = "Sao chép";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // label1
             // 
@@ -346,6 +347,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCopy;
     }
 }

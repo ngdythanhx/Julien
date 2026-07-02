@@ -109,10 +109,16 @@
     <Compile Include="frmXNYV.Designer.cs">
       <DependentUpon>frmXNYV.cs</DependentUpon>
     </Compile>
+    <Compile Include="INV.cs" />
+    <Compile Include="INVHD.cs" />
     <Compile Include="NewPO.cs" />
     <Compile Include="OrderData.cs" />
+    <Compile Include="PKLHD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmNewOrder.resx">
       <DependentUpon>frmNewOrder.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,7 +16,7 @@ namespace KhoHang
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmAutoUpdateKhoHang());
+            Application.Run(new frmKhoHang());
         }
     }
 }

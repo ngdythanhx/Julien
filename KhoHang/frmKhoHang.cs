@@ -112,7 +112,7 @@ namespace KhoHang
         }
         private async void frmKhoHang_Shown(object sender, EventArgs e)
         {
-            string path = @"C:\Users\Thah\Desktop\AI\07月-2026 ton kho (产品).xlsx";
+            string path = @"\\VP_JULIEN\Kho 倉庫\07月-2026 ton kho (产品).xlsx";
             XLWorkbook xLWorkbook = null;
             await Task.Run(async () =>
             {
@@ -295,7 +295,7 @@ namespace KhoHang
                         float slbandau = row.Cell("J").TryGetValue<float>(out float _slbandau) ? _slbandau : 0;
                         float sldauthang = row.Cell("K").TryGetValue<float>(out float _sldauthang) ? _slbandau : 0;
                         float slcuoithang = row.Cell("N").TryGetValue<float>(out float _slcuoithang) ? _slbandau : 0;
-                        string dulieuxuat = row.Cell("I").GetString().Replace(" ", "");
+                        string dulieuxuat = row.Cell("L").GetString().Replace(" ", "");
                         if (string.IsNullOrEmpty(khachhang) ||
                             string.IsNullOrEmpty(lieu) ||
                             string.IsNullOrEmpty(mau) ||

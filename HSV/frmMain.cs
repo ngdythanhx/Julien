@@ -137,7 +137,7 @@ namespace HSV
             {
                 try
                 {
-                    var sheet = wb.Worksheet("INV");
+                    var sheet = wb.Worksheet("INV HĐ");
                     sheet.Cell("E3").Value = $"INV NO.: {dtpCreateDate.Value.ToString("yyyyMMdd")}{cusName}   Date : {dtpCreateDate.Value:MMMM} {GetDaySuffix(dtpCreateDate.Value.Day)}, {dtpCreateDate.Value:yyyy}";
                     var lstINVHD = lstINV.GroupBy(x => x.Description).Select(x => new INVHD()
                     {
@@ -154,7 +154,7 @@ namespace HSV
                         row.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                         row.Cell("O").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                         row.Cell("O").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                        row.Cell("A").Value = i + 1.ToString();
+                        row.Cell("A").Value = (i + 1).ToString();
                         row.Cell("B").Value = cusName == "HSV" ? $"{lstINVHD[i].DESCRIPTION}\nHS CODE : 60069000" : lstINVHD[i].DESCRIPTION;
                         row.Cell("C").Value = lstINVHD[i].COLOR;
                         row.Cell("D").Value = lstINVHD[i].SOLUONG;
@@ -182,7 +182,7 @@ namespace HSV
             {
                 try
                 {
-                    var sheet = wb.Worksheet("PKL");
+                    var sheet = wb.Worksheet("PKL HĐ");
                     sheet.Cell("I3").Value = $"INV NO.: {dtpCreateDate.Value.ToString("yyyyMMdd")}{cusName}   Date : {dtpCreateDate.Value:MMMM} {GetDaySuffix(dtpCreateDate.Value.Day)}, {dtpCreateDate.Value:yyyy}";
                     var lstPKLs = lstINV.GroupBy(x => new { x.Description, x.Thickness }).OrderBy(g => g.Key.Description).Select(a =>
                         a.Select(y => new PKLHD()

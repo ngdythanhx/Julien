@@ -37,7 +37,8 @@ namespace HSV
             {
                 if (
                     decimal.TryParse(item[11].Last() == '.' ? item[11].Substring(0, item[11].Length - 1) : item[11], out decimal qty) &&
-                    int.TryParse(item[13].Replace(",", ""), out int unitPriceVND)
+                    int.TryParse(item[13].Replace(",", ""), out int unitPriceVND)&&
+                    decimal.TryParse(item[17].Last() == '.' ? item[17].Substring(0, item[17].Length - 1) : item[17], out decimal unitPriceUSD) 
                 )
                 {
                     var inv = new INV()
@@ -59,7 +60,7 @@ namespace HSV
                         //AmountVND = item[14],
                         DeliveryDate = item[15],
                         TemCode = item[16],
-                        UnitPriceUSD = item[17],
+                        UnitPriceUSD = unitPriceUSD,
                     };
                     lstINV.Add(inv);
                 }

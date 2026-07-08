@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HSV
 {
-    public class INV
+    public class PKLXE
     {
         public int ID { get; set; }
         public string PO { get; set; }
@@ -18,15 +18,11 @@ namespace HSV
         public string SaleNo { get; set; }
         public string Description { get; set; }
         public string Color { get; set; }
-        public string Pantone { get; set; }
         public string Thickness { get; set; }
         public decimal Qty { get; set; }
-        public string Unit { get; set; }
-        public int UnitPriceVND { get; set; }
-        public decimal AmountVND => Qty * UnitPriceVND;
-        public string DeliveryDate { get; set; }
-        public string TemCode { get; set; }
-        public decimal UnitPriceUSD { get; set; }
-        public string SeasonSMTT { get; set; }
+        public decimal TotalQty { get; set; }
+        public decimal Roll { get; set; }
+        public string Unit => "YARD";
+        public int  RollQty => 1;
     }
 }

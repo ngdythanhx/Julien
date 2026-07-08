@@ -91,6 +91,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmINV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmINV.Designer.cs">
+      <DependentUpon>frmINV.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,9 +119,13 @@
     <Compile Include="INVHD.cs" />
     <Compile Include="NewPO.cs" />
     <Compile Include="OrderData.cs" />
+    <Compile Include="PKLXE.cs" />
     <Compile Include="PKLHD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmINV.resx">
+      <DependentUpon>frmINV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

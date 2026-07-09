@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbCus = new System.Windows.Forms.ComboBox();
             this.dtpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtFilename = new System.Windows.Forms.TextBox();
@@ -72,10 +72,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lsbInput = new System.Windows.Forms.ListBox();
             this.txtInput1 = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rb1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtInput2 = new System.Windows.Forms.TextBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.rb2 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -257,9 +257,9 @@
             this.Column16,
             this.Column17,
             this.Column18});
-            this.dgvMain.Location = new System.Drawing.Point(3, 168);
+            this.dgvMain.Location = new System.Drawing.Point(3, 147);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(1277, 328);
+            this.dgvMain.Size = new System.Drawing.Size(1277, 349);
             this.dgvMain.TabIndex = 297;
             // 
             // Column1
@@ -288,13 +288,13 @@
             this.Column4.DataPropertyName = "MaterialCode";
             this.Column4.HeaderText = "Material Code";
             this.Column4.Name = "Column4";
-            this.Column4.Width = 80;
             // 
             // Column5
             // 
             this.Column5.DataPropertyName = "DyeLot";
             this.Column5.HeaderText = "Dye Lot";
             this.Column5.Name = "Column5";
+            this.Column5.Width = 120;
             // 
             // Column6
             // 
@@ -341,9 +341,9 @@
             // Column12
             // 
             this.Column12.DataPropertyName = "Qty";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "#,##0.000";
-            this.Column12.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "#,##0.000";
+            this.Column12.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column12.HeaderText = "Qty";
             this.Column12.Name = "Column12";
             this.Column12.Width = 65;
@@ -358,9 +358,9 @@
             // Column14
             // 
             this.Column14.DataPropertyName = "UnitPriceVND";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "#,##0";
-            this.Column14.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "#,##0";
+            this.Column14.DefaultCellStyle = dataGridViewCellStyle6;
             this.Column14.HeaderText = "UnitPrice (VND)";
             this.Column14.Name = "Column14";
             this.Column14.Width = 75;
@@ -368,9 +368,9 @@
             // Column15
             // 
             this.Column15.DataPropertyName = "AmountVND";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "#,##0.000";
-            this.Column15.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "#,##0.000";
+            this.Column15.DefaultCellStyle = dataGridViewCellStyle7;
             this.Column15.HeaderText = "Amount (VND)";
             this.Column15.Name = "Column15";
             // 
@@ -389,9 +389,9 @@
             // Column18
             // 
             this.Column18.DataPropertyName = "UnitPriceUSD";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "#,##0";
-            this.Column18.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "#,##0";
+            this.Column18.DefaultCellStyle = dataGridViewCellStyle8;
             this.Column18.HeaderText = "UnitPrice (USD)";
             this.Column18.Name = "Column18";
             this.Column18.Width = 75;
@@ -417,12 +417,13 @@
             // 
             this.groupBox1.Controls.Add(this.lsbInput);
             this.groupBox1.Controls.Add(this.txtInput1);
-            this.groupBox1.Location = new System.Drawing.Point(4, 50);
+            this.groupBox1.Location = new System.Drawing.Point(24, 33);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(260, 112);
+            this.groupBox1.Size = new System.Drawing.Size(256, 112);
             this.groupBox1.TabIndex = 314;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sử dụng RowID";
             // 
             // lsbInput
             // 
@@ -441,29 +442,30 @@
             this.txtInput1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtInput1.Size = new System.Drawing.Size(123, 95);
             this.txtInput1.TabIndex = 315;
+            this.txtInput1.TextChanged += new System.EventHandler(this.txtInput1_TextChanged);
             // 
-            // radioButton1
+            // rb1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(7, 30);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(101, 17);
-            this.radioButton1.TabIndex = 315;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Sử dụng RowID";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rb1.AutoSize = true;
+            this.rb1.Location = new System.Drawing.Point(4, 33);
+            this.rb1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.rb1.Name = "rb1";
+            this.rb1.Size = new System.Drawing.Size(14, 13);
+            this.rb1.TabIndex = 315;
+            this.rb1.TabStop = true;
+            this.rb1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.txtInput2);
-            this.groupBox2.Location = new System.Drawing.Point(270, 50);
+            this.groupBox2.Location = new System.Drawing.Point(316, 33);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1010, 112);
+            this.groupBox2.Size = new System.Drawing.Size(961, 112);
             this.groupBox2.TabIndex = 314;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Sử dụng dữ liệu có sẵn";
             // 
             // txtInput2
             // 
@@ -472,28 +474,28 @@
             this.txtInput2.Location = new System.Drawing.Point(6, 13);
             this.txtInput2.Multiline = true;
             this.txtInput2.Name = "txtInput2";
-            this.txtInput2.Size = new System.Drawing.Size(998, 93);
+            this.txtInput2.Size = new System.Drawing.Size(949, 93);
             this.txtInput2.TabIndex = 0;
+            this.txtInput2.TextChanged += new System.EventHandler(this.txtInput2_TextChanged);
             // 
-            // radioButton2
+            // rb2
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(276, 30);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(120, 17);
-            this.radioButton2.TabIndex = 315;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Sử dụng dữ liệu INV";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rb2.AutoSize = true;
+            this.rb2.Location = new System.Drawing.Point(296, 33);
+            this.rb2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.rb2.Name = "rb2";
+            this.rb2.Size = new System.Drawing.Size(14, 13);
+            this.rb2.TabIndex = 315;
+            this.rb2.TabStop = true;
+            this.rb2.UseVisualStyleBackColor = true;
             // 
             // frmINV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 561);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.rb2);
+            this.Controls.Add(this.rb1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblFilePath);
@@ -544,6 +546,16 @@
         private System.Windows.Forms.Label lblRows;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvMain;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox txtFilePath;
+        private System.Windows.Forms.Label lblFilePath;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListBox lsbInput;
+        private System.Windows.Forms.TextBox txtInput1;
+        private System.Windows.Forms.RadioButton rb1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtInput2;
+        private System.Windows.Forms.RadioButton rb2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -562,15 +574,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TextBox txtFilePath;
-        private System.Windows.Forms.Label lblFilePath;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox lsbInput;
-        private System.Windows.Forms.TextBox txtInput1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtInput2;
-        private System.Windows.Forms.RadioButton radioButton2;
     }
 }

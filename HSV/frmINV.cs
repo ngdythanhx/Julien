@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Julian.Helper;
 using Julian.Utils;
 using System;
@@ -21,14 +22,32 @@ namespace HSV
         public frmINV()
         {
             InitializeComponent();
+
         }
 
         private void frmINV_Load(object sender, EventArgs e)
         {
             cbCus.DataSource = new string[] { "HSV", "HWK" };
             txtFilePath.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(_iniManager.GetString("Default", "OrderFormHSVPath", "")));
+            rb1.CheckedChanged += rb_CheckedChanged;
+            rb2.CheckedChanged += rb_CheckedChanged;
+            rb1.Checked = true;
         }
+        private bool CheckReadWriteFile(string filePath)
+        {
+            try
+            {
+                using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    return true;
+                }
+            }
+            catch (IOException)
+            {
 
+                return false;
+            }
+        }
         private void txtInput_TextChanged(object sender, EventArgs e)
         {
             var data = txtInput1.Text.Replace("\r", "").Split('\n');
@@ -54,22 +73,19 @@ namespace HSV
             XLWorkbook wb_Main = null;
             try
             {
-                var lstID = new List<int>();
-                lstID = lstID.OrderBy(x => x).ToList();
-                foreach (var item in lsbInput.Items)
+                string output = txtFilename.Text;
+                string filePath = $@"OUTPUT\INV\{txtFilename.Text}.xlsx";
+                if (string.IsNullOrEmpty(output) || output.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
                 {
-                    //if (int.TryParse(item.ToString(), out int id) && !lstID.Contains(id))
-                    int id = (int)item;
-                    if (!lstID.Contains(id))
-                    {
-                        lstID.Add(id);
-                    }
-                }
-                if (lstID.Count == 0)
-                {
-                    toolTip1.Show("Chưa có dữ liệu ID!", lsbInput);
+                    toolTip1.Show("Tên file không hợp lệ!", txtFilename);
                     return;
                 }
+                if (File.Exists(filePath) && !CheckReadWriteFile(filePath))
+                {
+                    toolTip1.Show("Có file đã tồn tại đang mở!", txtFilename);
+                    return;
+                }
+                var lstINV = new List<INV>();
                 string cusName = cbCus.SelectedValue.ToString();
                 await Task.Run(() =>
                 {
@@ -81,58 +97,87 @@ namespace HSV
                     toolTip1.Show("Lỗi load template!", btnCreateINVPKL);
                     return;
                 }
-                IXLWorksheet sheet_Main = null;
-                await Task.Run(() =>
+                if (rb1.Checked)
                 {
-                    fs_Main = new FileStream(txtFilePath.Text, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    wb_Main = new XLWorkbook(fs_Main);
-                    sheet_Main = wb_Main.Worksheet(cusName);
-                });
-                if (sheet_Main == null)
-                {
-                    toolTip1.Show("Lỗi load dữ liệu!", btnCreateINVPKL);
-                    return;
-                }
-                //var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList().Where(r => lstID.Contains(r.RangeAddress.LastAddress.RowNumber)).ToList();
-                var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList();
-                var lstINV = new List<INV>();
-                foreach (var id in lstID)
-                {
-                    var row = rangeRows[id - 1];
-                    var inv = new INV()
+                    var lstID = new List<int>();
+                    lstID = lstID.OrderBy(x => x).ToList();
+                    foreach (var item in lsbInput.Items)
                     {
-                        ID = id,
-                        PO = row.Cell("E").GetString(),
-                        BuyMonth = row.Cell("AX").GetString(),
-                        Article = row.Cell("Y").GetString(),
-                        MaterialCode = row.Cell("F").GetString(),
-                        DyeLot = row.Cell("G").GetString(),
-                        HSCode = "60069000",
-                        SaleNo = row.Cell("AT").GetString(),
-                        Description = row.Cell("I").GetString(),
-                        Color = row.Cell("K").GetString(),
-                        Pantone = row.Cell("L").GetString(),
-                        Thickness = row.Cell("AW").GetString(),
-                        Qty = row.Cell("N").TryGetValue<decimal>(out decimal qty) ? qty : -1,
-                        Unit = "YARD",
-                        UnitPriceVND = row.Cell("AV").TryGetValue<int>(out int unitPriceVND) ? unitPriceVND : -1,
-                        //AmountVND=
-                        DeliveryDate = "",
-                        TemCode = "",
-                        UnitPriceUSD = row.Cell("R").TryGetValue<decimal>(out decimal unitPriceUSD) ? unitPriceUSD : -1,
-                        SeasonSMTT = row.Cell("AY").GetString()
-                    };
-                    lstINV.Add(inv);
-                }
+                        int id = (int)item;
+                        if (!lstID.Contains(id))
+                        {
+                            lstID.Add(id);
+                        }
+                    }
+                    if (lstID.Count == 0)
+                    {
+                        toolTip1.Show("Chưa có dữ liệu ID!", lsbInput);
+                        return;
+                    }
 
-                dgvMain.DataSource = new SortableBindingList<INV>(lstINV);
-                if (dgvMain.RowCount == 0)
+                    IXLWorksheet sheet_Main = null;
+                    await Task.Run(() =>
+                    {
+                        fs_Main = new FileStream(txtFilePath.Text, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                        wb_Main = new XLWorkbook(fs_Main);
+                        sheet_Main = wb_Main.Worksheet(cusName);
+                    });
+                    if (sheet_Main == null)
+                    {
+                        toolTip1.Show("Lỗi load dữ liệu!", btnCreateINVPKL);
+                        return;
+                    }
+                    //var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList().Where(r => lstID.Contains(r.RangeAddress.LastAddress.RowNumber)).ToList();
+                    var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList();
+
+                    foreach (var id in lstID)
+                    {
+                        var row = rangeRows[id - 1];
+                        var uPriceUSD = row.Cell("R").TryGetValue<decimal>(out decimal unitPriceUSD) ? unitPriceUSD : -1;
+                        var inv = new INV()
+                        {
+                            ID = id,
+                            PO = row.Cell("E").GetString(),
+                            BuyMonth = row.Cell("AX").GetString(),
+                            Article = row.Cell("Y").GetString(),
+                            MaterialCode = row.Cell("F").GetString(),
+                            DyeLot = row.Cell("G").GetString(),
+                            HSCode = "60069000",
+                            SaleNo = row.Cell("AT").GetString(),
+                            Description = row.Cell("I").GetString(),
+                            Color = row.Cell("K").GetString(),
+                            Pantone = row.Cell("L").GetString(),
+                            Thickness = row.Cell("AW").GetString(),
+                            Qty = row.Cell("N").TryGetValue<decimal>(out decimal qty) ? qty : -1,
+                            Unit = "YARD",
+                            //UnitPriceVND = row.Cell("AV").TryGetValue<int>(out int unitPriceVND) ? unitPriceVND : -1,
+                            UnitPriceVND = Convert.ToInt32(uPriceUSD * 25000),
+                            //AmountVND=
+                            DeliveryDate = "",
+                            TemCode = "",
+                            UnitPriceUSD = uPriceUSD,
+                            SeasonSMTT = row.Cell("AY").GetString()
+                        };
+                        lstINV.Add(inv);
+                    }
+                    dgvMain.DataSource = new SortableBindingList<INV>(lstINV);
+                    if (dgvMain.RowCount == 0)
+                    {
+                        toolTip1.Show("Không có dữ liệu!", btnCreateINVPKL);
+                        return;
+                    }
+                }
+                else
                 {
-                    toolTip1.Show("Không có dữ liệu!", btnCreateINVPKL);
-                    return;
+                    lstINV = (dgvMain.DataSource as BindingList<INV>).ToList();
                 }
-
-                var tasks = await Task.WhenAll(CreateINV(cusName, lstINV, wb_template), CreateINVHD(cusName, lstINV, wb_template), CreatePKLHD(cusName, lstINV, wb_template), CreatePKLXE(cusName, lstINV, wb_template));
+                var tasks = await Task.WhenAll(
+                    CreateINV(cusName, lstINV, wb_template),
+                    CreateINVHD(cusName, lstINV, wb_template),
+                    CreatePKLHD(cusName, lstINV, wb_template),
+                    CreatePKLXE(cusName, lstINV, wb_template),
+                    CreatePKLXE_CLAIM(cusName, lstINV, wb_template)
+                );
                 if (!tasks[0].success)
                 {
                     MessageBox.Show(tasks[0].msg);
@@ -143,7 +188,6 @@ namespace HSV
                     MessageBox.Show(tasks[1].msg);
                     return;
                 }
-                string filePath = $@"OUTPUT\INV\{txtFilename.Text}.xlsx";
                 await Task.Run(() => wb_template.SaveAs(filePath));
                 if (File.Exists(filePath))
                 {
@@ -249,7 +293,7 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("INV HĐ");
                     //sheet.Cell("E3").Value = $"INV NO.: {dtpCreateDate.Value.ToString("yyyyMMdd")}{cusName}   Date : {dtpCreateDate.Value:MMMM} {GetDaySuffix(dtpCreateDate.Value.Day)}, {dtpCreateDate.Value:yyyy}";
-                    var lstINVHD = lstINV.GroupBy(x => x.Description).Select(x => new INVHD()
+                    var lstINVHD = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).GroupBy(x => x.Description).Select(x => new INVHD()
                     {
                         DESCRIPTION = x.First().Description,
                         COLOR = x.Sum(y => y.Qty).ToString("#,##0.000"),
@@ -296,7 +340,7 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("PKL HĐ");
                     //sheet.Cell("I3").Value = $"INV NO.: {dtpCreateDate.Value.ToString("yyyyMMdd")}{cusName}   Date : {dtpCreateDate.Value:MMMM} {GetDaySuffix(dtpCreateDate.Value.Day)}, {dtpCreateDate.Value:yyyy}";
-                    var lstPKLs = lstINV.GroupBy(x => new { x.Description, x.Thickness }).OrderBy(g => g.Key.Description).Select(a =>
+                    var lstPKLs = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).GroupBy(x => new { x.Description, x.Thickness }).OrderBy(g => g.Key.Description).Select(a =>
                         a.Select(y => new PKLHD()
                         {
                             PO = y.PO,
@@ -391,7 +435,7 @@ namespace HSV
                 try
                 {
                     var sheet = wb.Worksheet("PKL KHAI THEO XE");
-                    var lst = lstINV.OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
                     int n = 20;
                     for (int i = 0; i < lst.Count; i++)
                     {
@@ -420,7 +464,61 @@ namespace HSV
                         row.Cell("M").Value = "";
                         row.Cell("N").FormulaA1 = $"=J{n}*0.24";
                         row.Cell("O").FormulaA1 = $"=N{n}+0.2";
-                        row.Cell("M").Value = item.ID;
+                        row.Cell("P").Value = item.ID;
+                    }
+                    n++;
+                    var rowEnd = sheet.Range($"A{n}:P{n}").Row(1);
+                    rowEnd.Cell("J").FormulaA1 = $"=SUBTOTAL(109,J21:J{n - 1})";
+                    rowEnd.Cell("M").FormulaA1 = $"=SUBTOTAL(109,M21:M{n - 1})";
+                    rowEnd.Cell("N").FormulaA1 = $"=SUBTOTAL(109,N21:N{n - 1})";
+                    rowEnd.Cell("O").FormulaA1 = $"=SUBTOTAL(109,O21:O{n - 1})";
+                    return (true, "");
+                }
+                catch (Exception ex)
+                {
+                    return (false, "Lỗi hệ thống: " + ex.Message);
+                }
+            });
+        }
+        private async Task<(bool success, string msg)> CreatePKLXE_CLAIM(string cusName, List<INV> lstINV, XLWorkbook wb)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    var sheet = wb.Worksheet("PKL KHAI THEO XE - CLAIM");
+                    var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    if (lst.Count == 0)
+                        return (true, "");
+                    int n = 20;
+                    for (int i = 0; i < lst.Count; i++)
+                    {
+                        sheet.Row(n++).InsertRowsBelow(1);
+                        var row = sheet.Range($"A{n}:P{n}").Row(1);
+                        row.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        row.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                        row.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        row.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                        row.Style.Font.Bold = false;
+                        var item = lst[i];
+
+                        row.Cell("A").Value = item.PO;
+                        row.Cell("B").Value = item.BuyMonth;
+                        row.Cell("C").Value = item.Article;
+                        row.Cell("D").Value = item.MaterialCode;
+                        row.Cell("E").Value = item.DyeLot;
+                        row.Cell("F").Value = item.HSCode;
+                        row.Cell("G").Value = item.Description;
+                        row.Cell("H").Value = item.Color;
+                        row.Cell("I").Value = item.Thickness;
+                        row.Cell("J").Value = item.Qty;
+                        row.Cell("J").Style.NumberFormat.Format = "#,##0.000";
+                        row.Cell("K").Value = "";
+                        row.Cell("L").Value = "YARD";
+                        row.Cell("M").Value = "";
+                        row.Cell("N").FormulaA1 = $"=J{n}*0.24";
+                        row.Cell("O").FormulaA1 = $"=N{n}+0.2";
+                        row.Cell("P").Value = item.ID;
                     }
                     n++;
                     var rowEnd = sheet.Range($"A{n}:P{n}").Row(1);
@@ -452,6 +550,90 @@ namespace HSV
                 default:
                     return day + "th";
             }
+        }
+
+        private void rb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb1.Checked)
+            {
+                groupBox1.Enabled = true;
+                groupBox2.Enabled = false;
+            }
+            else
+            {
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = true;
+            }
+        }
+
+        private void txtInput1_TextChanged(object sender, EventArgs e)
+        {
+            var data = txtInput1.Text.Replace("\r", "").Split('\n');
+            lsbInput.Items.Clear();
+            dgvMain.DataSource = null;
+            foreach (var item in data)
+            {
+                if (int.TryParse(item.ToString(), out int id))
+                {
+                    lsbInput.Items.Add(id);
+                }
+            }
+        }
+
+        private void txtInput2_TextChanged(object sender, EventArgs e)
+        {
+            string inputText = txtInput2.Text;
+            var inputData = inputText.Split('\n').Select(x => x.Split('\t')).Where(x => x.Length >= 19).ToArray();
+            if (inputData.Length == 0)
+            {
+                toolTip1.Show("Dữ liệu đầu vào không đúng!", txtInput2);
+                return;
+            }
+            var lstINV = new List<INV>();
+            foreach (var item in inputData)
+            {
+                if (
+                    decimal.TryParse(item[12].Last() == '.' ? item[12].Substring(0, item[12].Length - 1) : item[12], out decimal qty) &&
+                    int.TryParse(item[14].Replace(",", ""), out int unitPriceVND) &&
+                    decimal.TryParse(item[18].Last() == '.' ? item[18].Substring(0, item[18].Length - 1) : item[18], out decimal unitPriceUSD)
+                )
+                {
+                    var inv = new INV()
+                    {
+                        ID = int.TryParse(item[0], out int id) ? id : 0,
+                        PO = item[01],
+                        BuyMonth = item[2],
+                        Article = item[3],
+                        MaterialCode = item[4],
+                        DyeLot = item[5],
+                        HSCode = item[6],
+                        SaleNo = item[7],
+                        Description = item[8],
+                        Color = item[9],
+                        Pantone = item[10],
+                        Thickness = item[11],
+                        Qty = qty,
+                        Unit = item[13],
+                        UnitPriceVND = unitPriceVND,
+                        //AmountVND = item[14],
+                        DeliveryDate = item[16],
+                        TemCode = item[17],
+                        UnitPriceUSD = unitPriceUSD,
+                    };
+                    lstINV.Add(inv);
+                }
+            }
+            if (lstINV.Count == 0)
+            {
+                toolTip1.Show("Dữ liệu đầu vào không đúng!", txtInput2);
+                return;
+            }
+            dgvMain.DataSource = new SortableBindingList<INV>(lstINV);
+            lblRows.Text = lstINV.Count.ToString("#,##0");
+            lblTotalQty.Text = lstINV.Sum(x => x.Qty).ToString("#,##0.000");
+            lblTotalAmount.Text = lstINV.Sum(x => x.AmountVND).ToString("#,##0.000");
+            lblGTGT.Text = (lstINV.Sum(x => x.AmountVND) * 0.08m).ToString("#,##0.000");
+            lblGrandTotal.Text = (lstINV.Sum(x => x.AmountVND) * 1.08m).ToString("#,##0.000");
         }
     }
 }

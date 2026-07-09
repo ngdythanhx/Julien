@@ -26,12 +26,12 @@ namespace HSV
         private void frmINV_Load(object sender, EventArgs e)
         {
             cbCus.DataSource = new string[] { "HSV", "HWK" };
-            _iniManager.GetString("Default", "OrderFormHSVPath", "");
+            txtFilePath.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(_iniManager.GetString("Default", "OrderFormHSVPath", "")));
         }
 
         private void txtInput_TextChanged(object sender, EventArgs e)
         {
-            var data = txtInput.Text.Replace("\r", "").Split('\n');
+            var data = txtInput1.Text.Replace("\r", "").Split('\n');
             foreach (var item in data)
             {
                 if (int.TryParse(item.ToString(), out int id))
@@ -42,7 +42,7 @@ namespace HSV
         }
         private async void btnCreateINVPKL_Click(object sender, EventArgs e)
         {
-            txtInput.Enabled = false;
+            txtInput1.Enabled = false;
             cbCus.Enabled = false;
             txtFilename.Enabled = false;
             btnCreateINVPKL.Enabled = false;
@@ -162,7 +162,7 @@ namespace HSV
             }
             finally
             {
-                txtInput.Enabled = true;
+                txtInput1.Enabled = true;
                 cbCus.Enabled = true;
                 txtFilename.Enabled = true;
                 btnCreateINVPKL.Enabled = true;
@@ -358,8 +358,8 @@ namespace HSV
                                 row.Cell("L").Value = "YARD";
                                 row.Cell("M").Value = lstPKL.Count;
                                 row.Cell("M").Style.NumberFormat.Format = "#,##0\" Roll\"";
-                                row.Cell("N").FormulaA1 = $"=SUM(N{n - 15}:N{n - 1})";
-                                row.Cell("O").FormulaA1 = $"=SUM(O{n - 15}:O{n - 1})";
+                                row.Cell("N").FormulaA1 = $"=SUM(N{n - lstPKL.Count}:N{n - 1})";
+                                row.Cell("O").FormulaA1 = $"=SUM(O{n - lstPKL.Count}:O{n - 1})";
                                 lstIndex.Add(n);
                             }
 

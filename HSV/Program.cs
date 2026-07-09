@@ -16,7 +16,7 @@ namespace HSV
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmINV());
+            Application.Run(new frmMain());
         }
     }
 }

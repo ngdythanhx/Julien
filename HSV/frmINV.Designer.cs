@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbCus = new System.Windows.Forms.ComboBox();
             this.dtpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtFilename = new System.Windows.Forms.TextBox();
@@ -70,12 +70,12 @@
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.lblFilePath = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lsbInput = new System.Windows.Forms.ListBox();
+            this.txtInput1 = new System.Windows.Forms.TextBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtInput2 = new System.Windows.Forms.TextBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.lsbInput = new System.Windows.Forms.ListBox();
-            this.txtInput = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -341,9 +341,9 @@
             // Column12
             // 
             this.Column12.DataPropertyName = "Qty";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "#,##0.000";
-            this.Column12.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "#,##0.000";
+            this.Column12.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column12.HeaderText = "Qty";
             this.Column12.Name = "Column12";
             this.Column12.Width = 65;
@@ -358,9 +358,9 @@
             // Column14
             // 
             this.Column14.DataPropertyName = "UnitPriceVND";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "#,##0";
-            this.Column14.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "#,##0";
+            this.Column14.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column14.HeaderText = "UnitPrice (VND)";
             this.Column14.Name = "Column14";
             this.Column14.Width = 75;
@@ -368,9 +368,9 @@
             // Column15
             // 
             this.Column15.DataPropertyName = "AmountVND";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "#,##0.000";
-            this.Column15.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "#,##0.000";
+            this.Column15.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column15.HeaderText = "Amount (VND)";
             this.Column15.Name = "Column15";
             // 
@@ -389,9 +389,9 @@
             // Column18
             // 
             this.Column18.DataPropertyName = "UnitPriceUSD";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "#,##0";
-            this.Column18.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "#,##0";
+            this.Column18.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column18.HeaderText = "UnitPrice (USD)";
             this.Column18.Name = "Column18";
             this.Column18.Width = 75;
@@ -416,13 +416,31 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lsbInput);
-            this.groupBox1.Controls.Add(this.txtInput);
+            this.groupBox1.Controls.Add(this.txtInput1);
             this.groupBox1.Location = new System.Drawing.Point(4, 50);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
             this.groupBox1.Size = new System.Drawing.Size(260, 112);
             this.groupBox1.TabIndex = 314;
             this.groupBox1.TabStop = false;
+            // 
+            // lsbInput
+            // 
+            this.lsbInput.FormattingEnabled = true;
+            this.lsbInput.Location = new System.Drawing.Point(134, 13);
+            this.lsbInput.Name = "lsbInput";
+            this.lsbInput.Size = new System.Drawing.Size(120, 95);
+            this.lsbInput.TabIndex = 316;
+            // 
+            // txtInput1
+            // 
+            this.txtInput1.Location = new System.Drawing.Point(5, 13);
+            this.txtInput1.MaxLength = 3276700;
+            this.txtInput1.Multiline = true;
+            this.txtInput1.Name = "txtInput1";
+            this.txtInput1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtInput1.Size = new System.Drawing.Size(123, 95);
+            this.txtInput1.TabIndex = 315;
             // 
             // radioButton1
             // 
@@ -440,12 +458,22 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.txtInput2);
             this.groupBox2.Location = new System.Drawing.Point(270, 50);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1010, 112);
             this.groupBox2.TabIndex = 314;
             this.groupBox2.TabStop = false;
+            // 
+            // txtInput2
+            // 
+            this.txtInput2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInput2.Location = new System.Drawing.Point(6, 13);
+            this.txtInput2.Multiline = true;
+            this.txtInput2.Name = "txtInput2";
+            this.txtInput2.Size = new System.Drawing.Size(998, 93);
+            this.txtInput2.TabIndex = 0;
             // 
             // radioButton2
             // 
@@ -458,34 +486,6 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Sử dụng dữ liệu INV";
             this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // lsbInput
-            // 
-            this.lsbInput.FormattingEnabled = true;
-            this.lsbInput.Location = new System.Drawing.Point(134, 13);
-            this.lsbInput.Name = "lsbInput";
-            this.lsbInput.Size = new System.Drawing.Size(120, 95);
-            this.lsbInput.TabIndex = 316;
-            // 
-            // txtInput
-            // 
-            this.txtInput.Location = new System.Drawing.Point(5, 13);
-            this.txtInput.MaxLength = 3276700;
-            this.txtInput.Multiline = true;
-            this.txtInput.Name = "txtInput";
-            this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtInput.Size = new System.Drawing.Size(123, 95);
-            this.txtInput.TabIndex = 315;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(6, 13);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(998, 93);
-            this.textBox1.TabIndex = 0;
             // 
             // frmINV
             // 
@@ -567,10 +567,10 @@
         private System.Windows.Forms.Label lblFilePath;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lsbInput;
-        private System.Windows.Forms.TextBox txtInput;
+        private System.Windows.Forms.TextBox txtInput1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtInput2;
         private System.Windows.Forms.RadioButton radioButton2;
     }
 }

@@ -170,29 +170,36 @@ namespace Julian_Server
 
         private void CopyDataGridViewToClipboard(DataGridView dgv)
         {
-            StringBuilder sb = new StringBuilder();
-
-            foreach (DataGridViewRow row in dgv.Rows)
+            try
             {
-                if (row.IsNewRow) continue;
+                StringBuilder sb = new StringBuilder();
 
-                for (int i = 0; i < dgv.Columns.Count; i++)
+                foreach (DataGridViewRow row in dgv.Rows)
                 {
-                    string value = row.Cells[i].Value?.ToString() ?? "";
+                    if (row.IsNewRow) continue;
 
-                    if (value.Contains("\n"))
-                        value = "\"" + value + "\"";
+                    for (int i = 0; i < dgv.Columns.Count; i++)
+                    {
+                        string value = row.Cells[i].Value?.ToString() ?? "";
 
-                    sb.Append(value);
+                        if (value.Contains("\n"))
+                            value = "\"" + value + "\"";
 
-                    if (i < dgv.Columns.Count - 1)
-                        sb.Append("\t");
+                        sb.Append(value);
+
+                        if (i < dgv.Columns.Count - 1)
+                            sb.Append("\t");
+                    }
+
+                    sb.Append("\r\n");
                 }
 
-                sb.Append("\r\n");
+                Clipboard.SetText(sb.ToString());
             }
-
-            Clipboard.SetText(sb.ToString());
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Lỗi hệ thống",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
         private void btnCopyData_Click(object sender, EventArgs e)
         {

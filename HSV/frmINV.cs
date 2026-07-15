@@ -22,7 +22,7 @@ namespace HSV
         public frmINV()
         {
             InitializeComponent();
-
+            dgvMain.AutoGenerateColumns = false;
         }
 
         private void frmINV_Load(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace HSV
                         return;
                     }
                     //var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList().Where(r => lstID.Contains(r.RangeAddress.LastAddress.RowNumber)).ToList();
-                    var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList();
+                    var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()+1}").Rows().ToList();
 
                     foreach (var id in lstID)
                     {
@@ -299,7 +299,9 @@ namespace HSV
                         COLOR = x.Sum(y => y.Qty).ToString("#,##0.000"),
                         SOLUONG = x.Sum(y => y.Qty),
                         DONGIA = x.First().UnitPriceVND
-                    }).ToList();
+                    }).OrderBy(x=>x.DESCRIPTION).ToList();
+                    if (lstINVHD.Count == 0)
+                        return (true, "");
                     sheet.Row(19).InsertRowsBelow(lstINVHD.Count);
                     for (int i = 0; i < lstINVHD.Count; i++)
                     {
@@ -436,11 +438,13 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("PKL KHAI THEO XE");
                     var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    if (lst.Count == 0)
+                        return (true, "");
                     int n = 20;
                     for (int i = 0; i < lst.Count; i++)
                     {
                         sheet.Row(n++).InsertRowsBelow(1);
-                        var row = sheet.Range($"A{n}:P{n}").Row(1);
+                        var row = sheet.Range($"A{n}:Q{n}").Row(1);
                         row.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                         row.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                         row.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -465,6 +469,7 @@ namespace HSV
                         row.Cell("N").FormulaA1 = $"=J{n}*0.24";
                         row.Cell("O").FormulaA1 = $"=N{n}+0.2";
                         row.Cell("P").Value = item.ID;
+                        row.Cell("Q").Value = item.Pantone;
                     }
                     n++;
                     var rowEnd = sheet.Range($"A{n}:P{n}").Row(1);
@@ -494,7 +499,7 @@ namespace HSV
                     for (int i = 0; i < lst.Count; i++)
                     {
                         sheet.Row(n++).InsertRowsBelow(1);
-                        var row = sheet.Range($"A{n}:P{n}").Row(1);
+                        var row = sheet.Range($"A{n}:Q{n}").Row(1);
                         row.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                         row.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                         row.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -519,6 +524,7 @@ namespace HSV
                         row.Cell("N").FormulaA1 = $"=J{n}*0.24";
                         row.Cell("O").FormulaA1 = $"=N{n}+0.2";
                         row.Cell("P").Value = item.ID;
+                        row.Cell("Q").Value = item.Pantone;
                     }
                     n++;
                     var rowEnd = sheet.Range($"A{n}:P{n}").Row(1);

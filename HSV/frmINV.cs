@@ -128,7 +128,7 @@ namespace HSV
                         return;
                     }
                     //var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()}").Rows().ToList().Where(r => lstID.Contains(r.RangeAddress.LastAddress.RowNumber)).ToList();
-                    var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max()+1}").Rows().ToList();
+                    var rangeRows = sheet_Main.Range($"A1:BA{lstID.Max() + 1}").Rows().ToList();
 
                     foreach (var id in lstID)
                     {
@@ -211,11 +211,11 @@ namespace HSV
                 txtFilename.Enabled = true;
                 btnCreateINVPKL.Enabled = true;
 
-                fs_template?.Dispose();
                 wb_template?.Dispose();
+                fs_template?.Dispose();
 
-                fs_Main?.Dispose();
                 wb_Main?.Dispose();
+                fs_Main?.Dispose();
             }
         }
         private async Task<(bool success, string msg)> CreateINV(string cusName, List<INV> lstINV, XLWorkbook wb)
@@ -244,7 +244,7 @@ namespace HSV
                         row.Cell("C").Value = inv.BuyMonth;
                         row.Cell("D").Value = inv.Article;
                         row.Cell("E").Value = inv.MaterialCode;
-                        row.Cell("F").Value = inv.DyeLot;
+                        row.Cell("F").Value = inv.DyeLot.Contains("\n") ? $"\"{inv.DyeLot}\"" : inv.DyeLot;
                         row.Cell("G").Value = "'60069000";
                         row.Cell("H").Value = "'" + inv.SaleNo;
                         row.Cell("I").Value = inv.Description;
@@ -299,7 +299,7 @@ namespace HSV
                         COLOR = x.Sum(y => y.Qty).ToString("#,##0.000"),
                         SOLUONG = x.Sum(y => y.Qty),
                         DONGIA = x.First().UnitPriceVND
-                    }).OrderBy(x=>x.DESCRIPTION).ToList();
+                    }).OrderBy(x => x.DESCRIPTION).ToList();
                     if (lstINVHD.Count == 0)
                         return (true, "");
                     sheet.Row(19).InsertRowsBelow(lstINVHD.Count);
@@ -350,6 +350,7 @@ namespace HSV
                             Article = y.Article,
                             MaterialCode = y.MaterialCode,
                             DyeLot = y.DyeLot,
+                            //DyeLot = y.DyeLot.Contains("\n") ? $"\"{y.DyeLot}\"" : y.DyeLot,
                             HSCode = y.HSCode,
                             SaleNo = y.SaleNo,
                             Description = y.Description,
@@ -381,6 +382,7 @@ namespace HSV
                             row.Cell("C").Value = lstPKL[i].Article;
                             row.Cell("D").Value = lstPKL[i].MaterialCode;
                             row.Cell("E").Value = lstPKL[i].DyeLot;
+                            //row.Cell("E").Value = lstPKL[i].DyeLot.Contains("\n") ? $"\"{lstPKL[i].DyeLot}\"" : lstPKL[i].DyeLot;
                             row.Cell("F").Value = lstPKL[i].HSCode;
                             row.Cell("G").Value = lstPKL[i].Description;
                             row.Cell("H").Value = lstPKL[i].Color;
@@ -437,7 +439,8 @@ namespace HSV
                 try
                 {
                     var sheet = wb.Worksheet("PKL KHAI THEO XE");
-                    var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    //var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).ToList();
                     if (lst.Count == 0)
                         return (true, "");
                     int n = 20;
@@ -457,6 +460,7 @@ namespace HSV
                         row.Cell("C").Value = item.Article;
                         row.Cell("D").Value = item.MaterialCode;
                         row.Cell("E").Value = item.DyeLot;
+                        //row.Cell("E").Value = item.DyeLot.Contains("\n") ? $"\"{item.DyeLot}\"" : item.DyeLot;
                         row.Cell("F").Value = item.HSCode;
                         row.Cell("G").Value = item.Description;
                         row.Cell("H").Value = item.Color;
@@ -492,7 +496,8 @@ namespace HSV
                 try
                 {
                     var sheet = wb.Worksheet("PKL KHAI THEO XE - CLAIM");
-                    var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    //var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).ToList();
                     if (lst.Count == 0)
                         return (true, "");
                     int n = 20;
@@ -512,6 +517,7 @@ namespace HSV
                         row.Cell("C").Value = item.Article;
                         row.Cell("D").Value = item.MaterialCode;
                         row.Cell("E").Value = item.DyeLot;
+                        //row.Cell("E").Value = item.DyeLot.Contains("\n") ? $"\"{item.DyeLot}\"" : item.DyeLot;
                         row.Cell("F").Value = item.HSCode;
                         row.Cell("G").Value = item.Description;
                         row.Cell("H").Value = item.Color;

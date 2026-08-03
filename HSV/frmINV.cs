@@ -171,23 +171,20 @@ namespace HSV
                 {
                     lstINV = (dgvMain.DataSource as BindingList<INV>).ToList();
                 }
-                var tasks = await Task.WhenAll(
-                    CreateINV(cusName, lstINV, wb_template),
-                    CreateINVHD(cusName, lstINV, wb_template),
-                    CreatePKLHD(cusName, lstINV, wb_template),
-                    CreatePKLXE(cusName, lstINV, wb_template),
-                    CreatePKLXE_CLAIM(cusName, lstINV, wb_template)
-                );
-                if (!tasks[0].success)
+                var task1 = await CreateINV(cusName, lstINV, wb_template);
+                if (!task1.success)
                 {
-                    MessageBox.Show(tasks[0].msg);
+                    MessageBox.Show(task1.msg);
                     return;
                 }
-                else if (!tasks[01].success)
+                var task2 = await CreateINVHD(cusName, lstINV, wb_template);
+                if (!task2.success)
                 {
-                    MessageBox.Show(tasks[1].msg);
+                    MessageBox.Show(task2.msg);
                     return;
                 }
+                await CreatePKLHD(cusName, lstINV, wb_template);
+                await CreatePKLXE_CLAIM(cusName, lstINV, wb_template);
                 await Task.Run(() => wb_template.SaveAs(filePath));
                 if (File.Exists(filePath))
                 {
@@ -490,6 +487,63 @@ namespace HSV
             });
         }
         private async Task<(bool success, string msg)> CreatePKLXE_CLAIM(string cusName, List<INV> lstINV, XLWorkbook wb)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    var sheet = wb.Worksheet("PKL KHAI THEO XE - CLAIM");
+                    //var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
+                    var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).ToList();
+                    if (lst.Count == 0)
+                        return (true, "");
+                    int n = 20;
+                    for (int i = 0; i < lst.Count; i++)
+                    {
+                        sheet.Row(n++).InsertRowsBelow(1);
+                        var row = sheet.Range($"A{n}:Q{n}").Row(1);
+                        row.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        row.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                        row.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        row.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                        row.Style.Font.Bold = false;
+                        var item = lst[i];
+
+                        row.Cell("A").Value = item.PO;
+                        row.Cell("B").Value = item.BuyMonth;
+                        row.Cell("C").Value = item.Article;
+                        row.Cell("D").Value = item.MaterialCode;
+                        row.Cell("E").Value = item.DyeLot;
+                        //row.Cell("E").Value = item.DyeLot.Contains("\n") ? $"\"{item.DyeLot}\"" : item.DyeLot;
+                        row.Cell("F").Value = item.HSCode;
+                        row.Cell("G").Value = item.Description;
+                        row.Cell("H").Value = item.Color;
+                        row.Cell("I").Value = item.Thickness;
+                        row.Cell("J").Value = item.Qty;
+                        row.Cell("J").Style.NumberFormat.Format = "#,##0.000";
+                        row.Cell("K").Value = "";
+                        row.Cell("L").Value = "YARD";
+                        row.Cell("M").Value = "";
+                        row.Cell("N").FormulaA1 = $"=J{n}*0.24";
+                        row.Cell("O").FormulaA1 = $"=N{n}+0.2";
+                        row.Cell("P").Value = item.ID;
+                        row.Cell("Q").Value = item.Pantone;
+                    }
+                    n++;
+                    var rowEnd = sheet.Range($"A{n}:P{n}").Row(1);
+                    rowEnd.Cell("J").FormulaA1 = $"=SUBTOTAL(109,J21:J{n - 1})";
+                    rowEnd.Cell("M").FormulaA1 = $"=SUBTOTAL(109,M21:M{n - 1})";
+                    rowEnd.Cell("N").FormulaA1 = $"=SUBTOTAL(109,N21:N{n - 1})";
+                    rowEnd.Cell("O").FormulaA1 = $"=SUBTOTAL(109,O21:O{n - 1})";
+                    return (true, "");
+                }
+                catch (Exception ex)
+                {
+                    return (false, "Lỗi hệ thống: " + ex.Message);
+                }
+            });
+        }
+        private async Task<(bool success, string msg)> CreateListGuiDiem(string cusName, List<INV> lstINV, XLWorkbook wb)
         {
             return await Task.Run(() =>
             {

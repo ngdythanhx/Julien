@@ -33,7 +33,6 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.cbCompany = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnCopyToOrderForm = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +40,11 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCopyToOrderForm = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpToDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,9 +67,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(188, 32);
+            this.btnSearch.Location = new System.Drawing.Point(185, 116);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(86, 23);
+            this.btnSearch.Size = new System.Drawing.Size(98, 23);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -74,9 +78,9 @@
             // cbCompany
             // 
             this.cbCompany.FormattingEnabled = true;
-            this.cbCompany.Location = new System.Drawing.Point(188, 6);
+            this.cbCompany.Location = new System.Drawing.Point(185, 6);
             this.cbCompany.Name = "cbCompany";
-            this.cbCompany.Size = new System.Drawing.Size(86, 21);
+            this.cbCompany.Size = new System.Drawing.Size(98, 21);
             this.cbCompany.TabIndex = 3;
             // 
             // dataGridView1
@@ -94,20 +98,10 @@
             this.Column5,
             this.Column6,
             this.Column7});
-            this.dataGridView1.Location = new System.Drawing.Point(6, 133);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 161);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(972, 422);
+            this.dataGridView1.Size = new System.Drawing.Size(972, 394);
             this.dataGridView1.TabIndex = 4;
-            // 
-            // btnCopyToOrderForm
-            // 
-            this.btnCopyToOrderForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCopyToOrderForm.Location = new System.Drawing.Point(836, 104);
-            this.btnCopyToOrderForm.Name = "btnCopyToOrderForm";
-            this.btnCopyToOrderForm.Size = new System.Drawing.Size(142, 23);
-            this.btnCopyToOrderForm.TabIndex = 5;
-            this.btnCopyToOrderForm.Text = "Sao chép OrderForm";
-            this.btnCopyToOrderForm.UseVisualStyleBackColor = true;
             // 
             // Column1
             // 
@@ -148,11 +142,61 @@
             this.Column7.HeaderText = "Article";
             this.Column7.Name = "Column7";
             // 
+            // btnCopyToOrderForm
+            // 
+            this.btnCopyToOrderForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyToOrderForm.Location = new System.Drawing.Point(836, 104);
+            this.btnCopyToOrderForm.Name = "btnCopyToOrderForm";
+            this.btnCopyToOrderForm.Size = new System.Drawing.Size(142, 23);
+            this.btnCopyToOrderForm.TabIndex = 5;
+            this.btnCopyToOrderForm.Text = "Sao chép OrderForm";
+            this.btnCopyToOrderForm.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(188, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 298;
+            this.label1.Text = "Đến ngày";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(188, 32);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.TabIndex = 299;
+            this.label5.Text = "Từ ngày";
+            // 
+            // dtpToDate
+            // 
+            this.dtpToDate.CustomFormat = "yyyy-MM-dd";
+            this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpToDate.Location = new System.Drawing.Point(185, 88);
+            this.dtpToDate.Name = "dtpToDate";
+            this.dtpToDate.Size = new System.Drawing.Size(98, 22);
+            this.dtpToDate.TabIndex = 296;
+            // 
+            // dtpFromDate
+            // 
+            this.dtpFromDate.CustomFormat = "yyyy-MM-dd";
+            this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFromDate.Location = new System.Drawing.Point(185, 45);
+            this.dtpFromDate.Name = "dtpFromDate";
+            this.dtpFromDate.Size = new System.Drawing.Size(98, 22);
+            this.dtpFromDate.TabIndex = 297;
+            // 
             // frmNewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.dtpToDate);
+            this.Controls.Add(this.dtpFromDate);
             this.Controls.Add(this.btnCopyToOrderForm);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cbCompany);
@@ -185,5 +229,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Button btnCopyToOrderForm;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dtpToDate;
+        private System.Windows.Forms.DateTimePicker dtpFromDate;
     }
 }

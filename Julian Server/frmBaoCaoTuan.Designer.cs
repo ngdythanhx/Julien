@@ -41,13 +41,13 @@
             this.dtpToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.dgvSubTotal = new System.Windows.Forms.DataGridView();
-            this.txtFilter = new System.Windows.Forms.TextBox();
             this.col_checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtFilter = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubTotal)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,13 +142,6 @@
             this.dgvSubTotal.Size = new System.Drawing.Size(1334, 311);
             this.dgvSubTotal.TabIndex = 298;
             // 
-            // txtFilter
-            // 
-            this.txtFilter.Location = new System.Drawing.Point(112, 6);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(381, 20);
-            this.txtFilter.TabIndex = 299;
-            // 
             // col_checked
             // 
             this.col_checked.DataPropertyName = "Checked";
@@ -202,6 +195,13 @@
             this.Column3.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column3.HeaderText = "Đơn mới";
             this.Column3.Name = "Column3";
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Location = new System.Drawing.Point(112, 6);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(381, 20);
+            this.txtFilter.TabIndex = 299;
             // 
             // frmBaoCaoTuan
             // 

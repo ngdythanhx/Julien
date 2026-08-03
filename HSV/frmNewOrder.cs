@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.VariantTypes;
 using Julian.Database.DTO;
 using Julian.Helper;
 using Julian.Utils;
@@ -32,7 +33,10 @@ namespace HSV
         {
             cbCompany.DataSource = new[] {
                 new{ Key="HSV", Value= "H100" },
+                new{ Key="HWK", Value= "R200" },
             };
+            dtpFromDate.Value = DateTime.Now.AddMonths(-3);
+            dtpToDate.Value = DateTime.Now.AddDays(7);
             cbCompany.DisplayMember = "Key";
             cbCompany.ValueMember = "Value";
             var ini = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "OrderData.ini"));
@@ -88,8 +92,8 @@ namespace HSV
                     new
                     {
                         searchType = "01",
-                        frDate = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd"),
-                        toDate = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd"),
+                        frDate = dtpFromDate.Value.ToString("yyyy-MM-dd"),
+                        toDate =dtpToDate.Value.ToString("yyyy-MM-dd"),
                         lot5 = "multi",
                         lot6 = 3,
                         itemCd = "",
@@ -151,7 +155,7 @@ namespace HSV
                         TenMauDayDu = newPO.Remark.Substring(newPO.Remark.IndexOf("\"") + 1),
                         MauKH = newPO.Color,
                         SLDat = newPO.OrderQty,
-                        DonGia = _lstOrderData.FirstOrDefault(x => x.CustomerName == cbCompany.DisplayMember && x.Season== newPO.Season && x.MtlName== lieuKH)?.UnitPrice ?? -1,
+                        DonGia = _lstOrderData.FirstOrDefault(x => x.CustomerName == cbCompany.DisplayMember && x.Season == newPO.Season && x.MtlName == lieuKH)?.UnitPrice ?? -1,
                         Category = newPO.Category,
                         Article = newPO.Article,
                         TenGiay = newPO.Model,

@@ -118,6 +118,7 @@
     <Compile Include="INV.cs" />
     <Compile Include="INVHD.cs" />
     <Compile Include="NewPO.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="OrderData.cs" />
     <Compile Include="PKLXE.cs" />
     <Compile Include="PKLHD.cs" />

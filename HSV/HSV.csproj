@@ -97,6 +97,18 @@
     <Compile Include="frmINV.Designer.cs">
       <DependentUpon>frmINV.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmINV2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmINV2.Designer.cs">
+      <DependentUpon>frmINV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLstGuiDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLstGuiDiem.Designer.cs">
+      <DependentUpon>frmLstGuiDiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +129,7 @@
     </Compile>
     <Compile Include="INV.cs" />
     <Compile Include="INVHD.cs" />
+    <Compile Include="ListGuiDiem.cs" />
     <Compile Include="NewPO.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderData.cs" />
@@ -126,6 +139,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmINV.resx">
       <DependentUpon>frmINV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmINV2.resx">
+      <DependentUpon>frmINV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLstGuiDiem.resx">
+      <DependentUpon>frmLstGuiDiem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

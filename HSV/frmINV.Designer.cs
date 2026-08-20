@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbCus = new System.Windows.Forms.ComboBox();
             this.dtpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtFilename = new System.Windows.Forms.TextBox();
@@ -48,16 +48,6 @@
             this.lblRows = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvMain = new System.Windows.Forms.DataGridView();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtFilePath = new System.Windows.Forms.TextBox();
-            this.lblFilePath = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lsbInput = new System.Windows.Forms.ListBox();
-            this.txtInput1 = new System.Windows.Forms.TextBox();
-            this.rb1 = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtInput2 = new System.Windows.Forms.TextBox();
-            this.rb2 = new System.Windows.Forms.RadioButton();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,6 +67,17 @@
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtFilePath = new System.Windows.Forms.TextBox();
+            this.lblFilePath = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lsbInput = new System.Windows.Forms.ListBox();
+            this.txtInput1 = new System.Windows.Forms.TextBox();
+            this.rb1 = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtInput2 = new System.Windows.Forms.TextBox();
+            this.rb2 = new System.Windows.Forms.RadioButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -259,10 +260,151 @@
             this.Column16,
             this.Column17,
             this.Column18});
-            this.dgvMain.Location = new System.Drawing.Point(3, 147);
+            this.dgvMain.Location = new System.Drawing.Point(3, 325);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(1277, 349);
+            this.dgvMain.Size = new System.Drawing.Size(1277, 171);
             this.dgvMain.TabIndex = 297;
+            // 
+            // Column19
+            // 
+            this.Column19.DataPropertyName = "ID";
+            this.Column19.HeaderText = "ID";
+            this.Column19.Name = "Column19";
+            this.Column19.Width = 40;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "PO";
+            this.Column1.HeaderText = "PO";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 80;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "BuyMonth";
+            this.Column2.HeaderText = "Buy-Month";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 75;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Article";
+            this.Column3.HeaderText = "Article";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 80;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "MaterialCode";
+            this.Column4.HeaderText = "Material Code";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "DyeLot";
+            this.Column5.HeaderText = "Dye Lot";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 120;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "HSCode";
+            this.Column6.HeaderText = "HS Code";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "SaleNo";
+            this.Column7.HeaderText = "Sale No.";
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 80;
+            // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "Description";
+            this.Column8.HeaderText = "Description";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 120;
+            // 
+            // Column9
+            // 
+            this.Column9.DataPropertyName = "Color";
+            this.Column9.HeaderText = "Color";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 120;
+            // 
+            // Column10
+            // 
+            this.Column10.DataPropertyName = "Pantone";
+            this.Column10.HeaderText = "Pantone";
+            this.Column10.Name = "Column10";
+            this.Column10.Width = 70;
+            // 
+            // Column11
+            // 
+            this.Column11.DataPropertyName = "Thickness";
+            this.Column11.HeaderText = "Thickness";
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 70;
+            // 
+            // Column12
+            // 
+            this.Column12.DataPropertyName = "Qty";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "#,##0.000";
+            this.Column12.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Column12.HeaderText = "Qty";
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 65;
+            // 
+            // Column13
+            // 
+            this.Column13.DataPropertyName = "Unit";
+            this.Column13.HeaderText = "Unit";
+            this.Column13.Name = "Column13";
+            this.Column13.Width = 50;
+            // 
+            // Column14
+            // 
+            this.Column14.DataPropertyName = "UnitPriceVND";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "#,##0";
+            this.Column14.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Column14.HeaderText = "UnitPrice (VND)";
+            this.Column14.Name = "Column14";
+            this.Column14.Width = 75;
+            // 
+            // Column15
+            // 
+            this.Column15.DataPropertyName = "AmountVND";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "#,##0.000";
+            this.Column15.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Column15.HeaderText = "Amount (VND)";
+            this.Column15.Name = "Column15";
+            // 
+            // Column16
+            // 
+            this.Column16.DataPropertyName = "DeliveryDate";
+            this.Column16.HeaderText = "Delivery Date";
+            this.Column16.Name = "Column16";
+            // 
+            // Column17
+            // 
+            this.Column17.DataPropertyName = "TemCode";
+            this.Column17.HeaderText = "Tem Code";
+            this.Column17.Name = "Column17";
+            // 
+            // Column18
+            // 
+            this.Column18.DataPropertyName = "UnitPriceUSD";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "#,##0";
+            this.Column18.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Column18.HeaderText = "UnitPrice (USD)";
+            this.Column18.Name = "Column18";
+            this.Column18.Width = 75;
             // 
             // txtFilePath
             // 
@@ -357,152 +499,23 @@
             this.rb2.TabStop = true;
             this.rb2.UseVisualStyleBackColor = true;
             // 
-            // Column19
+            // textBox1
             // 
-            this.Column19.DataPropertyName = "ID";
-            this.Column19.HeaderText = "ID";
-            this.Column19.Name = "Column19";
-            this.Column19.Width = 40;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "PO";
-            this.Column1.HeaderText = "PO";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 80;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "BuyMonth";
-            this.Column2.HeaderText = "Buy-Month";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 75;
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Article";
-            this.Column3.HeaderText = "Article";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 80;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "MaterialCode";
-            this.Column4.HeaderText = "Material Code";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "DyeLot";
-            this.Column5.HeaderText = "Dye Lot";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 120;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "HSCode";
-            this.Column6.HeaderText = "HS Code";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.DataPropertyName = "SaleNo";
-            this.Column7.HeaderText = "Sale No.";
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 80;
-            // 
-            // Column8
-            // 
-            this.Column8.DataPropertyName = "Description";
-            this.Column8.HeaderText = "Description";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 120;
-            // 
-            // Column9
-            // 
-            this.Column9.DataPropertyName = "Color";
-            this.Column9.HeaderText = "Color";
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 120;
-            // 
-            // Column10
-            // 
-            this.Column10.DataPropertyName = "Pantone";
-            this.Column10.HeaderText = "Pantone";
-            this.Column10.Name = "Column10";
-            this.Column10.Width = 70;
-            // 
-            // Column11
-            // 
-            this.Column11.DataPropertyName = "Thickness";
-            this.Column11.HeaderText = "Thickness";
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 70;
-            // 
-            // Column12
-            // 
-            this.Column12.DataPropertyName = "Qty";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "#,##0.000";
-            this.Column12.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column12.HeaderText = "Qty";
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 65;
-            // 
-            // Column13
-            // 
-            this.Column13.DataPropertyName = "Unit";
-            this.Column13.HeaderText = "Unit";
-            this.Column13.Name = "Column13";
-            this.Column13.Width = 50;
-            // 
-            // Column14
-            // 
-            this.Column14.DataPropertyName = "UnitPriceVND";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "#,##0";
-            this.Column14.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column14.HeaderText = "UnitPrice (VND)";
-            this.Column14.Name = "Column14";
-            this.Column14.Width = 75;
-            // 
-            // Column15
-            // 
-            this.Column15.DataPropertyName = "AmountVND";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "#,##0.000";
-            this.Column15.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column15.HeaderText = "Amount (VND)";
-            this.Column15.Name = "Column15";
-            // 
-            // Column16
-            // 
-            this.Column16.DataPropertyName = "DeliveryDate";
-            this.Column16.HeaderText = "Delivery Date";
-            this.Column16.Name = "Column16";
-            // 
-            // Column17
-            // 
-            this.Column17.DataPropertyName = "TemCode";
-            this.Column17.HeaderText = "Tem Code";
-            this.Column17.Name = "Column17";
-            // 
-            // Column18
-            // 
-            this.Column18.DataPropertyName = "UnitPriceUSD";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "#,##0";
-            this.Column18.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Column18.HeaderText = "UnitPrice (USD)";
-            this.Column18.Name = "Column18";
-            this.Column18.Width = 75;
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(24, 160);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(949, 93);
+            this.textBox1.TabIndex = 316;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // frmINV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 561);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.rb2);
             this.Controls.Add(this.rb1);
             this.Controls.Add(this.groupBox2);
@@ -584,5 +597,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

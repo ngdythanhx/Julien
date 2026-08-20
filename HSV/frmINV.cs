@@ -184,6 +184,7 @@ namespace HSV
                     return;
                 }
                 await CreatePKLHD(cusName, lstINV, wb_template);
+                await CreatePKLXE(cusName, lstINV, wb_template);
                 await CreatePKLXE_CLAIM(cusName, lstINV, wb_template);
                 await Task.Run(() => wb_template.SaveAs(filePath));
                 if (File.Exists(filePath))
@@ -312,13 +313,13 @@ namespace HSV
                         row.Cell("C").Value = lstINVHD[i].COLOR;
                         row.Cell("D").Value = lstINVHD[i].SOLUONG;
                         row.Cell("E").Value = lstINVHD[i].DONGIA;
-                        row.Cell("F").FormulaA1 = $"=D{i + 20}*E{i + 20}";
+                        row.Cell("F").FormulaA1 = $"=ROUND(D{i + 20}*E{i + 20},0)";
                         row.Cell("F").Style.NumberFormat.Format = "#,##0.00";
                         row.Cell("F").Style.Font.Bold = true;
                     }
                     sheet.Row(20 + lstINVHD.Count).Cell("D").FormulaA1 = $"=SUM(D20:D{19 + lstINVHD.Count})";
                     sheet.Row(20 + lstINVHD.Count).Cell("F").FormulaA1 = $"=SUM(F20:F{19 + lstINVHD.Count})";
-                    sheet.Row(21 + lstINVHD.Count).Cell("F").FormulaA1 = $"=F{20 + lstINVHD.Count}*0.08";
+                    sheet.Row(21 + lstINVHD.Count).Cell("F").FormulaA1 = $"=ROUND(F{20 + lstINVHD.Count}*0.08,0)";
                     sheet.Row(22 + lstINVHD.Count).Cell("F").FormulaA1 = $"=SUM(F{20 + lstINVHD.Count}+F{21 + lstINVHD.Count})";
                     var rowEnd = sheet.Range($"C{24 + lstINVHD.Count}:F{24 + lstINVHD.Count}");
                     rowEnd.Merge();

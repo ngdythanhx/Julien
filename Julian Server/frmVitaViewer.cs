@@ -25,7 +25,7 @@ namespace Julian_Server
         }
         private class SubtotalByNgayXuat
         {
-            public bool Checked { get; set; } = true;
+            public bool Checked { get; set; } = false;
             public string MaKH { get; set; }
             public DateTime? NgayXuat { get; set; }
             public double TotalQty { get; set; }

@@ -397,7 +397,7 @@ namespace SMTT
             _bindingSource.DataSource = dt;
             advancedDataGridView1.DataSource = _bindingSource;
             lblTotalRows.Text = advancedDataGridView1.RowCount.ToString();
-            lblTotalRemainQty.Text = lstOut.Sum(x => x.Qty).ToString("#,##0.00");
+            lblTotalRemainQty.Text = lstOut.Sum(x => x.Qty).ToString("#,##0.000");
         }
         private void txtXuatKho_TextChanged(object sender, EventArgs e)
         {

@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -103,10 +103,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnStart_TinhSlConLai = new System.Windows.Forms.Button();
             this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtSMTTData = new System.Windows.Forms.TextBox();
@@ -119,6 +115,10 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -409,8 +409,8 @@
             // col_production_lotid
             // 
             this.col_production_lotid.DataPropertyName = "Production_LotID";
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production_lotid.DefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production_lotid.DefaultCellStyle = dataGridViewCellStyle1;
             this.col_production_lotid.HeaderText = "Production_LotID";
             this.col_production_lotid.Name = "col_production_lotid";
             this.col_production_lotid.Width = 120;
@@ -418,10 +418,10 @@
             // Column3
             // 
             this.Column3.DataPropertyName = "Output_TotalProductionQty";
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle32.BackColor = System.Drawing.Color.Honeydew;
-            dataGridViewCellStyle32.Format = "#,##0.000";
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Honeydew;
+            dataGridViewCellStyle2.Format = "#,##0.000";
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column3.FillWeight = 200F;
             this.Column3.HeaderText = "ProductionQty";
             this.Column3.Name = "Column3";
@@ -430,8 +430,8 @@
             // col_production
             // 
             this.col_production.DataPropertyName = "Output_Production";
-            dataGridViewCellStyle33.BackColor = System.Drawing.Color.Honeydew;
-            this.col_production.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Honeydew;
+            this.col_production.DefaultCellStyle = dataGridViewCellStyle3;
             this.col_production.HeaderText = "Production";
             this.col_production.Name = "col_production";
             this.col_production.Width = 200;
@@ -439,8 +439,8 @@
             // col_outbound_lotid
             // 
             this.col_outbound_lotid.DataPropertyName = "OutBound_LotID";
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outbound_lotid.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outbound_lotid.DefaultCellStyle = dataGridViewCellStyle4;
             this.col_outbound_lotid.HeaderText = "OutBound_LotID";
             this.col_outbound_lotid.Name = "col_outbound_lotid";
             this.col_outbound_lotid.Width = 120;
@@ -448,10 +448,10 @@
             // col_outboundqty
             // 
             this.col_outboundqty.DataPropertyName = "Output_TotalOutboundQty";
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle35.BackColor = System.Drawing.Color.PaleGoldenrod;
-            dataGridViewCellStyle35.Format = "#,##0.000";
-            this.col_outboundqty.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.PaleGoldenrod;
+            dataGridViewCellStyle5.Format = "#,##0.000";
+            this.col_outboundqty.DefaultCellStyle = dataGridViewCellStyle5;
             this.col_outboundqty.FillWeight = 400F;
             this.col_outboundqty.HeaderText = "OutboundQty";
             this.col_outboundqty.Name = "col_outboundqty";
@@ -460,8 +460,8 @@
             // col_outboundinvoice
             // 
             this.col_outboundinvoice.DataPropertyName = "Output_OutboundInvoice";
-            dataGridViewCellStyle36.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outboundinvoice.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outboundinvoice.DefaultCellStyle = dataGridViewCellStyle6;
             this.col_outboundinvoice.HeaderText = "Outbound_Invoice";
             this.col_outboundinvoice.Name = "col_outboundinvoice";
             this.col_outboundinvoice.Width = 250;
@@ -469,8 +469,8 @@
             // col_outboundremarks
             // 
             this.col_outboundremarks.DataPropertyName = "Output_OutboundRemarks";
-            dataGridViewCellStyle37.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outboundremarks.DefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outboundremarks.DefaultCellStyle = dataGridViewCellStyle7;
             this.col_outboundremarks.HeaderText = "Outbound_Remarks";
             this.col_outboundremarks.Name = "col_outboundremarks";
             this.col_outboundremarks.Width = 120;
@@ -478,8 +478,8 @@
             // col_outbound
             // 
             this.col_outbound.DataPropertyName = "Output_OutBound";
-            dataGridViewCellStyle38.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.col_outbound.DefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.col_outbound.DefaultCellStyle = dataGridViewCellStyle8;
             this.col_outbound.HeaderText = "OutBound";
             this.col_outbound.Name = "col_outbound";
             this.col_outbound.Width = 250;
@@ -546,8 +546,8 @@
             // col_ngaynhap
             // 
             this.col_ngaynhap.DataPropertyName = "NgayNhap";
-            dataGridViewCellStyle39.Format = "yyyymmdd";
-            this.col_ngaynhap.DefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle9.Format = "yyyymmdd";
+            this.col_ngaynhap.DefaultCellStyle = dataGridViewCellStyle9;
             this.col_ngaynhap.HeaderText = "Ngày Xuất";
             this.col_ngaynhap.Name = "col_ngaynhap";
             this.col_ngaynhap.Width = 120;
@@ -600,27 +600,27 @@
             // col_slbandau
             // 
             this.col_slbandau.DataPropertyName = "SLBanDau";
-            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle40.Format = "#,##0.000";
-            this.col_slbandau.DefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "#,##0.000";
+            this.col_slbandau.DefaultCellStyle = dataGridViewCellStyle10;
             this.col_slbandau.HeaderText = "SL Ban đầu";
             this.col_slbandau.Name = "col_slbandau";
             // 
             // col_sldauthang
             // 
             this.col_sldauthang.DataPropertyName = "SLDauThang";
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle41.Format = "#,##0.000";
-            this.col_sldauthang.DefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "#,##0.000";
+            this.col_sldauthang.DefaultCellStyle = dataGridViewCellStyle11;
             this.col_sldauthang.HeaderText = "SL Đầu tháng";
             this.col_sldauthang.Name = "col_sldauthang";
             // 
             // col_slcuoithang
             // 
             this.col_slcuoithang.DataPropertyName = "SLCuoiThang";
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle42.Format = "#,##0.000";
-            this.col_slcuoithang.DefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "#,##0.000";
+            this.col_slcuoithang.DefaultCellStyle = dataGridViewCellStyle12;
             this.col_slcuoithang.HeaderText = "SL Cuối tháng";
             this.col_slcuoithang.Name = "col_slcuoithang";
             // 
@@ -753,48 +753,6 @@
             this.advancedDataGridView1.TimeFilter = false;
             this.advancedDataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.advancedDataGridView1_CellContentClick);
             // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "PO";
-            this.Column1.HeaderText = "PO";
-            this.Column1.MinimumWidth = 22;
-            this.Column1.Name = "Column1";
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Column1.Width = 150;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "SLXuatKho";
-            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle43.Format = "#,##0.00";
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle43;
-            this.Column4.HeaderText = "SL Xuất Kho";
-            this.Column4.MinimumWidth = 22;
-            this.Column4.Name = "Column4";
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "SLSMTT";
-            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle44.Format = "#,##0.00";
-            this.Column5.DefaultCellStyle = dataGridViewCellStyle44;
-            this.Column5.HeaderText = "SL SMTT";
-            this.Column5.MinimumWidth = 22;
-            this.Column5.Name = "Column5";
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "SLChenhLech";
-            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle45.Format = "#,##0.00";
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle45;
-            this.Column2.HeaderText = "SL Chênh lệch";
-            this.Column2.MinimumWidth = 22;
-            this.Column2.Name = "Column2";
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -890,6 +848,48 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "PO";
+            this.Column1.HeaderText = "PO";
+            this.Column1.MinimumWidth = 22;
+            this.Column1.Name = "Column1";
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column1.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "SLXuatKho";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "#,##0.000";
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle13;
+            this.Column4.HeaderText = "SL Xuất Kho";
+            this.Column4.MinimumWidth = 22;
+            this.Column4.Name = "Column4";
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "SLSMTT";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "#,##0.000";
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle14;
+            this.Column5.HeaderText = "SL SMTT";
+            this.Column5.MinimumWidth = 22;
+            this.Column5.Name = "Column5";
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "SLChenhLech";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "#,##0.000";
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle15;
+            this.Column2.HeaderText = "SL Chênh lệch";
+            this.Column2.MinimumWidth = 22;
+            this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -970,10 +970,6 @@
         private System.Windows.Forms.Label lblTotalXuatKho;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Button btnRemoveTrans;
         private System.Windows.Forms.Button btnLoadTonKho;
@@ -994,5 +990,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }

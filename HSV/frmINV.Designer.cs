@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbCus = new System.Windows.Forms.ComboBox();
             this.dtpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtFilename = new System.Windows.Forms.TextBox();
@@ -77,7 +77,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtInput2 = new System.Windows.Forms.TextBox();
             this.rb2 = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -260,9 +259,9 @@
             this.Column16,
             this.Column17,
             this.Column18});
-            this.dgvMain.Location = new System.Drawing.Point(3, 325);
+            this.dgvMain.Location = new System.Drawing.Point(3, 151);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(1277, 171);
+            this.dgvMain.Size = new System.Drawing.Size(1277, 345);
             this.dgvMain.TabIndex = 297;
             // 
             // Column19
@@ -351,9 +350,9 @@
             // Column12
             // 
             this.Column12.DataPropertyName = "Qty";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "#,##0.000";
-            this.Column12.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "#,##0.000";
+            this.Column12.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column12.HeaderText = "Qty";
             this.Column12.Name = "Column12";
             this.Column12.Width = 65;
@@ -368,9 +367,9 @@
             // Column14
             // 
             this.Column14.DataPropertyName = "UnitPriceVND";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "#,##0";
-            this.Column14.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "#,##0";
+            this.Column14.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column14.HeaderText = "UnitPrice (VND)";
             this.Column14.Name = "Column14";
             this.Column14.Width = 75;
@@ -378,9 +377,9 @@
             // Column15
             // 
             this.Column15.DataPropertyName = "AmountVND";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "#,##0.000";
-            this.Column15.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "#,##0.000";
+            this.Column15.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column15.HeaderText = "Amount (VND)";
             this.Column15.Name = "Column15";
             // 
@@ -399,9 +398,9 @@
             // Column18
             // 
             this.Column18.DataPropertyName = "UnitPriceUSD";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "#,##0";
-            this.Column18.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "#,##0";
+            this.Column18.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column18.HeaderText = "UnitPrice (USD)";
             this.Column18.Name = "Column18";
             this.Column18.Width = 75;
@@ -499,23 +498,11 @@
             this.rb2.TabStop = true;
             this.rb2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(24, 160);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(949, 93);
-            this.textBox1.TabIndex = 316;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // frmINV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 561);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.rb2);
             this.Controls.Add(this.rb1);
             this.Controls.Add(this.groupBox2);
@@ -597,6 +584,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }

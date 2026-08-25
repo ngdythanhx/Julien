@@ -131,7 +131,7 @@ namespace HSV
                     return;
                 }
 
-                await Create(cusName, lst, wb_template);
+                await Create(cusName,dtpCreateDate.Value, lst, wb_template);
                 await Task.Run(() => wb_template.SaveAs(filePath));
                 if (File.Exists(filePath))
                 {
@@ -162,7 +162,7 @@ namespace HSV
                 fs_Main?.Dispose();
             }
         }
-        private async Task<(bool success, string msg)> Create(string cusName, List<ListGuiDiem> lst, XLWorkbook wb)
+        private async Task<(bool success, string msg)> Create(string cusName,DateTime deliveryDate, List<ListGuiDiem> lst, XLWorkbook wb)
         {
             return await Task.Run(() =>
             {
@@ -214,7 +214,10 @@ namespace HSV
                             }
                         }
                     }
+                    sheet.Cell($"A2").Value = $"進出材料表({cusName} PRO)";
+                    sheet.Cell($"A3").Value = $"日期( ngày xuất) : {deliveryDate.ToString("MM-dd")}";
                     sheet.Cell($"J{n + 1}").FormulaA1 = $"=SUBTOTAL(109,J5:J{n})";
+
                     return (true, "");
                 }
                 catch (Exception ex)

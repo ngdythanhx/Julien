@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtInput = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnCreate = new System.Windows.Forms.Button();
@@ -85,9 +85,9 @@
             this.Column1,
             this.Column7,
             this.Column12});
-            this.dgvMain.Location = new System.Drawing.Point(6, 122);
+            this.dgvMain.Location = new System.Drawing.Point(6, 108);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(1272, 404);
+            this.dgvMain.Size = new System.Drawing.Size(1272, 418);
             this.dgvMain.TabIndex = 298;
             // 
             // Column19
@@ -140,9 +140,9 @@
             // Column12
             // 
             this.Column12.DataPropertyName = "Qty";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "#,##0.000";
-            this.Column12.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "#,##0.000";
+            this.Column12.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column12.HeaderText = "Qty";
             this.Column12.Name = "Column12";
             this.Column12.Width = 80;

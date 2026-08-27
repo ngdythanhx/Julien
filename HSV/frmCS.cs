@@ -22,7 +22,7 @@ namespace HSV
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (_lockCheckAll)
+          /*  if (_lockCheckAll)
                 return;
             _lockItemCheck = true;
 
@@ -32,7 +32,7 @@ namespace HSV
                 lsbData.SetItemChecked(i, chkAll.Checked);
             }
             _lockItemCheck = false;
-            ItemCheckedChange?.Invoke();
+            ItemCheckedChange?.Invoke();*/
         }
     }
 }

@@ -124,46 +124,46 @@
             // lblGrandTotal
             // 
             this.lblGrandTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblGrandTotal.AutoSize = true;
-            this.lblGrandTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.lblGrandTotal.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGrandTotal.Location = new System.Drawing.Point(822, 509);
             this.lblGrandTotal.Name = "lblGrandTotal";
-            this.lblGrandTotal.Size = new System.Drawing.Size(14, 13);
+            this.lblGrandTotal.Size = new System.Drawing.Size(121, 15);
             this.lblGrandTotal.TabIndex = 298;
             this.lblGrandTotal.Text = "0";
+            this.lblGrandTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblGTGT
             // 
             this.lblGTGT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblGTGT.AutoSize = true;
-            this.lblGTGT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.lblGTGT.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGTGT.Location = new System.Drawing.Point(641, 509);
             this.lblGTGT.Name = "lblGTGT";
-            this.lblGTGT.Size = new System.Drawing.Size(14, 13);
+            this.lblGTGT.Size = new System.Drawing.Size(129, 15);
             this.lblGTGT.TabIndex = 299;
             this.lblGTGT.Text = "0";
+            this.lblGTGT.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblTotalAmount
             // 
             this.lblTotalAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.lblTotalAmount.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalAmount.Location = new System.Drawing.Point(394, 509);
             this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(14, 13);
+            this.lblTotalAmount.Size = new System.Drawing.Size(133, 15);
             this.lblTotalAmount.TabIndex = 300;
             this.lblTotalAmount.Text = "0";
+            this.lblTotalAmount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblTotalQty
             // 
             this.lblTotalQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblTotalQty.AutoSize = true;
-            this.lblTotalQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.lblTotalQty.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalQty.Location = new System.Drawing.Point(179, 509);
             this.lblTotalQty.Name = "lblTotalQty";
-            this.lblTotalQty.Size = new System.Drawing.Size(14, 13);
+            this.lblTotalQty.Size = new System.Drawing.Size(121, 15);
             this.lblTotalQty.TabIndex = 301;
             this.lblTotalQty.Text = "0";
+            this.lblTotalQty.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label9
             // 
@@ -212,13 +212,13 @@
             // lblRows
             // 
             this.lblRows.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblRows.AutoSize = true;
-            this.lblRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.lblRows.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRows.Location = new System.Drawing.Point(58, 509);
             this.lblRows.Name = "lblRows";
-            this.lblRows.Size = new System.Drawing.Size(14, 13);
+            this.lblRows.Size = new System.Drawing.Size(46, 15);
             this.lblRows.TabIndex = 306;
             this.lblRows.Text = "0";
+            this.lblRows.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -481,6 +481,7 @@
             this.txtInput2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInput2.Location = new System.Drawing.Point(6, 13);
+            this.txtInput2.MaxLength = 3276700;
             this.txtInput2.Multiline = true;
             this.txtInput2.Name = "txtInput2";
             this.txtInput2.Size = new System.Drawing.Size(949, 93);

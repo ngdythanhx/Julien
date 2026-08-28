@@ -166,13 +166,13 @@ namespace Julian_Server
 
             List<string> conditions = new();
 
-            foreach (Control ctrl in pnlFilter.Controls)
+            foreach (TextBox textBox in pnlFilter.Controls.OfType<TextBox>())
             {
-                if (string.IsNullOrWhiteSpace(ctrl.Text))
+                if (string.IsNullOrWhiteSpace(textBox.Text))
                     continue;
 
-                string columnName = ctrl.Tag.ToString();
-                string value = ctrl.Text.Trim().Replace("'", "''");
+                string columnName = textBox.Tag.ToString();
+                string value = textBox.Text.Trim().Replace("'", "''");
 
                 if (value.Equals("null", StringComparison.OrdinalIgnoreCase))
                 {

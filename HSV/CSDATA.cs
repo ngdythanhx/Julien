@@ -27,8 +27,26 @@ namespace HSV
             {
                 //db = new DBHelper(Config.Instance.ConnectionString);
                 db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
-                var lstRs = await db.GetDataTableSPAsync("SP_HSVCS_GetAll");
-                return lstRs;
+                var tb = await db.GetDataTableSPAsync("SP_HSVCS_GetAll");
+                return tb;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public async Task<DataTable> Get(params string[] materials)
+        {
+            DBHelper db = null;
+            try
+            {
+                //db = new DBHelper(Config.Instance.ConnectionString);
+                var pars = new SqlParameter[1];
+                pars[0] = new SqlParameter("@List", string.Join(";",materials));
+                db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
+                var tb = await db.GetDataTableSPAsync("SP_HSVCS_GetByMaterials", default, pars);
+                return tb;
             }
             catch (Exception ex)
             {

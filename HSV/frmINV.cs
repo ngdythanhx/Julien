@@ -166,6 +166,14 @@ namespace HSV
                         toolTip1.Show("Không có dữ liệu!", btnCreateINVPKL);
                         return;
                     }
+                    else
+                    {
+                        lblRows.Text = lstINV.Count.ToString("#,##0");
+                        lblTotalQty.Text = lstINV.Sum(x => x.Qty).ToString("#,##0.000");
+                        lblTotalAmount.Text = lstINV.Sum(x => x.AmountVND).ToString("#,##0.000");
+                        lblGTGT.Text = (lstINV.Sum(x => x.AmountVND) * 0.08m).ToString("#,##0.000");
+                        lblGrandTotal.Text = (lstINV.Sum(x => x.AmountVND) * 1.08m).ToString("#,##0.000");
+                    }
                 }
                 else
                 {
@@ -650,7 +658,8 @@ namespace HSV
         private void txtInput2_TextChanged(object sender, EventArgs e)
         {
             string inputText = txtInput2.Text;
-            var inputData = inputText.Split('\n').Select(x => x.Split('\t')).Where(x => x.Length >= 19).ToArray();
+            //var inputData = inputText.Split('\n').Select(x => x.Split('\t')).Where(x => x.Length >= 19).ToArray();
+            var inputData = inputText.Split(new[] { "\r\n" }, StringSplitOptions.None).Select(x => x.Split('\t')).Where(x => x.Length >= 19).ToArray();
             if (inputData.Length == 0)
             {
                 toolTip1.Show("Dữ liệu đầu vào không đúng!", txtInput2);

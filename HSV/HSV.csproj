@@ -9,8 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{634D45BF-BD88-4BD3-9B3A-75F4CDCB1AFC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>InvHSV</RootNamespace>
-    <AssemblyName>InvHSV</AssemblyName>
+    <RootNamespace>HSV</RootNamespace>
+    <AssemblyName>HSV</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

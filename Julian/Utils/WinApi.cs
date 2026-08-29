@@ -13,7 +13,7 @@ namespace  Julian.Utils
         [DllImport("kernel32.dll", BestFitMapping = true, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool WritePrivateProfileStringW(string lpsecsion, string lpKeyName, string lpString, string lpFileName);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern uint GetPrivateProfileStringW(string lpSecsion, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
     }
 }

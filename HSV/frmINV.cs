@@ -28,7 +28,7 @@ namespace HSV
         private void frmINV_Load(object sender, EventArgs e)
         {
             cbCus.DataSource = new string[] { "HSV", "HWK" };
-            txtFilePath.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(_iniManager.GetString("Default", "OrderFormHSVPath", "")));
+            txtFilePath.Text = _iniManager.GetString("Default", "OrderFormHSVPath", "");
             rb1.CheckedChanged += rb_CheckedChanged;
             rb2.CheckedChanged += rb_CheckedChanged;
             rb1.Checked = true;
@@ -75,7 +75,8 @@ namespace HSV
             {
                 string output = txtFilename.Text;
                 string filePath = $@"OUTPUT\INV\{txtFilename.Text}.xlsx";
-                if (string.IsNullOrEmpty(output) || output.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                if (string.IsNullOrWhiteSpace(output) ||
+                    output.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
                 {
                     toolTip1.Show("Tên file không hợp lệ!", txtFilename);
                     return;

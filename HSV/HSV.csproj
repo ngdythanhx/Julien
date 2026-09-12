@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="INV.cs" />
     <Compile Include="INVHD.cs" />
+    <Compile Include="ListGuiDiem2.cs" />
     <Compile Include="ListGuiDiem.cs" />
     <Compile Include="NewPO.cs" />
     <Compile Include="Order.cs" />

@@ -223,7 +223,7 @@ namespace Julian_Server
                                     string lieuKh = row.Cell(c.LieuKH).GetString();
                                     lieuKh = lieuKh.Replace(" ", "").Replace("\"", "").Replace("'", "");
                                     float slDat = -1;
-                                    var tryParseSlDat = row.Cell(c.SLDat).TryGetValue<float>(out  slDat);
+                                    var tryParseSlDat = row.Cell(c.SLDat).TryGetValue<float>(out slDat);
                                     float unitPrice = -1;
                                     row.Cell(c.DonGia).TryGetValue<float>(out unitPrice);
                                     var order = new OrderForm()
@@ -241,8 +241,8 @@ namespace Julian_Server
                                         MauKH = row.Cell(c.MauKH).GetString(),
                                         MauThayThe = row.Cell(c.MauThayThe).GetString(),
                                         SLDat = slDat,
-                                        DonGia =unitPrice,
-                                        TongTien = slDat==-1 || unitPrice==-1?0: slDat* unitPrice,
+                                        DonGia = unitPrice,
+                                        TongTien = slDat == -1 || unitPrice == -1 ? 0 : slDat * unitPrice,
                                         //ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd : DateTime.MinValue,
                                         ETD = row.Cell(c.ETD).TryGetValue<DateTime>(out var etd) ? etd.ToString("yyyy-MM-dd") : "",
                                         NgayXuat = row.Cell(c.NgayXuat).GetString() == "" ? null : row.Cell(c.NgayXuat).TryGetValue<DateTime>(out var ngayXuat) ? ngayXuat : DateTime.MinValue,

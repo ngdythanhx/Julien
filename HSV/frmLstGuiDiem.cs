@@ -35,7 +35,7 @@ namespace HSV
                 toolTip1.Show("Dữ liệu đầu vào không đúng!", txtInput);
                 return;
             }
-            var lst = new List<ListGuiDiem>();
+            var lst = new List<ListGuiDiem2>();
             foreach (var item in data)
             {
                 string qtyString = item[13].Replace(",", "");
@@ -45,7 +45,7 @@ namespace HSV
                     int.TryParse(item[51], out int id)
                 )
                 {
-                    var diem = new ListGuiDiem()
+                    /*var diem = new ListGuiDiem2()
                     {
                         ID = id,
                         Lieu = item[8],
@@ -55,8 +55,28 @@ namespace HSV
                         PO = item[4],
                         PONhuom = item[6],
                         Qty = qty,
+                    };*/
+                    var diem2 = new ListGuiDiem2()
+                    {
+                        ID = id,
+                        Lieu = item[8],
+                        MauKD = item[11],
+                        MauKho = item[12],
+                        NgayDatHang = DateTime.TryParse( item[1],out DateTime ngaydathang)?ngaydathang:DateTime.MinValue,
+                        Brand = item[2],
+                        CusName = item[3],
+                        CusPO = item[4],
+                        CusItemCode = item[5],
+                        PONhuom = item[6],
+                        PONhuomMoi = item[7],
+                        ETD = item[37],
+                        ETDNote = item[38],
+                        CusNote = item[39],
+                        Article = item[24],
+                        Width = int.TryParse( item[48],out int width)?width:-1,
+                        Qty = qty,
                     };
-                    lst.Add(diem);
+                    lst.Add(diem2);
                 }
             }
             if (lst.Count == 0 || lst.Count != data.Count)
@@ -64,7 +84,7 @@ namespace HSV
                 toolTip1.Show("Dữ liệu đầu vào không đúng!", txtInput);
                 return;
             }
-            lst = lst.OrderBy(x => x.Lieu).ThenBy(x => x.Mau).ThenBy(x => x.Article).ThenBy(x => x.PONhuom).ToList();
+            lst = lst.OrderBy(x => x.Lieu).ThenBy(x => x.MauKD).ThenBy(x => x.Article).ThenBy(x => x.PONhuom).ToList();
             dgvMain.DataSource = lst;
 
             /*
@@ -117,12 +137,12 @@ namespace HSV
                     toolTip1.Show("Có file đã tồn tại đang mở!", txtFilename);
                     return;
                 }
-                var lst = new List<ListGuiDiem>();
-                lst = dgvMain.DataSource as List<ListGuiDiem>;
+                var lst = new List<ListGuiDiem2>();
+                lst = dgvMain.DataSource as List<ListGuiDiem2>;
                 string cusName = cbCus.SelectedValue.ToString();
                 await Task.Run(() =>
                 {
-                    fs_template = new FileStream($@"Default\LISTGUIDIEM.xlsx", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    fs_template = new FileStream($@"Default\LISTGUIDIEM2.xlsx", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     wb_template = new XLWorkbook(fs_template);
                 });
                 if (wb_template == null)
@@ -162,7 +182,7 @@ namespace HSV
                 fs_Main?.Dispose();
             }
         }
-        private async Task<(bool success, string msg)> Create(string cusName,DateTime deliveryDate, List<ListGuiDiem> lst, XLWorkbook wb)
+        private async Task<(bool success, string msg)> Create(string cusName,DateTime deliveryDate, List<ListGuiDiem2> lst, XLWorkbook wb)
         {
             return await Task.Run(() =>
             {
@@ -170,11 +190,11 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("SAN LUONG");
                     var lstG = lst
-                        .GroupBy(x => new { x.Lieu, x.Mau, x.Article, x.PO })
+                        .GroupBy(x => new { x.Lieu, x.MauKD, x.Article, x.CusPO })
                         .OrderBy(g => g.Key.Lieu)
-                        .ThenBy(g => g.Key.Mau)
+                        .ThenBy(g => g.Key.MauKD)
                         .ThenBy(g => g.Key.Article)
-                        .ThenBy(g => g.Key.PO)
+                        .ThenBy(g => g.Key.CusPO)
                         .Select(g => g.ToList())
                         .ToList();
                     int n = 4;
@@ -194,29 +214,41 @@ namespace HSV
 
                             row.Cell("A").Value = item.ID;
                             row.Cell("B").Value = item.Lieu;
-                            row.Cell("C").Value = item.Mau;
-                            row.Cell("D").Value = item.MauThe;
-                            row.Cell("E").Value = item.Article;
-                            row.Cell("F").Value = item.PO;
-                            row.Cell("G").Value = item.PONhuom;
-                            row.Cell("G").Style.Font.Bold = false;
-                            row.Cell("J").Value = item.Qty;
-                            row.Cell("J").Style.NumberFormat.Format = item.Qty % 1 == 0 ? "#,##0" : "#,##0.000";
-                            row.Cell("J").Style.Font.Bold = false;
-                            row.Cell("J").Style.Font.FontSize = 14;
-                            row.Cell("J").Style.Fill.BackgroundColor = XLColor.FromHtml("#D7E4BE");
+                            row.Cell("C").Value = item.MauKD;
+                            row.Cell("D").Value = item.MauKho;
+                            row.Cell("E").Value = item.NgayDatHang_String;
+                            row.Cell("F").Value = item.Brand;
+                            row.Cell("G").Value = item.CusName;
+                            row.Cell("H").Value = item.CusPO;
+                            row.Cell("I").Value = item.CusItemCode;
+                            row.Cell("J").Value = item.PONhuom;
+                            row.Cell("K").Value = item.PONhuomMoi;
+                            row.Cell("L").Value = item.ETD;
+                            row.Cell("M").Value = item.ETDNote;
+                            row.Cell("N").Value = item.CusNote;
+                            row.Cell("Q").Value = item.Width;
+                            row.Cell("U").Value = item.Qty;
+                            row.Cell("R").FormulaA1 = $"=J{n}";
+
+                            row.Cell("R").Value = item.PONhuom;
+                            row.Cell("R").Style.Font.Bold = false;
+                            row.Cell("U").Value = item.Qty;
+                            row.Cell("U").Style.NumberFormat.Format = item.Qty % 1 == 0 ? "#,##0" : "#,##0.000";
+                            row.Cell("U").Style.Font.Bold = false;
+                            row.Cell("U").Style.Font.FontSize = 12;
+                            row.Cell("U").Style.Fill.BackgroundColor = XLColor.FromHtml("#D7E4BE");
                             if (i == lstDiem.Count - 1)
                             {
-                                sheet.Range($"N{n - lstDiem.Count + 1}:N{n}").Merge();
-                                sheet.Cell($"N{n - lstDiem.Count + 1}").Value = lstDiem.Sum(x => x.Qty);
-                                sheet.Range($"N{n - lstDiem.Count + 1}:N{n}").Style.NumberFormat.Format = lstDiem.Sum(x => x.Qty) % 1 == 0 ? "#,##0" : "#,##0.000";
-                                sheet.Range($"N{n - lstDiem.Count + 1}:N{n}").Style.Font.Bold = false;
+                                sheet.Range($"Y{n - lstDiem.Count + 1}:Y{n}").Merge();
+                                sheet.Cell($"Y{n - lstDiem.Count + 1}").Value = lstDiem.Sum(x => x.Qty);
+                                sheet.Range($"Y{n - lstDiem.Count + 1}:Y{n}").Style.NumberFormat.Format = lstDiem.Sum(x => x.Qty) % 1 == 0 ? "#,##0" : "#,##0.000";
+                                sheet.Range($"Y{n - lstDiem.Count + 1}:Y{n}").Style.Font.Bold = false;
                             }
                         }
                     }
                     sheet.Cell($"A2").Value = $"進出材料表({cusName} PRO)";
                     sheet.Cell($"A3").Value = $"日期( ngày xuất) : {deliveryDate.ToString("MM-dd")}";
-                    sheet.Cell($"J{n + 1}").FormulaA1 = $"=SUBTOTAL(109,J5:J{n})";
+                    sheet.Cell($"U{n + 1}").FormulaA1 = $"=SUBTOTAL(109,U5:U{n})";
 
                     return (true, "");
                 }

@@ -13,6 +13,9 @@ using System.IO;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using DocumentFormat.OpenXml.Spreadsheet;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using DocumentFormat.OpenXml.Bibliography;
 namespace HSV
 {
     public partial class frmMain : Form
@@ -62,7 +65,56 @@ namespace HSV
             LoadForm(new frmLstGuiDiem(), "LIST GỬI DIỄM");
             LoadForm(new frmCS(), "CS");
             LoadForm(new frmSQ(), "SQ");
+            LoadForm(new frmASN(), "ASN");
             tcMain.SelectedIndex = 0;
+        }
+        IWebDriver driver = null;
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+
+            ChromeOptions options = new ChromeOptions();
+
+            driver = new ChromeDriver(options);
+
+            driver.Navigate().GoToUrl("http://scm.hsvina.com/rb7/frame/main/main.html");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            var frames = driver.FindElements(By.TagName("iframe"));
+
+            driver.SwitchTo().DefaultContent();
+
+            driver.SwitchTo().Frame(0);
+
+            var js = (IJavaScriptExecutor)driver;
+
+            var result = js.ExecuteScript(@"
+    return {
+        url: location.href,
+        auiGrid: typeof AUIGrid,
+        element: !!document.querySelector('#grd_popDetList')
+    };
+");
+
+            Console.WriteLine(
+                Newtonsoft.Json.JsonConvert.SerializeObject(result)
+            );
+            var r = js.ExecuteScript(
+                "return AUIGrid.getOrgGridData('#grd_popDetList')"
+            );
+
+            if (r == null)
+            {
+                Console.WriteLine("NULL");
+            }
+            else
+            {
+                Console.WriteLine("Type: " + r.GetType().FullName);
+                Console.WriteLine("Value: " + r.ToString());
+            }
         }
     }
 }

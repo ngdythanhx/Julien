@@ -16,5 +16,11 @@ namespace CS
         {
             InitializeComponent();
         }
+
+
+        private async void frmCS_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

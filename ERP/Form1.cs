@@ -1,5 +1,6 @@
 ﻿using JServer;
 using JServer.Forms;
+using JServer.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +45,13 @@ namespace ERP
                 var x = frmLogin.ServerAPI;
                 string u = x.UserInfo.FullName;
             }
+        }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            var api = new ServerAPI();
+            var a = await api.Login("b019", "b019");
+            var l = await api.GetMaterialListAsync();
         }
     }
 }

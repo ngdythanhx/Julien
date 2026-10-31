@@ -30,14 +30,26 @@
         {
             this.pnlSearch = new System.Windows.Forms.Panel();
             this.dgvMain = new System.Windows.Forms.DataGridView();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.gb1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtPurchaseSpecification = new System.Windows.Forms.TextBox();
             this.lblID = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtLocation = new System.Windows.Forms.TextBox();
+            this.lblConfirmed = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.txtColor = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -53,19 +65,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnLoadData = new System.Windows.Forms.Button();
             this.ucFilter1 = new Julian_Server.ucFilter();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblConfirmed = new System.Windows.Forms.Label();
             this.btnExportToExcel = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.gb1.SuspendLayout();
             this.SuspendLayout();
@@ -105,6 +105,67 @@
             this.dgvMain.VirtualMode = true;
             this.dgvMain.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvMain_CellFormatting);
             this.dgvMain.SelectionChanged += new System.EventHandler(this.dgvMain_SelectionChanged);
+            // 
+            // Column9
+            // 
+            this.Column9.DataPropertyName = "ID";
+            this.Column9.HeaderText = "ID";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 50;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Article";
+            this.Column1.HeaderText = "Article";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 80;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Material";
+            this.Column2.HeaderText = "Liệu";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 120;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Color";
+            this.Column3.HeaderText = "Màu";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "Follow";
+            this.Column4.HeaderText = "Follow";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 120;
+            // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "PurchaseSpecification";
+            this.Column8.HeaderText = "Cân nhắc mua hàng";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 270;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "Note";
+            this.Column5.HeaderText = "Ghi chú";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 170;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "SwatchLocation";
+            this.Column6.HeaderText = "Vị trí lưu";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "Confirmed";
+            this.Column7.HeaderText = "Đã xác nhận";
+            this.Column7.Name = "Column7";
             // 
             // btnAdd
             // 
@@ -169,6 +230,25 @@
             this.gb1.TabIndex = 242;
             this.gb1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(994, 123);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 260;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(924, 19);
+            this.textBox1.MaxLength = 3276700;
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(154, 104);
+            this.textBox1.TabIndex = 259;
+            // 
             // txtPurchaseSpecification
             // 
             this.txtPurchaseSpecification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -205,6 +285,16 @@
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(200, 20);
             this.txtLocation.TabIndex = 251;
+            // 
+            // lblConfirmed
+            // 
+            this.lblConfirmed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblConfirmed.AutoSize = true;
+            this.lblConfirmed.Location = new System.Drawing.Point(672, 19);
+            this.lblConfirmed.Name = "lblConfirmed";
+            this.lblConfirmed.Size = new System.Drawing.Size(27, 13);
+            this.lblConfirmed.TabIndex = 249;
+            this.lblConfirmed.Text = "N/A";
             // 
             // label9
             // 
@@ -341,81 +431,10 @@
             // 
             this.ucFilter1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.ucFilter1.Location = new System.Drawing.Point(6, 4);
+            this.ucFilter1.Location = new System.Drawing.Point(6, -1);
             this.ucFilter1.Name = "ucFilter1";
             this.ucFilter1.Size = new System.Drawing.Size(148, 505);
             this.ucFilter1.TabIndex = 244;
-            // 
-            // Column9
-            // 
-            this.Column9.DataPropertyName = "ID";
-            this.Column9.HeaderText = "ID";
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 50;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Article";
-            this.Column1.HeaderText = "Article";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 80;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Material";
-            this.Column2.HeaderText = "Liệu";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 120;
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Color";
-            this.Column3.HeaderText = "Màu";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "Follow";
-            this.Column4.HeaderText = "Follow";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 120;
-            // 
-            // Column8
-            // 
-            this.Column8.DataPropertyName = "PurchaseSpecification";
-            this.Column8.HeaderText = "Cân nhắc mua hàng";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 270;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "Note";
-            this.Column5.HeaderText = "Ghi chú";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 170;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "SwatchLocation";
-            this.Column6.HeaderText = "Vị trí lưu";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.DataPropertyName = "Confirmed";
-            this.Column7.HeaderText = "Đã xác nhận";
-            this.Column7.Name = "Column7";
-            // 
-            // lblConfirmed
-            // 
-            this.lblConfirmed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblConfirmed.AutoSize = true;
-            this.lblConfirmed.Location = new System.Drawing.Point(672, 19);
-            this.lblConfirmed.Name = "lblConfirmed";
-            this.lblConfirmed.Size = new System.Drawing.Size(27, 13);
-            this.lblConfirmed.TabIndex = 249;
-            this.lblConfirmed.Text = "N/A";
             // 
             // btnExportToExcel
             // 
@@ -426,25 +445,6 @@
             this.btnExportToExcel.TabIndex = 245;
             this.btnExportToExcel.Text = "Xuất file Excel";
             this.btnExportToExcel.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(924, 19);
-            this.textBox1.MaxLength = 3276700;
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(154, 104);
-            this.textBox1.TabIndex = 259;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(994, 123);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 260;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmCS
             // 

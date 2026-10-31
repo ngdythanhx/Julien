@@ -31,7 +31,7 @@ namespace JServer
 
             Config.Host = ini.GetString("Server", "Host", "r411.ledway.com.tw");
             Config.LoginPort = ini.GetString("Server", "LoginPort", "7081");
-            Config.LoginEndpoint = ini.GetString("Server", "LoginEndpoint", "api4006/oauth/access_token");
+            Config.LoginEndpoint = ini.GetString("Server", "LoginEndpoint", "api3046/oauth/access_token");
             Config.QueryPort = ini.GetString("Server", "QueryPort", "7081");
             Config.QueryEndpoint = ini.GetString("Server", "QueryEndpoint", "api3046/v1/query");
 
@@ -64,7 +64,9 @@ namespace JServer
                     ["client_id"] = "vueup",
                     ["client_secret"] = "vueup",
                     ["lang"] = "Vietnam",
-                    ["deviceId"] = "webup-1792392995876-1qitspx34s"
+                    ["deviceId"] = "webup-1792392995876-1qitspx34s",
+                    ["deviceDecision"] = "keep_others",
+                    ["company"] = "E"
                 };
 
                 using (var res = await _httpClient.PostAsync(LoginUrl, new FormUrlEncodedContent(inputData)))
@@ -74,7 +76,7 @@ namespace JServer
                     if (res.StatusCode != HttpStatusCode.OK)
                         return (false, resString);
                     if (resString.Contains("invalid_grant"))
-                        return (false, "Tài khoản hoặc mật khẩu không đúng"); 
+                        return (false, "Tài khoản hoặc mật khẩu không đúng");
                     var token = JObject.Parse(resString)["access_token"]?.ToString();
                     if (string.IsNullOrEmpty(token))
                         return (false, "Server không trả về access_token.");
@@ -174,7 +176,19 @@ namespace JServer
                 return null;
             }
         }
-
+        public async Task<List<Material>> GetMaterialListAsync()
+        {
+            try
+            {
+                string query = @"select PRODNO Code, PRODNAME Name, GSM, upwidth from ledwaybasic.product where isnull(series,'')<>'' and isnull(PRODNAME,'')<>''";
+                var u = await ExQuery<Material>(query);
+                return u?.Recordset;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public void Dispose()
         {
             _httpClient?.Dispose();

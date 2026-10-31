@@ -54,9 +54,11 @@ namespace Julian_Server
                     var sheetInfo = new SheetInfo()
                     {
                         SheetID = Path.GetFileNameWithoutExtension(file),
-                        Employee = Encoding.UTF8.GetString(Encoding.Default.GetBytes(ini.GetString("Info", "Employee"))),
-                        SheetName = Encoding.UTF8.GetString(Encoding.Default.GetBytes(ini.GetString("Info", "Sheet"))),
-                        FilePath = Encoding.UTF8.GetString(Encoding.Default.GetBytes(ini.GetString("Info", "Path"))),
+                        Employee = ini.GetString("Info", "Employee"),
+                        //Employee = Encoding.UTF8.GetString(Encoding.Default.GetBytes(ini.GetString("Info", "Employee"))),
+                        SheetName =ini.GetString("Info", "Sheet"),
+                        //SheetName = Encoding.UTF8.GetString(Encoding.Default.GetBytes(ini.GetString("Info", "Sheet"))),
+                        FilePath = ini.GetString("Info", "Path"),
                     };
                     if (!_dictSheetInfo.ContainsKey(sheetInfo.SheetID))
                     {

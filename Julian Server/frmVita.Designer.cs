@@ -511,6 +511,7 @@
             this.Name = "frmVita";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Text = "frmVita";
+            this.Load += new System.EventHandler(this.frmVita_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubTotal)).EndInit();
             this.ResumeLayout(false);

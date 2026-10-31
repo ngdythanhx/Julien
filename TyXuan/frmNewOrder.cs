@@ -1,7 +1,7 @@
 ﻿using ClosedXML.Excel;
 using HtmlAgilityPack;
 using Julian;
-
+using Julian.Helper;
 using Julian.Utils;
 using Spire.Doc.AI.Model;
 using System;
@@ -34,6 +34,11 @@ namespace TyXuan
             _httpClient = new HttpClient();
             dgvMain.AutoGenerateColumns = false;
         }
+        private class Art
+        {
+            public string Article { get; set; }
+            public decimal Qty { get; set; }
+        }
         private class NewOrder
         {
             public int ID { get; set; }
@@ -48,6 +53,23 @@ namespace TyXuan
 
             //public string Remarks_ToString => string.Join("\r\n", Remarks);
             public string Remarks_ToString => Remarks.Count == 0 ? "" : Remarks.First().Substring(Remarks.First().IndexOf(')') + 1);
+            public List<Art> Articles
+            {
+                get
+                {
+                    var l = Remarks.Where(x => x.Contains("(") && x.Contains(")")).ToList();
+                    if (l.Count == 0)
+                        return new List<Art>();
+                    var p = l.Select(x => new Art()
+                    {
+                        Article = x.Substring(x.IndexOf(')') + 1),
+                        Qty = decimal.TryParse(Regex.Match(x, @"\((.*?)\)").Groups[1].Value, out decimal q) ? q : -1
+                    }).ToList();
+                    var n = p.GroupBy(x => x.Article).Select(x => new Art() { Article = x.First().Article, Qty = x.Sum(y => y.Qty) }).ToList();
+                    return n;
+                }
+            }
+            public string Articles_ToString => Articles.Count == 1 ? $"{Articles.First().Article} ({Articles.First().Qty})" : string.Join(Environment.NewLine, Articles.Select(x => $"{x.Article} ({x.Qty})").ToList());
             public int Width => int.TryParse(Description.Substring(0, 2), out int w) ? w : 0;
             public string MaterialName
             {
@@ -62,6 +84,86 @@ namespace TyXuan
                     m = m == "YH-M1093EPM558" ? "YH-M1093EPM5" : m;
                     return m;
                 }
+            }
+        }
+        private class NewOrder2
+        {
+            public int ID { get; set; }
+            public DateTime IssueDate { get; set; }
+            public string OrderNumber { get; set; }
+            public string Code { get; set; }
+            public string Description { get; set; }
+            public string Season { get; set; }
+            public float Qty { get; set; }
+            public DateTime RequestDate { get; set; }
+            public string Article { get; set; }
+            public string Articles_ToString => $"({Qty}) {Article}";
+            public int Width => int.TryParse(Description.Substring(0, 2), out int w) ? w : 0;
+            public string MaterialName
+            {
+                get
+                {
+                    string m = Description.Substring(Description.IndexOf(')') + 1);
+                    m = m.Replace("(V)", "");
+                    m = m.Replace(" ", "");
+                    m = m.Replace("YHS", "YH-S");
+                    m = m.Replace("YHS", "YH-S");
+                    m = m.Replace("YHM", "YH-M");
+                    m = m == "YH-M1093EPM558" ? "YH-M1093EPM5" : m;
+                    return m;
+                }
+            }
+        }
+        private void dgvMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                var selectedCells = dgvMain.SelectedCells
+                    .Cast<DataGridViewCell>()
+                    .OrderBy(c => c.RowIndex)
+                    .ThenBy(c => c.ColumnIndex)
+                    .ToList();
+
+                if (selectedCells.Count == 0) return;
+
+                int minRow = selectedCells.Min(c => c.RowIndex);
+                int maxRow = selectedCells.Max(c => c.RowIndex);
+                int minCol = selectedCells.Min(c => c.ColumnIndex);
+                int maxCol = selectedCells.Max(c => c.ColumnIndex);
+
+                var sb = new StringBuilder();
+
+                for (int r = minRow; r <= maxRow; r++)
+                {
+                    if (r > minRow)
+                        sb.AppendLine();
+
+                    for (int c = minCol; c <= maxCol; c++)
+                    {
+                        if (c > minCol)
+                            sb.Append('\t');
+
+                        var cell = dgvMain[c, r];
+
+                        string value = cell.Value?.ToString() ?? "";
+
+                        // Ô có xuống dòng hoặc tab hoặc "
+                        if (value.Contains('\n') ||
+                            value.Contains('\r') ||
+                            value.Contains('\t') ||
+                            value.Contains('"'))
+                        {
+                            value = "\"" + value.Replace("\"", "\"\"") + "\"";
+                        }
+
+                        sb.Append(value);
+                    }
+                }
+
+                Clipboard.SetText(sb.ToString());
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
         private async void GetData()
@@ -95,7 +197,7 @@ namespace TyXuan
                 doc.LoadHtml(response);
                 //var a = GetDataTable(doc);
                 var lstTable = doc.DocumentNode.SelectNodes("//table");
-                var table = lstTable.OrderBy(XacNhanYVai => XacNhanYVai.InnerLength).Last();
+                var table = lstTable.OrderBy(x => x.InnerLength).Last();
                 var lst = await Task.FromResult(HtmlTableToNewOrderList(table));
                 dgvMain.DataSource = lst;
                 if (lst != null && lst.Count > 0)
@@ -194,15 +296,15 @@ namespace TyXuan
                         //var RequestDate = DateTime.ParseExact(row["Buyer Request Date"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None);
                         var newOrder = new NewOrder()
                         {
-                            ID = id++,
-                            IssueDate = DateTime.ParseExact(row["Issue Date:"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None),
-                            OrderNumber = (String)row["Order Number:"],
-                            Code = (String)row["Additional Optional 2"],
-                            Description = (String)row["Additional Optional 3"],
-                            Season = (String)row["Season"],
-                            Qty = float.Parse(row["Order Quantity"].ToString().Replace(",", "")),
-                            RequestDate = DateTime.ParseExact(row["Buyer Request Date"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None),
-                            Remarks = ((String)row["Additional Optional 4"]).Split('\n').ToList(),
+                            IssueDate = row["Issue Date:"] == DBNull.Value ? DateTime.MinValue : DateTime.TryParseExact(row["Issue Date:"]?.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var issueDate) ? issueDate : DateTime.MinValue,
+                            OrderNumber = row["Order Number:"].ToString(),
+                            Code = row["Additional Optional 2"].ToString(),
+                            Description = row["Additional Optional 3"].ToString(),
+                            Season = row["Season"].ToString(),
+                            Qty = float.TryParse(row["Order Quantity"].ToString().Replace(",", ""), out float q) ? q : 0,
+                            //RequestDate = DateTime.ParseExact(row["Buyer Request Date"].ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None),
+                            RequestDate = row["Buyer Request Date"] == DBNull.Value ? DateTime.MinValue : DateTime.TryParseExact(row["Buyer Request Date"]?.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var rDate) ? rDate : DateTime.MinValue,
+                            Remarks = row["Additional Optional 4"].ToString().Split('\n').Where(x => x.Substring(x.IndexOf(')') + 1).Length == 6).ToList(),
                         };
                         lstNewOrder.Add(newOrder);
                     }
@@ -295,7 +397,7 @@ namespace TyXuan
                     for (int i = 0; i < lst.Length; i++)
                     {
                         string text = lst[i];
-                        if (string.IsNullOrEmpty(text)|| text== "\"")
+                        if (string.IsNullOrEmpty(text) || text == "\"")
                         {
                             continue;
                         }
@@ -348,7 +450,7 @@ namespace TyXuan
         private void btnCopy_Click(object sender, EventArgs e)
         {
             var data = dgvMain.DataSource as List<NewOrder>;
-            if (data ==null)
+            if (data == null)
             {
                 toolTip1.Show("Dữ liệu rỗng!", btnCopy, btnCopy.Width, 0, 1500);
                 return;
@@ -362,6 +464,60 @@ namespace TyXuan
             var result = string.Join("\r\n", lst);
             Clipboard.SetText(result);
             toolTip1.Show("Đã sao chép!", btnCopy, btnCopy.Width, 0, 1500);
+        }
+
+        private void btnExcelToData_Click(object sender, EventArgs e)
+        {
+            var l = JHelper.ConvertData.ConvertExcelDataToRows(textBox1.Text);
+            var data = l.Data;
+            var lst = new List<NewOrder2>();
+            foreach (var row in data)
+            {
+                var order = new NewOrder2()
+                {
+                    IssueDate = DateTime.Now,
+                    OrderNumber = row[0],
+                    Code = row[1],
+                    Description = row[2],
+                    Article = row[6],
+                    Qty = float.Parse(row[5])
+                };
+                lst.Add(order);
+            }
+            var lstG = lst.GroupBy(x => new { x.Code}).Select(x =>
+            {
+                {
+                    var a = new NewOrder()
+                    {
+                        IssueDate = DateTime.Now,
+                        OrderNumber = x.First().OrderNumber,
+                        Code = x.First().Code,
+                        Description = x.First().Description,
+                        Qty = x.Sum(y=> y.Qty),
+                        Remarks  = x.Select(y=> y.Articles_ToString).ToList()
+                    };
+                    return a;
+                }
+            }).ToList();
+            dgvMain.DataSource = lstG;
+            if (lstG != null && lstG.Count > 0)
+            {
+                lblIssueDate.Text = lstG[0].IssueDate.ToString("yyyy-MM-dd");
+                lblOrderNumber.Text = lstG[0].OrderNumber.ToString();
+
+                lblTotalRow.Text = lstG.Count.ToString("#,##0");
+                lblTotalQty.Text = lstG.Sum(x => x.Qty).ToString("#,##0.0000");
+            }
+            else
+            {
+                toolTip1.Show("Không có dữ liệu! Xem lại mã PO", txtInput, txtInput.Width, txtInput.Height - 3, 1500);
+                lblIssueDate.Text = "...";
+                lblOrderNumber.Text = "...";
+
+                lblTotalRow.Text = "0";
+                lblTotalQty.Text = "0";
+
+            }
         }
     }
 }

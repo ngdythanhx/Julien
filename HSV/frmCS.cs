@@ -1,4 +1,5 @@
 ﻿using Julian.Utils;
+using Julian_Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace HSV
@@ -23,6 +25,8 @@ namespace HSV
         private int _action = 0;
         IniManager _iniManager = new IniManager(Path.Combine(Directory.GetCurrentDirectory(), "config.ini"));
         Dictionary<string, bool> _dictSource = new Dictionary<string, bool>();
+        private int _actionType = 1;
+        private CS _cusCS = null;
         public frmCS()
         {
             InitializeComponent();
@@ -30,13 +34,13 @@ namespace HSV
         }
         private void UpdateFilterPosition()
         {
-            var lstTextBox = pnlFilter.Controls.OfType<TextBox>().ToList();
+            var lstTextBox = pnlSearch.Controls.OfType<TextBox>().ToList();
             for (int i = 0; i < lstTextBox.Count; i++)
             {
                 TextBox textBox = lstTextBox[i];
                 var col = dgvMain.Columns[i];
                 Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
-                textBox.SetBounds(rect.X + 3, 0, rect.Width - 2, pnlFilter.Height);
+                textBox.SetBounds(rect.X + 3, 0, rect.Width - 2, pnlSearch.Height);
                 textBox.Visible = rect.Width > 0;
             }
         }
@@ -47,7 +51,7 @@ namespace HSV
 
             List<string> conditions = new();
 
-            foreach (TextBox textBox in pnlFilter.Controls.OfType<TextBox>())
+            foreach (TextBox textBox in pnlSearch.Controls.OfType<TextBox>())
             {
                 if (string.IsNullOrWhiteSpace(textBox.Text))
                     continue;
@@ -116,19 +120,68 @@ namespace HSV
                     UpdateFilterPosition();
                 }
             };
+            ucFilter1.ItemCheckedChange += () =>
+            {
+                if (_isUpdateLstMaterial)
+                    return;
+                LoadCSData();
+            };
+            Button btnX = new Button();
+            btnX.Text= "X";
+            btnX.Width = dgvMain.RowHeadersWidth;
+            btnX.Height = pnlSearch.Height - 1;
+            btnX.Top = 0;
+            btnX.Left = 0;
+            btnX.Click += (ss, ee) =>
+            {
+                foreach(TextBox textBox in pnlSearch.Controls.OfType<TextBox>())
+                {
+                    textBox.Text = "";
+                }
+            };
+            pnlSearch.Controls.Add(btnX);
             foreach (DataGridViewColumn col in dgvMain.Columns)
             {
                 Rectangle rect = dgvMain.GetCellDisplayRectangle(col.Index, -1, true);
                 var textbox = new TextBox();
                 textbox.Tag = col.DataPropertyName;
                 textbox.Width = rect.Width - 2;
-                textbox.Location = new Point(rect.X + 3, 0);
+                textbox.Location = new System.Drawing.Point(rect.X + 3, 0);
                 textbox.TextChanged += textBox_TextChanged;
-                pnlFilter.Controls.Add(textbox);
+                pnlSearch.Controls.Add(textbox);
             }
-            LockInputs();
-        }
+            foreach (TextBox textBox in gb1.Controls.OfType<TextBox>())
+            {
+                textBox.ReadOnly = true;
+            }
+            _isUpdateLstMaterial = true;
+            ucFilter1.ClearDataSource();
+            var lstMaterial = _iniManager.GetString("Data", "Materials").Split(';').Select(x => x.Replace(" ", "")).Where(x => x.Length >= 5).ToList();
+            ucFilter1.SetDataSource(lstMaterial,false);
+            _isUpdateLstMaterial = false;
 
+            textBox1.ReadOnly = false;
+        }
+        private async void LoadCSData()
+        {
+            var a = ucFilter1.GetItemsChecked().ToArray();
+            DataTable dt = null;
+            if (a.Length != 0)
+                dt = await CSDATA.Instance.Get(a);
+            _bindingSource.DataSource = dt;
+            dgvMain.DataSource = _bindingSource;
+
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                EnableButton(true, true, false, false);
+            }
+            else
+            {
+                EnableButton(true, true, true, true);
+            }
+            _action = 0;
+            ApplyTexboxFilter();
+        }
         private void dgvMain_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -142,92 +195,70 @@ namespace HSV
                     e.Value = "No";
             }
         }
-        private void EnableTextBox(bool enable)
-        {
-            txtArticle.ReadOnly = enable;
-            txtMaterial.ReadOnly = enable;
-            txtColor.ReadOnly = enable;
-            txtFollow.ReadOnly = enable;
-            txtNote.ReadOnly = enable;
-        }
-        public void LockInputs()
-        {
-            foreach (TextBox textBox in gb1.Controls.OfType<TextBox>())
-            {
-                textBox.ReadOnly = true;
-                //textBox.BorderStyle = BorderStyle.None;
-                //textBox.Margin = new Padding(6, 6, 1, 0);
-            }
-            rbYes.AutoCheck = false;
-            rbNo.AutoCheck = false;
-        }
-
-        public void UnlockInputs()
-        {
-            foreach (TextBox textBox in gb1.Controls.OfType<TextBox>())
-            {
-                textBox.ReadOnly = false;
-                textBox.BorderStyle = BorderStyle.None;
-                //textBox.Margin = new Padding(6, 6, 1, 0);
-            }
-            rbYes.AutoCheck = true;
-            rbNo.AutoCheck = true;
-        }
-        public void ResetInputs()
-        {
-            foreach (TextBox textBox in gb1.Controls.OfType<TextBox>())
-            {
-                textBox.Text = "";
-            }
-            rbYes.Enabled = false;
-            rbNo.Enabled = true;
-        }
-        private void EnableButton(bool load, bool add, bool update, bool del, bool save, bool cancel)
+        private void EnableButton(bool load, bool add, bool update, bool del)
         {
             btnLoadData.Enabled = load;
             btnAdd.Enabled = add;
             btnUpdate.Enabled = update;
             btnDel.Enabled = del;
-            btnSave.Enabled = save;
-            btnCancel.Enabled = cancel;
         }
 
         private void dgvMain_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvMain.CurrentRow == null)
+            {
+                _cusCS = null;
+                btnUpdate.Enabled = false;
+                lblID.Text = "N/A";
+                txtArticle.Text = "";
+                txtMaterial.Text = "";
+                txtColor.Text = "";
+                txtFollow.Text = "";
+                txtPurchaseSpecification.Text = "";
+                txtNote.Text = "";
+                txtLocation.Text = "";
+                lblConfirmed.Text = "N/A";
                 return;
-
-            txtArticle.Text = dgvMain.CurrentRow.Cells[0].Value?.ToString() ?? "";
-            txtMaterial.Text = dgvMain.CurrentRow.Cells[1].Value?.ToString() ?? "";
-            txtColor.Text = dgvMain.CurrentRow.Cells[2].Value?.ToString() ?? "";
-            txtFollow.Text = dgvMain.CurrentRow.Cells[3].Value?.ToString() ?? "";
-            txtNote.Text = dgvMain.CurrentRow.Cells[4].Value?.ToString() ?? "";
-            txtLocation.Text = dgvMain.CurrentRow.Cells[5].Value?.ToString() ?? "";
-            bool confirmed = dgvMain.CurrentRow.Cells[6].Value?.ToString() == "True" ? true : false;
-            rbYes.Checked = confirmed;
-            rbNo.Checked = !confirmed;
+            }
+            lblID.Text = dgvMain.CurrentRow.Cells[0].Value?.ToString() ?? "";
+            txtArticle.Text = dgvMain.CurrentRow.Cells[1].Value?.ToString() ?? "";
+            txtMaterial.Text = dgvMain.CurrentRow.Cells[2].Value?.ToString() ?? "";
+            txtColor.Text = dgvMain.CurrentRow.Cells[3].Value?.ToString() ?? "";
+            txtFollow.Text = dgvMain.CurrentRow.Cells[4].Value?.ToString() ?? "";
+            txtPurchaseSpecification.Text = dgvMain.CurrentRow.Cells[5].Value?.ToString() ?? "";
+            txtNote.Text = dgvMain.CurrentRow.Cells[6].Value?.ToString() ?? "";
+            txtLocation.Text = dgvMain.CurrentRow.Cells[7].Value?.ToString() ?? "";
+            lblConfirmed.Text = dgvMain.CurrentRow.Cells[8].Value?.ToString();
+            _cusCS = new CS()
+            {
+                ID = (int)dgvMain.CurrentRow.Cells[0].Value,
+                Article = (string)dgvMain.CurrentRow.Cells[1].Value,
+                Material = (string)dgvMain.CurrentRow.Cells[2].Value,
+                Color = (string)dgvMain.CurrentRow.Cells[3].Value,
+                Follow = (string)dgvMain.CurrentRow.Cells[4].Value,
+                PurchaseSpecification = (string)dgvMain.CurrentRow.Cells[5].Value,
+                Note = (string)dgvMain.CurrentRow.Cells[6].Value,
+                SwatchLocation = (string)dgvMain.CurrentRow.Cells[7].Value,
+                Confirmed = dgvMain.CurrentRow.Cells[8].Value.ToString() == "True",
+            };
         }
 
         private bool _isUpdateLstMaterial = false;
         private void btnLoadData_Click(object sender, EventArgs e)
         {
-            lsbMaterial.Items.Clear();
-            //_isUpdateLstMaterial = true;
-            var lstMaterial = _iniManager.GetString("Data", "Materials").Split(';');
-            foreach (var mtl in lstMaterial)
-            {
-                var a = mtl.Replace(" ", "");
-                if (a.Length >= 5)
-                    lsbMaterial.Items.Add(mtl, true);
-            }
-            //_isUpdateLstMaterial = false;
+            _isUpdateLstMaterial = true;
+            ucFilter1.ClearDataSource();
+            var lstMaterial = _iniManager.GetString("Data", "Materials").Split(';').Select(x => x.Replace(" ", "")).Where(x => x.Length >= 5).ToList();
+            ucFilter1.SetDataSource(lstMaterial);
+            _isUpdateLstMaterial = false;
+            LoadCSData();
         }
 
         private async void lsbMaterial_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (_isUpdateLstMaterial) return;
 
-            var lst = lsbMaterial.CheckedItems
+            /*var lst = lsbMaterial.CheckedItems
                 .Cast<string>()
                 .ToList();
 
@@ -240,23 +271,68 @@ namespace HSV
             {
                 lst.Remove(lsbMaterial.Items[e.Index].ToString());
             }
-
-            var dt = await CSDATA.Instance.Get(lst.ToArray());
+            
+            var dt = await CSDATA.Instance.Get(lst.ToArray());*/
+            var a = ucFilter1.GetItemsChecked().ToArray();
+            var dt = await CSDATA.Instance.Get();
             _bindingSource.DataSource = dt;
             dgvMain.DataSource = _bindingSource;
 
-            ResetInputs();
-
-            if (dt.Rows.Count == 0)
+            if (dt == null || dt.Rows.Count == 0)
             {
-                EnableButton(true, true, false, false, false, false);
+                EnableButton(true, true, false, false);
             }
             else
             {
-                EnableButton(true, true, true, true, false, false);
+                EnableButton(true, true, true, true);
             }
             _action = 0;
             ApplyTexboxFilter();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            frmCSModify frm = new frmCSModify(1);
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.ShowDialog();
+            LoadCSData();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (_cusCS == null)
+                return;
+            frmCSModify frm = new frmCSModify(2, _cusCS);
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.ShowDialog();
+            LoadCSData();
+        }
+
+        private async void btnDel_Click(object sender, EventArgs e)
+        {
+            if (_cusCS == null)
+                return;
+            if (MessageBox.Show($"Dữ liệu \n{_cusCS.Article}\n{_cusCS.Material}\n{_cusCS.Color}\nSẽ bị xóa vĩnh viễn. Đồng ý?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var rsp = await CSDATA.Instance.Delete(_cusCS.ID);
+                MessageBox.Show(rsp.Msg);
+                if (rsp.ErrCode == 0)
+                    LoadCSData();
+            }
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            string inputText = textBox1.Text;
+            string[] lines = inputText.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            if (lines.Length == 0)
+                return;
+            var a = lines.Select(l => l.Split('\t'));
+            var data = lines.Select(l => l.Split('\t')).Where(x => x.Length ==4).ToList();
+            foreach(var item in data)
+            {
+                await CSDATA.Instance.Add(item[2].Trim(), item[0].Trim(), item[1].Trim(), "", "", "", item[3].Trim(),false);
+            }
         }
     }
 }

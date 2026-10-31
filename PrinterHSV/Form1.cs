@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace PrinterHSV
 {
@@ -225,6 +227,18 @@ namespace PrinterHSV
 
              await client.ReceiveLoop();*/
             webView.CoreWebView2.OpenDevToolsWindow();
+        }
+        private class nnn
+        {
+           public string product_id { get; set; }
+        }
+        private void button1_Clickxx(object sender, EventArgs e)
+        {
+            var data = File.ReadAllText("x.txt");
+            JObject a = JObject.Parse(data);
+            var lst  = a["data"]["searchResponse"].ToObject<List<nnn>>();
+            var client = new HttpClient();
+
         }
     }
 }

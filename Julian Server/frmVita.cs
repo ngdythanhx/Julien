@@ -30,7 +30,7 @@ namespace Julian_Server
             InitializeComponent();
             _frmReporter = frmReporter;
             string folder = _iniManager.GetString("Vita", "Folder", "\\VP_JULIEN\\Kinh doanh 業務\\13.Báo cáo Report 業務報告\\Vita Báo cáo\\2026");
-            folder = Encoding.UTF8.GetString(Encoding.Default.GetBytes(folder));
+            //folder = Encoding.UTF8.GetString(Encoding.Default.GetBytes(folder));
             if (Directory.Exists(folder))
             {
                 var files = Directory.GetFiles(folder, "*.xlsx").Where(f => (File.GetAttributes(f) & FileAttributes.Hidden) == 0).OrderByDescending(f => File.GetLastWriteTime(f)).ToArray();
@@ -377,6 +377,11 @@ namespace Julian_Server
             public string Invoice { get; set; }
             public string MaHangKH { get; set; }
             public string T1 { get; set; }
+        }
+
+        private void frmVita_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

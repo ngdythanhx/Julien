@@ -23,7 +23,7 @@ namespace HSV
         public string PONhuomMoi {  get; set; }
         public string ETD {  get; set; }
         public string ETDNote {  get; set; }
-        public string CusNote {  get; set; }
+        public string CusNote { get; set; }
         public string Article {  get; set; }
         public int Width {  get; set; }
         public decimal Qty {  get; set; }

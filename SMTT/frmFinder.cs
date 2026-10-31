@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -89,6 +90,30 @@ namespace SMTT
                 col_input_qty.Visible = true;
             }
         }
+        private async void Start2()
+        {
+            btnStart.Enabled = false;
+            this.ActiveControl = label1;
+            try
+            {
+                if (!_trustrace.IsLogin)
+                {
+                    if (!await Login())
+                        return;
+                }
+                //await _trustrace.DEL()
+                btnStart.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi hệ thống:\n" + ex.Message);
+            }
+            finally
+            {
+                btnStart.Enabled = true;
+            }
+
+        }
         private async void Start()
         {
             btnStart.Enabled = false;
@@ -174,6 +199,37 @@ namespace SMTT
         private void btnCopy_Click(object sender, EventArgs e)
         {
 
+        }
+        private class nnn
+        {
+            public string id { get; set; }
+        }
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            //var data = File.ReadAllText("x.txt");
+            var data = textBox1.Text;
+            JObject a = JObject.Parse(data);
+            var lst = a["data"]["searchResponse"].ToObject<List<nnn>>().Select(x => x.id).ToList();
+            var client = new HttpClient();
+            button1.Enabled = false;
+            this.ActiveControl = label1;
+            try
+            {
+                if (!_trustrace.IsLogin)
+                {
+                    if (!await Login())
+                        return;
+                }
+                MessageBox.Show(await _trustrace.DEL(lst));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi hệ thống:\n" + ex.Message);
+            }
+            finally
+            {
+                button1.Enabled = true;
+            }
         }
     }
 }

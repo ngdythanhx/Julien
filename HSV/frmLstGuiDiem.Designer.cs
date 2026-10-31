@@ -89,6 +89,7 @@
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.Size = new System.Drawing.Size(1272, 418);
             this.dgvMain.TabIndex = 298;
+            this.dgvMain.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMain_CellContentClick);
             // 
             // Column19
             // 
@@ -156,6 +157,7 @@
             this.cbCus.Name = "cbCus";
             this.cbCus.Size = new System.Drawing.Size(81, 21);
             this.cbCus.TabIndex = 314;
+            this.cbCus.SelectedIndexChanged += new System.EventHandler(this.cbCus_SelectedIndexChanged);
             // 
             // dtpCreateDate
             // 
@@ -166,6 +168,7 @@
             this.dtpCreateDate.Name = "dtpCreateDate";
             this.dtpCreateDate.Size = new System.Drawing.Size(98, 20);
             this.dtpCreateDate.TabIndex = 313;
+            this.dtpCreateDate.ValueChanged += new System.EventHandler(this.dtpCreateDate_ValueChanged);
             // 
             // txtFilename
             // 
@@ -174,6 +177,7 @@
             this.txtFilename.Name = "txtFilename";
             this.txtFilename.Size = new System.Drawing.Size(138, 20);
             this.txtFilename.TabIndex = 312;
+            this.txtFilename.TextChanged += new System.EventHandler(this.txtFilename_TextChanged);
             // 
             // frmLstGuiDiem
             // 

@@ -21,14 +21,9 @@ namespace Julian_Server
             var a = _dictSource.Keys.ToArray();
             var b = a.Where(x => x == "");
         }
-        public string FilterText
-        {
-            get => label1.Text;
-            set => label1.Text = value;
-        }
         public void SetDataSource(List<string> list)
         {
-            if (list != null && list.Count>0)
+            if (list != null && list.Count > 0)
             {
                 _dictSource.Clear();
                 lsbData.DataSource = list;
@@ -39,6 +34,27 @@ namespace Julian_Server
                 }
                 chkAll.Checked = true;
             }
+        }
+        public void SetDataSource(List<string> list, bool check)
+        {
+            if (list != null && list.Count > 0)
+            {
+                _dictSource.Clear();
+                lsbData.DataSource = list;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    lsbData.SetItemChecked(i, check);
+                    _dictSource[list[i]] = check;
+                }
+                chkAll.Checked = check;
+            }
+        }
+        public void ClearDataSource()
+        {
+
+            _dictSource.Clear();
+            lsbData.DataSource = null;
+            chkAll.Checked = false;
         }
         public bool CheckedChangeItem(string itemText)
         {
@@ -96,35 +112,11 @@ namespace Julian_Server
                 }
             }
         }*/
-        private void txtFilter_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtFilter.Text))
-                return;
-
-            var item = _dictSource.Keys
-                .FirstOrDefault(x => x.ToUpper().Contains(txtFilter.Text.ToUpper()));
-
-            if (string.IsNullOrEmpty(item))
-                return;
-
-            int index = lsbData.Items.IndexOf(item);
-            if (index >= 0)
-            {
-                lsbData.SelectedIndex = index;
-
-                // scroll mượt hơn
-                int visibleItems = lsbData.ClientSize.Height / lsbData.ItemHeight;
-                int topIndex = index - visibleItems / 2;
-                if (topIndex < 0) topIndex = 0;
-
-                lsbData.TopIndex = topIndex;
-            }
-        }
         private bool _lockItemCheck = false;
         private bool _lockCheckAll = false;
         private void lsbData_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (_lockItemCheck) return; 
+            if (_lockItemCheck) return;
 
             var lsb = (CheckedListBox)sender;
             _dictSource[lsb.Items[e.Index].ToString()] = (e.NewValue == CheckState.Checked);
@@ -152,7 +144,6 @@ namespace Julian_Server
         {
             if (_lockCheckAll)
                 return;
-            txtFilter.Text = "";
             _lockItemCheck = true;
 
             for (int i = 0; i < lsbData.Items.Count; i++)

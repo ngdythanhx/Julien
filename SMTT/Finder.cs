@@ -108,5 +108,9 @@ namespace SMTT
             await Task.WhenAll(task_submitted, task_draft);
             Finish = true;
         }
+        public async Task StartDel(List<string> lst)
+        {
+            await _trustrace.DEL(lst);
+        }
     }
 }

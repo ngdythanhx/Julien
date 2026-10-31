@@ -57,6 +57,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblTotalRow = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnExcelToData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.btnCopyToOrderForm.SuspendLayout();
             this.SuspendLayout();
@@ -111,6 +113,7 @@
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.Size = new System.Drawing.Size(1172, 422);
             this.dgvMain.TabIndex = 3;
+            this.dgvMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvMain_KeyDown);
             // 
             // Column1
             // 
@@ -162,7 +165,7 @@
             // 
             // Column6
             // 
-            this.Column6.DataPropertyName = "Remarks_ToString";
+            this.Column6.DataPropertyName = "Articles_ToString";
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Column6.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column6.FillWeight = 17F;
@@ -237,6 +240,8 @@
             // 
             this.btnCopyToOrderForm.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyToOrderForm.Controls.Add(this.btnExcelToData);
+            this.btnCopyToOrderForm.Controls.Add(this.textBox1);
             this.btnCopyToOrderForm.Controls.Add(this.btnCopy);
             this.btnCopyToOrderForm.Controls.Add(this.label1);
             this.btnCopyToOrderForm.Controls.Add(this.txtUrl);
@@ -303,6 +308,25 @@
             this.lblTotalRow.TabIndex = 4;
             this.lblTotalRow.Text = "0";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(564, 47);
+            this.textBox1.MaxLength = 32767000;
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(210, 66);
+            this.textBox1.TabIndex = 8;
+            // 
+            // btnExcelToData
+            // 
+            this.btnExcelToData.Location = new System.Drawing.Point(780, 50);
+            this.btnExcelToData.Name = "btnExcelToData";
+            this.btnExcelToData.Size = new System.Drawing.Size(75, 23);
+            this.btnExcelToData.TabIndex = 9;
+            this.btnExcelToData.Text = "button1";
+            this.btnExcelToData.UseVisualStyleBackColor = true;
+            this.btnExcelToData.Click += new System.EventHandler(this.btnExcelToData_Click);
+            // 
             // frmNewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -339,6 +363,8 @@
         private System.Windows.Forms.Label lblTotalRow;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtUrl;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -346,7 +372,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.Button btnExcelToData;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

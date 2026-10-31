@@ -212,7 +212,25 @@ namespace HSV
                             //row.Style.Font.Bold = false;
                             var item = lstDiem[i];
 
-                            row.Cell("A").Value = item.ID;
+                            row.Cell("A").Value = item.Lieu;
+                            row.Cell("B").Value = item.MauKD;
+                            row.Cell("C").Value = item.MauKho;
+                            row.Cell("D").Value = item.NgayDatHang_String;
+                            row.Cell("E").Value = item.Brand;
+                            row.Cell("F").Value = item.CusName;
+                            row.Cell("G").Value = item.CusPO;
+                            row.Cell("H").Value = item.CusItemCode;
+                            row.Cell("I").Value = item.PONhuom;
+                            row.Cell("J").Value = item.PONhuomMoi;
+                            row.Cell("K").Value = item.ETD;
+                            row.Cell("L").Value = item.ETDNote;
+                            row.Cell("M").Value = item.CusNote;
+                            row.Cell("N").Value = item.ID;
+                            row.Cell("P").Value = item.Width;
+                            row.Cell("T").Value = item.Qty;
+                            //row.Cell("R").FormulaA1 = $"=J{n}";
+
+                            /*row.Cell("A").Value = item.ID;
                             row.Cell("B").Value = item.Lieu;
                             row.Cell("C").Value = item.MauKD;
                             row.Cell("D").Value = item.MauKho;
@@ -228,27 +246,27 @@ namespace HSV
                             row.Cell("N").Value = item.CusNote;
                             row.Cell("Q").Value = item.Width;
                             row.Cell("U").Value = item.Qty;
-                            row.Cell("R").FormulaA1 = $"=J{n}";
+                            row.Cell("R").FormulaA1 = $"=J{n}";*/
 
-                            row.Cell("R").Value = item.PONhuom;
-                            row.Cell("R").Style.Font.Bold = false;
-                            row.Cell("U").Value = item.Qty;
-                            row.Cell("U").Style.NumberFormat.Format = item.Qty % 1 == 0 ? "#,##0" : "#,##0.000";
-                            row.Cell("U").Style.Font.Bold = false;
-                            row.Cell("U").Style.Font.FontSize = 12;
-                            row.Cell("U").Style.Fill.BackgroundColor = XLColor.FromHtml("#D7E4BE");
+                            row.Cell("Q").Value = item.PONhuom;
+                            row.Cell("Q").Style.Font.Bold = false;
+                            //row.Cell("U").Value = item.Qty;
+                            row.Cell("T").Style.NumberFormat.Format = item.Qty % 1 == 0 ? "#,##0" : "#,##0.000";
+                            row.Cell("T").Style.Font.Bold = false;
+                            row.Cell("T").Style.Font.FontSize = 12;
+                            row.Cell("T").Style.Fill.BackgroundColor = XLColor.FromHtml("#D7E4BE");
                             if (i == lstDiem.Count - 1)
                             {
-                                sheet.Range($"Y{n - lstDiem.Count + 1}:Y{n}").Merge();
-                                sheet.Cell($"Y{n - lstDiem.Count + 1}").Value = lstDiem.Sum(x => x.Qty);
-                                sheet.Range($"Y{n - lstDiem.Count + 1}:Y{n}").Style.NumberFormat.Format = lstDiem.Sum(x => x.Qty) % 1 == 0 ? "#,##0" : "#,##0.000";
-                                sheet.Range($"Y{n - lstDiem.Count + 1}:Y{n}").Style.Font.Bold = false;
+                                sheet.Range($"X{n - lstDiem.Count + 1}:X{n}").Merge();
+                                sheet.Cell($"X{n - lstDiem.Count + 1}").Value = lstDiem.Sum(x => x.Qty);
+                                sheet.Range($"X{n - lstDiem.Count + 1}:X{n}").Style.NumberFormat.Format = lstDiem.Sum(x => x.Qty) % 1 == 0 ? "#,##0" : "#,##0.000";
+                                sheet.Range($"X{n - lstDiem.Count + 1}:X{n}").Style.Font.Bold = false;
                             }
                         }
                     }
                     sheet.Cell($"A2").Value = $"進出材料表({cusName} PRO)";
                     sheet.Cell($"A3").Value = $"日期( ngày xuất) : {deliveryDate.ToString("MM-dd")}";
-                    sheet.Cell($"U{n + 1}").FormulaA1 = $"=SUBTOTAL(109,U5:U{n})";
+                    sheet.Cell($"T{n + 1}").FormulaA1 = $"=SUBTOTAL(109,T5:T{n})";
 
                     return (true, "");
                 }
@@ -262,6 +280,26 @@ namespace HSV
         private void frmLstGuiDiem_Load(object sender, EventArgs e)
         {
             cbCus.DataSource = new string[] { "HSV", "HWK" };
+        }
+
+        private void dtpCreateDate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFilename_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvMain_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void cbCus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

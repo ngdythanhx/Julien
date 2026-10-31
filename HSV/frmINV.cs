@@ -300,7 +300,7 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("INV HĐ");
                     //sheet.Cell("E3").Value = $"INV NO.: {dtpCreateDate.Value.ToString("yyyyMMdd")}{cusName}   Date : {dtpCreateDate.Value:MMMM} {GetDaySuffix(dtpCreateDate.Value.Day)}, {dtpCreateDate.Value:yyyy}";
-                    var lstINVHD = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).GroupBy(x => x.Description).Select(x => new INVHD()
+                    var lstINVHD = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && !x.PO.ToUpper().Contains("FOC") && x.UnitPriceUSD > 0).GroupBy(x => x.Description).Select(x => new INVHD()
                     {
                         DESCRIPTION = x.First().Description,
                         COLOR = x.Sum(y => y.Qty).ToString("#,##0.000"),
@@ -349,7 +349,7 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("PKL HĐ");
                     //sheet.Cell("I3").Value = $"INV NO.: {dtpCreateDate.Value.ToString("yyyyMMdd")}{cusName}   Date : {dtpCreateDate.Value:MMMM} {GetDaySuffix(dtpCreateDate.Value.Day)}, {dtpCreateDate.Value:yyyy}";
-                    var lstPKLs = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).GroupBy(x => new { x.Description, x.Thickness }).OrderBy(g => g.Key.Description).Select(a =>
+                    var lstPKLs = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && !x.PO.ToUpper().Contains("FOC") && x.UnitPriceUSD > 0).GroupBy(x => new { x.Description, x.Thickness }).OrderBy(g => g.Key.Description).Select(a =>
                         a.Select(y => new PKLHD()
                         {
                             PO = y.PO,
@@ -447,7 +447,7 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("PKL KHAI THEO XE");
                     //var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
-                    var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD > 0).ToList();
+                    var lst = lstINV.Where(x => !x.PO.ToUpper().Contains("CLAIM") && !x.PO.ToUpper().Contains("FOC") && x.UnitPriceUSD > 0).ToList();
                     if (lst.Count == 0)
                         return (true, "");
                     int n = 20;
@@ -504,7 +504,7 @@ namespace HSV
                 {
                     var sheet = wb.Worksheet("PKL KHAI THEO XE - CLAIM");
                     //var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).OrderBy(inv => inv.MaterialCode).ThenBy(inv => inv.Article).ThenBy(inv => inv.PO).ToList();
-                    var lst = lstINV.Where(x => x.PO.ToUpper().Contains("CLAIM") && x.UnitPriceUSD <= 0).ToList();
+                    var lst = lstINV.Where(x => (x.PO.ToUpper().Contains("CLAIM") || x.PO.ToUpper().Contains("FOC")) && x.UnitPriceUSD <= 0).ToList();
                     if (lst.Count == 0)
                         return (true, "");
                     int n = 20;

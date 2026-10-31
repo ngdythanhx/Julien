@@ -61,6 +61,7 @@ namespace HSV
             LoadForm(new frmINV(), "INV-PKL");
             LoadForm(new frmLstGuiDiem(), "LIST GỬI DIỄM");
             LoadForm(new frmCS(), "CS");
+            LoadForm(new frmSQ(), "SQ");
             tcMain.SelectedIndex = 0;
         }
     }

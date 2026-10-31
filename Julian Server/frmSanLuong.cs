@@ -79,7 +79,7 @@ namespace Julian_Server
 
             var fromDate = dtpFromDate.Value.Date;
             var toDate = dtpToDate.Value.Date;
-            var checkedItems = filterMaKH.GetItemsChecked().ToList();
+            var checkedItems = filterMaKH.GetItemsChecked();
             //var filterUnitPrice = chkFilerUnitPrice.Checked;
 
             var result = await Task.Run(() =>
@@ -126,6 +126,23 @@ namespace Julian_Server
 
                     });
                 }
+                var g = lst.GroupBy(x => new { x.MaKH, x.MaDonKH, x.MaHangKH }).ToList();
+                var lst2 = new List<SanLuong>();
+                foreach (var item in g)
+                {
+                    if(item.Key.MaKH=="HSV"|| item.Key.MaKH == "HWK"||item.Key.MaKH=="HWD")
+                    {
+                        var s = item.First();
+                        s.Qty = item.Sum(x => x.Qty);
+                        s.TongTien= item.Sum(x => x.TongTien);
+                        lst2.Add(s);
+                    }
+                    else
+                    {
+                        lst2.AddRange(item.ToList());
+                    }    
+                }
+                lst=lst2;
                 var subtotalByLieuKH = data.GroupBy(o => o.LieuKH)
                     .Select(o => new SubtotalByLieuKH
                     {
@@ -254,11 +271,11 @@ namespace Julian_Server
                         MessageBox.Show("Không tìm thấy sheet 'Main'");
                         return;
                     }
-                    var rangRows = sheet.Range("A4:V" + (3 + lst.Count)).Rows().ToList();
+                    var rangRows = sheet.Range("A4:BH" + (3 + lst.Count)).Rows().ToList();
                     for (int i = 0; i < rangRows.Count; i++)
                     {
                         var row = rangRows[i];
-                        row.Cell("A").Value = lst[i].NgayDat?.Date;
+                        /*row.Cell("A").Value = lst[i].NgayDat?.Date;
                         row.Cell("A").Style.DateFormat.Format = "yyyy-MM-dd";
                         row.Cell("B").Value = lst[i].Brand;
                         row.Cell("C").Value = lst[i].MaKH;
@@ -284,7 +301,45 @@ namespace Julian_Server
                         //row.Cell("U").Value = lst[i].TyLeBaoVeMoiTruong;
                         row.Cell("U").FormulaA1 = $"Index(tbMtl[REC],Match(H{i + 4},tbMtl[Code],0))";
                         row.Cell("U").Style.NumberFormat.Format = "0%";
-                        row.Cell("V").Value = lst[i].LieuKH.ToUpper().Contains("EPM5") || lst[i].LieuThayThe.ToUpper().Contains("EPM5") ? "YES" : "NO";
+                        row.Cell("V").Value = lst[i].LieuKH.ToUpper().Contains("EPM5") || lst[i].LieuThayThe.ToUpper().Contains("EPM5") ? "YES" : "NO";*/
+                        row.Cell("A").Value = "P";
+                        row.Cell("B").Value = lst[i].NgayDat?.Date;
+                        row.Cell("B").Style.DateFormat.Format = "yyyy-MM-dd";
+                        row.Cell("C").Value = lst[i].Brand;
+                        row.Cell("D").Value = lst[i].MaKH;
+                        row.Cell("E").Value = lst[i].MaDonKH;
+                        row.Cell("F").Value = lst[i].MaHangKH;
+                        row.Cell("G").Value = lst[i].PONhuom;
+                        row.Cell("H").Value = lst[i].PONhuomMoi;
+                        row.Cell("I").Value = lst[i].LieuKH;
+                        row.Cell("J").Value = "";
+                        row.Cell("K").Value = "";
+                        row.Cell("L").Value = lst[i].MauKH;
+                        row.Cell("M").Value = "";
+                        row.Cell("N").Value = lst[i].Qty;
+                        row.Cell("O").Value = lst[i].DonViDo;
+                        row.Cell("P").Value = "";
+                        row.Cell("Q").Value = 0;
+                        row.Cell("R").Value = lst[i].DonGia;
+                        row.Cell("S").Value = 0;
+                        row.Cell("T").Value = lst[i].NgayXuat == DateTime.MinValue ? "" : lst[i].NgayXuat?.Date;
+                        row.Cell("T").Style.DateFormat.Format = "yyyy-MM-dd";
+                        row.Cell("U").Value = "";
+                        row.Cell("V").Value = lst[i].Season;
+                        row.Cell("W").Value = "";
+                        row.Cell("X").Value = "";
+                        row.Cell("Y").Value = "";
+                        row.Cell("AH").Value = Math.Round(lst[i].TongTien, 3); 
+                        row.Cell("AI").Value = lst[i].LieuThayThe;
+                        row.Cell("AL").Value = DateTime.TryParse(lst[i].ETD, out DateTime etd) ? etd.Date : lst[i].ETD;
+                        row.Cell("AM").Value = lst[i].ETDNote;
+                        row.Cell("AR").Value = lst[i].T1;
+                        //row.Cell("T").Value = lst[i].TrongLuong;
+                        row.Cell("BC").FormulaA1 = $"=Index(tbMtl[GSM],Match(I{i + 4},tbMtl[Code],0))";
+                        //row.Cell("U").Value = lst[i].TyLeBaoVeMoiTruong;
+                        row.Cell("BD").FormulaA1 = $"=Index(tbMtl[REC],Match(I{i + 4},tbMtl[Code],0))";
+                        row.Cell("BD").Style.NumberFormat.Format = "0%";
+                        row.Cell("BE").Value = lst[i].LieuKH.ToUpper().Contains("EPM5") || lst[i].LieuThayThe.ToUpper().Contains("EPM5") ? "YES" : "NO";
                     }
                     if (!Directory.Exists(@"Output\ProductionReport"))
                     {

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SHC
 {
-    public partial class Form1 : Form
+    public partial class frmMaterial : Form
     {
-        public Form1()
+        public frmMaterial()
         {
             InitializeComponent();
         }

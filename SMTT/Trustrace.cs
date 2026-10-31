@@ -44,7 +44,7 @@ namespace SMTT
         }
         private void StartAutoUpdateCookie()
         {
-            Task.Run(async() =>
+            Task.Run(async () =>
             {
                 while (true)
                 {
@@ -241,6 +241,40 @@ namespace SMTT
             MessageBox.Show(response.StatusCode.ToString());
 
             Console.WriteLine(result);
+        }
+        public async Task<string> DEL(List<string> lst)
+        {
+            try
+            {
+                var b = new List<string>() { lst.FirstOrDefault() };
+                var jsonData = new
+                {
+                    deleteMessage = (string)null,
+                    deleteTransactions = lst
+                    //deleteTransactions = new List<string>() { lst.FirstOrDefault() }
+                };
+                var a = JsonConvert.SerializeObject(jsonData);
+                var content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json");
+                try
+                {
+                    var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+                    var res = await _httpClient.PostAsync(
+                           $"https://adidas.api.trustrace.com/api/material-compliance/ps/delete-multiple-sub-transactions",
+                           content,
+                           cts.Token
+                       );
+                    var text = await res.Content.ReadAsStringAsync();
+                    return text;
+                }
+                catch
+                {
+                    return "false";
+                }
+            }
+            catch
+            {
+                return "false";
+            }
         }
     }
 }

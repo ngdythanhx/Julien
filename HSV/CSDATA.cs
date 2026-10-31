@@ -25,7 +25,7 @@ namespace HSV
             DBHelper db = null;
             try
             {
-                //db = new DBHelper(Config.Instance.ConnectionString);
+                //db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 var tb = await db.GetDataTableSPAsync("SP_HSVCS_GetAll");
                 return tb;
@@ -41,7 +41,7 @@ namespace HSV
             DBHelper db = null;
             try
             {
-                //db = new DBHelper(Config.Instance.ConnectionString);
+                //db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@List", string.Join(";",materials));
                 db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
@@ -54,20 +54,21 @@ namespace HSV
                 return null;
             }
         }
-        public async Task<ResponseSP> Add(string article, string material,string color, string follow,string note,string swatchLocation, bool confirmed)
+        public async Task<ResponseSP> Add(string article, string material,string color, string follow,string purchaseSpecification,string note,string swatchLocation, bool confirmed)
         {
             DBHelper db = null;
             try
             {
-                var pars = new SqlParameter[7];
+                var pars = new SqlParameter[8];
                 pars[0] = new SqlParameter("@Article", article);
                 pars[1] = new SqlParameter("@Material", material);
                 pars[2] = new SqlParameter("@Color", color);
                 pars[3] = new SqlParameter("@Follow", follow);
-                pars[4] = new SqlParameter("@Note", note);
-                pars[5] = new SqlParameter("@SwatchLocation", swatchLocation);
-                pars[6] = new SqlParameter("@Confirmed", confirmed);
-                db = new DBHelper(Config.Instance.ConnectionString);
+                pars[4] = new SqlParameter("@PurchaseSpecification", purchaseSpecification);
+                pars[5] = new SqlParameter("@Note", note);
+                pars[6] = new SqlParameter("@SwatchLocation", swatchLocation);
+                pars[7] = new SqlParameter("@Confirmed", confirmed);
+                db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 return await db.GetInstanceSPAsync<ResponseSP>("SP_HSVCS_Add", default, pars);
             }
             catch (Exception ex)
@@ -77,21 +78,22 @@ namespace HSV
             }
 
         }
-        public async Task<ResponseSP> Update(int ID, string article, string material, string color, string follow, string note, string swatchLocation, bool confirmed)
+        public async Task<ResponseSP> Update(int ID, string article, string material, string color, string follow, string purchaseSpecification, string note, string swatchLocation, bool confirmed)
         {
             DBHelper db = null;
             try
             {
-                var pars = new SqlParameter[8];
+                var pars = new SqlParameter[9];
                 pars[0] = new SqlParameter("@ID", ID);
                 pars[1] = new SqlParameter("@Article", article);
                 pars[2] = new SqlParameter("@Material", material);
                 pars[3] = new SqlParameter("@Color", color);
                 pars[4] = new SqlParameter("@Follow", follow);
-                pars[5] = new SqlParameter("@Note", note);
-                pars[6] = new SqlParameter("@SwatchLocation", swatchLocation);
-                pars[7] = new SqlParameter("@Confirmed", confirmed);
-                db = new DBHelper(Config.Instance.ConnectionString);
+                pars[5] = new SqlParameter("@PurchaseSpecification", purchaseSpecification);
+                pars[6] = new SqlParameter("@Note", note);
+                pars[7] = new SqlParameter("@SwatchLocation", swatchLocation);
+                pars[8] = new SqlParameter("@Confirmed", confirmed);
+                db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 return await db.GetInstanceSPAsync<ResponseSP>("SP_HSVCS_Update", default, pars);
             }
             catch (Exception ex)
@@ -108,7 +110,7 @@ namespace HSV
                 var pars = new SqlParameter[2];
                 pars[0] = new SqlParameter("@ID", ID);
                 pars[1] = new SqlParameter("@Confirmed", confirmed);
-                db = new DBHelper(Config.Instance.ConnectionString);
+                db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 return await db.GetInstanceSPAsync<ResponseSP>("SP_HSVCS_UpdateConfirm", default, pars);
             }
             catch (Exception ex)
@@ -124,7 +126,7 @@ namespace HSV
             {
                 var pars = new SqlParameter[1];
                 pars[0] = new SqlParameter("@ID", ID);
-                db = new DBHelper(Config.Instance.ConnectionString);
+                db = new DBHelper(_iniManager.GetString("Default", "ConnectionString"));
                 return await db.GetInstanceSPAsync<ResponseSP>("SP_HSVCS_Delete", default, pars);
             }
             catch (Exception ex)

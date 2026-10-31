@@ -92,12 +92,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="CS.cs" />
     <Compile Include="CSDATA.cs" />
     <Compile Include="frmCS.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCS.Designer.cs">
       <DependentUpon>frmCS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCSModify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCSModify.Designer.cs">
+      <DependentUpon>frmCSModify.cs</DependentUpon>
     </Compile>
     <Compile Include="frmINV.cs">
       <SubType>Form</SubType>
@@ -117,11 +124,23 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMaterial.Designer.cs">
+      <DependentUpon>frmMaterial.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNewOrder.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmNewOrder.Designer.cs">
       <DependentUpon>frmNewOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSQ.Designer.cs">
+      <DependentUpon>frmSQ.cs</DependentUpon>
     </Compile>
     <Compile Include="frmXNYV.cs">
       <SubType>Form</SubType>
@@ -131,6 +150,7 @@
     </Compile>
     <Compile Include="INV.cs" />
     <Compile Include="INVHD.cs" />
+    <Compile Include="JH.cs" />
     <Compile Include="ListGuiDiem2.cs" />
     <Compile Include="ListGuiDiem.cs" />
     <Compile Include="NewPO.cs" />
@@ -140,6 +160,7 @@
     <Compile Include="PKLHD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQ.cs" />
     <Compile Include="ucDGV.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,6 +176,9 @@
     <EmbeddedResource Include="frmCS.resx">
       <DependentUpon>frmCS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCSModify.resx">
+      <DependentUpon>frmCSModify.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmINV.resx">
       <DependentUpon>frmINV.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNewOrder.resx">
       <DependentUpon>frmNewOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSQ.resx">
+      <DependentUpon>frmSQ.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmXNYV.resx">
       <DependentUpon>frmXNYV.cs</DependentUpon>

@@ -103,6 +103,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnStart_TinhSlConLai = new System.Windows.Forms.Button();
             this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtSMTTData = new System.Windows.Forms.TextBox();
@@ -115,10 +119,6 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -753,6 +753,48 @@
             this.advancedDataGridView1.TimeFilter = false;
             this.advancedDataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.advancedDataGridView1_CellContentClick);
             // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "PO";
+            this.Column1.HeaderText = "PO";
+            this.Column1.MinimumWidth = 22;
+            this.Column1.Name = "Column1";
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column1.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "SLXuatKho";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "#,##0.000";
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle13;
+            this.Column4.HeaderText = "SL Xuất Kho";
+            this.Column4.MinimumWidth = 22;
+            this.Column4.Name = "Column4";
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "SLSMTT";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "#,##0.000";
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle14;
+            this.Column5.HeaderText = "SL SMTT";
+            this.Column5.MinimumWidth = 22;
+            this.Column5.Name = "Column5";
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "SLChenhLech";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "#,##0.000";
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle15;
+            this.Column2.HeaderText = "SL Chênh lệch";
+            this.Column2.MinimumWidth = 22;
+            this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -847,48 +889,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "PO";
-            this.Column1.HeaderText = "PO";
-            this.Column1.MinimumWidth = 22;
-            this.Column1.Name = "Column1";
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Column1.Width = 150;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "SLXuatKho";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "#,##0.000";
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle13;
-            this.Column4.HeaderText = "SL Xuất Kho";
-            this.Column4.MinimumWidth = 22;
-            this.Column4.Name = "Column4";
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "SLSMTT";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "#,##0.000";
-            this.Column5.DefaultCellStyle = dataGridViewCellStyle14;
-            this.Column5.HeaderText = "SL SMTT";
-            this.Column5.MinimumWidth = 22;
-            this.Column5.Name = "Column5";
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "SLChenhLech";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "#,##0.000";
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle15;
-            this.Column2.HeaderText = "SL Chênh lệch";
-            this.Column2.MinimumWidth = 22;
-            this.Column2.Name = "Column2";
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // frmMain
             // 

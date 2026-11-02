@@ -8,7 +8,8 @@ namespace ERP.Models
 {
     public class ResponseSP
     {
-        public int ErrCode { get; set; }
+        public int ErrCode { get; set; } = -1;
         public string Msg { get; set; }
+        public bool IsSuccess => ErrCode == 0;
     }
 }

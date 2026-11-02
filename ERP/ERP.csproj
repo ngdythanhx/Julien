@@ -73,6 +73,12 @@
     <Compile Include="Forms\frmCS.Designer.cs">
       <DependentUpon>frmCS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmCS_Modify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCS_Modify.Designer.cs">
+      <DependentUpon>frmCS_Modify.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmFinder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCS.resx">
       <DependentUpon>frmCS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCS_Modify.resx">
+      <DependentUpon>frmCS_Modify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFinder.resx">
       <DependentUpon>frmFinder.cs</DependentUpon>

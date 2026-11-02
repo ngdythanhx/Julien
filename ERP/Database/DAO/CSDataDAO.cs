@@ -2,7 +2,9 @@
 using JHelper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +20,35 @@ namespace ERP.Database.DAO
             get { return _instance.Value; }
         }
         private readonly DBHelperAsync _db = new DBHelperAsync(Config.ConnectionString_BasicDB);
+        public async Task<DataTable> GetAll()
+        {
+            try
+            {
+                var result = await _db.GetDataTableSPAsync("sp_CSData_GetAll");
 
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public async Task<DataTable> GetByCustCode(string custCode)
+        {
+            try
+            {
+                var result = await _db.GetDataTableSPAsync(
+                    "sp_CSData_GetByCustCode",
+                    new DBCommandOptions { RetryCount = 0 },
+                    new SqlParameter("@CustCode", custCode));
+
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public async Task<ResponseSP> Insert(string CustCode, string MaterialName, string Color, string Follow, string Note, string Article, string SwatchLocation, string Confirmed, string AdditionalOptional1, string AdditionalOptional2, string AdditionalOptional3)
         {
             try

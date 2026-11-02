@@ -27,5 +27,6 @@ namespace HSV
         public string Article {  get; set; }
         public int Width {  get; set; }
         public decimal Qty {  get; set; }
+        public decimal UnitPriceUSD {  get; set; }
     }
 }

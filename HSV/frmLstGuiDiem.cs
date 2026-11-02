@@ -62,7 +62,7 @@ namespace HSV
                         Lieu = item[8],
                         MauKD = item[11],
                         MauKho = item[12],
-                        NgayDatHang = DateTime.TryParse( item[1],out DateTime ngaydathang)?ngaydathang:DateTime.MinValue,
+                        NgayDatHang = DateTime.TryParse(item[1], out DateTime ngaydathang) ? ngaydathang : DateTime.MinValue,
                         Brand = item[2],
                         CusName = item[3],
                         CusPO = item[4],
@@ -73,8 +73,9 @@ namespace HSV
                         ETDNote = item[38],
                         CusNote = item[39],
                         Article = item[24],
-                        Width = int.TryParse( item[48],out int width)?width:-1,
+                        Width = int.TryParse(item[48], out int width) ? width : -1,
                         Qty = qty,
+                        UnitPriceUSD = decimal.TryParse(item[17], out decimal u) ? u : -1
                     };
                     lst.Add(diem2);
                 }
@@ -280,26 +281,6 @@ namespace HSV
         private void frmLstGuiDiem_Load(object sender, EventArgs e)
         {
             cbCus.DataSource = new string[] { "HSV", "HWK" };
-        }
-
-        private void dtpCreateDate_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFilename_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvMain_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void cbCus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

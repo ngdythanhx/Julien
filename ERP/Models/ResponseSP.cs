@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JHelper
+namespace ERP.Models
 {
-    internal class DBAsync
+    public class ResponseSP
     {
+        public int ErrCode { get; set; }
+        public string Msg { get; set; }
     }
 }

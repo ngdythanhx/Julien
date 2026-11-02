@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Database\DAO\CSDataDAO.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +66,12 @@
     </Compile>
     <Compile Include="Forms\frmCheckOrderInput.Designer.cs">
       <DependentUpon>frmCheckOrderInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCS.Designer.cs">
+      <DependentUpon>frmCS.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmFinder.cs">
       <SubType>Form</SubType>
@@ -90,6 +98,7 @@
       <DependentUpon>frmXNYV.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\CSData.cs" />
+    <Compile Include="Models\ResponseSP.cs" />
     <Compile Include="Models\XNYV.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCheckOrderInput.resx">
       <DependentUpon>frmCheckOrderInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCS.resx">
+      <DependentUpon>frmCS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFinder.resx">
       <DependentUpon>frmFinder.cs</DependentUpon>

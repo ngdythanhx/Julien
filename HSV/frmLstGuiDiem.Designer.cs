@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.txtInput = new System.Windows.Forms.TextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.btnCreate = new System.Windows.Forms.Button();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,21 +41,19 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbCus = new System.Windows.Forms.ComboBox();
             this.dtpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtFilename = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtInput = new System.Windows.Forms.TextBox();
+            this.lblTotalQty = new System.Windows.Forms.Label();
+            this.lblTotalRoll = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtInput
-            // 
-            this.txtInput.Location = new System.Drawing.Point(6, 6);
-            this.txtInput.MaxLength = 32767000;
-            this.txtInput.Multiline = true;
-            this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(1272, 96);
-            this.txtInput.TabIndex = 1;
-            this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
             // 
             // btnCreate
             // 
@@ -84,12 +81,12 @@
             this.Column3,
             this.Column1,
             this.Column7,
-            this.Column12});
+            this.Column12,
+            this.Column5});
             this.dgvMain.Location = new System.Drawing.Point(6, 108);
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.Size = new System.Drawing.Size(1272, 418);
             this.dgvMain.TabIndex = 298;
-            this.dgvMain.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMain_CellContentClick);
             // 
             // Column19
             // 
@@ -148,6 +145,15 @@
             this.Column12.Name = "Column12";
             this.Column12.Width = 80;
             // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "UnitPriceUSD";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column5.HeaderText = "Đơn giá";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 80;
+            // 
             // cbCus
             // 
             this.cbCus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -157,7 +163,6 @@
             this.cbCus.Name = "cbCus";
             this.cbCus.Size = new System.Drawing.Size(81, 21);
             this.cbCus.TabIndex = 314;
-            this.cbCus.SelectedIndexChanged += new System.EventHandler(this.cbCus_SelectedIndexChanged);
             // 
             // dtpCreateDate
             // 
@@ -168,7 +173,6 @@
             this.dtpCreateDate.Name = "dtpCreateDate";
             this.dtpCreateDate.Size = new System.Drawing.Size(98, 20);
             this.dtpCreateDate.TabIndex = 313;
-            this.dtpCreateDate.ValueChanged += new System.EventHandler(this.dtpCreateDate_ValueChanged);
             // 
             // txtFilename
             // 
@@ -177,35 +181,112 @@
             this.txtFilename.Name = "txtFilename";
             this.txtFilename.Size = new System.Drawing.Size(138, 20);
             this.txtFilename.TabIndex = 312;
-            this.txtFilename.TextChanged += new System.EventHandler(this.txtFilename_TextChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtInput);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1272, 96);
+            this.groupBox1.TabIndex = 315;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Nhập dữ liệu OrderForm";
+            // 
+            // txtInput
+            // 
+            this.txtInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtInput.Location = new System.Drawing.Point(3, 16);
+            this.txtInput.MaxLength = 32767000;
+            this.txtInput.Multiline = true;
+            this.txtInput.Name = "txtInput";
+            this.txtInput.Size = new System.Drawing.Size(1266, 77);
+            this.txtInput.TabIndex = 2;
+            this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
+            // 
+            // lblTotalQty
+            // 
+            this.lblTotalQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTotalQty.AutoSize = true;
+            this.lblTotalQty.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lblTotalQty.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalQty.Location = new System.Drawing.Point(1160, 538);
+            this.lblTotalQty.Name = "lblTotalQty";
+            this.lblTotalQty.Size = new System.Drawing.Size(14, 14);
+            this.lblTotalQty.TabIndex = 353;
+            this.lblTotalQty.Text = "0";
+            this.lblTotalQty.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTotalRoll
+            // 
+            this.lblTotalRoll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTotalRoll.AutoSize = true;
+            this.lblTotalRoll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lblTotalRoll.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalRoll.Location = new System.Drawing.Point(997, 538);
+            this.lblTotalRoll.Name = "lblTotalRoll";
+            this.lblTotalRoll.Size = new System.Drawing.Size(14, 14);
+            this.lblTotalRoll.TabIndex = 354;
+            this.lblTotalRoll.Text = "0";
+            this.lblTotalRoll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.label5.Location = new System.Drawing.Point(1065, 538);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 13);
+            this.label5.TabIndex = 355;
+            this.label5.Text = "Số lượng xuất:";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.label3.Location = new System.Drawing.Point(941, 538);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 356;
+            this.label3.Text = "Số tem:";
             // 
             // frmLstGuiDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 561);
+            this.Controls.Add(this.lblTotalQty);
+            this.Controls.Add(this.lblTotalRoll);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbCus);
             this.Controls.Add(this.dtpCreateDate);
             this.Controls.Add(this.txtFilename);
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.btnCreate);
-            this.Controls.Add(this.txtInput);
             this.Name = "frmLstGuiDiem";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Text = "frmLstGuiDiem";
             this.Load += new System.EventHandler(this.frmLstGuiDiem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.DataGridView dgvMain;
+        private System.Windows.Forms.ComboBox cbCus;
+        private System.Windows.Forms.DateTimePicker dtpCreateDate;
+        private System.Windows.Forms.TextBox txtFilename;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
@@ -214,8 +295,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.ComboBox cbCus;
-        private System.Windows.Forms.DateTimePicker dtpCreateDate;
-        private System.Windows.Forms.TextBox txtFilename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.Label lblTotalQty;
+        private System.Windows.Forms.Label lblTotalRoll;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -149,6 +149,12 @@
     <Compile Include="frmINV.Designer.cs">
       <DependentUpon>frmINV.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmINVUSD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmINVUSD.Designer.cs">
+      <DependentUpon>frmINVUSD.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLstGuiDiem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,7 @@
     </Compile>
     <Compile Include="INV.cs" />
     <Compile Include="INVHD.cs" />
+    <Compile Include="INVPKLUSD.cs" />
     <Compile Include="JH.cs" />
     <Compile Include="ListGuiDiem2.cs" />
     <Compile Include="ListGuiDiem.cs" />
@@ -221,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmINV.resx">
       <DependentUpon>frmINV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmINVUSD.resx">
+      <DependentUpon>frmINVUSD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLstGuiDiem.resx">
       <DependentUpon>frmLstGuiDiem.cs</DependentUpon>
@@ -268,6 +278,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JHelper\JHelper.csproj">
+      <Project>{d8ee54fe-908b-43fd-bba1-d9aeb9bcdbe4}</Project>
+      <Name>JHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Julian\Julian.csproj">
       <Project>{8885232c-d67e-4be9-9702-dcc0907e9a15}</Project>
       <Name>Julian</Name>

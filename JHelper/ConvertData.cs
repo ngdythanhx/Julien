@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Microsoft.Office.Interop;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -6,9 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using Microsoft.Office.Interop;
-using HtmlAgilityPack;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using NCalc;
 namespace JHelper
 {
     public class ConvertData
@@ -102,6 +102,25 @@ namespace JHelper
             var excel = new ExcelData() { Data = lstRow };
             return excel;
         }
+        public static (decimal Result, string Msg) RollStringToQty(string rollString)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(rollString))
+                    return (-1, "Chưa nhập số cây");
 
+                Expression expr = new Expression(rollString);
+                var result = expr.Evaluate();
+
+                if (expr.HasErrors() || result == null)
+                    return (-1, "Số cây không hợp lệ");
+
+                return (Convert.ToDecimal(result), "");
+            }
+            catch (Exception ex)
+            {
+                return (-2, ex.Message);
+            }
+        }
     }
 }

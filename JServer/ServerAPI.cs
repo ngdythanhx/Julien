@@ -180,8 +180,21 @@ namespace JServer
         {
             try
             {
-                string query = @"select PRODNO Code, PRODNAME Name, GSM, upwidth from ledwaybasic.product where isnull(series,'')<>'' and isnull(PRODNAME,'')<>''";
+                string query = @"select PRODNO Name, PRODNAME FullName, GSM, DNWidth from ledwaybasic.product where isnull(series,'')<>'' and isnull(PRODNAME,'')<>''";
                 var u = await ExQuery<Material>(query);
+                return u?.Recordset;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public async Task<List<Customer>> GetCustomerListAsync()
+        {
+            try
+            {
+                string query = @"select custno CustName from ledwaybasic.customer";
+                var u = await ExQuery<Customer>(query);
                 return u?.Recordset;
             }
             catch

@@ -82,11 +82,11 @@ namespace JHelper
                     var s = cell.Split(new[] { "\r\n" }, StringSplitOptions.None);
                     if (s.Length == 2)
                     {
-                        curRow.Add(s[0]); 
-                        lstRow.Add(curRow.ToArray()); 
+                        curRow.Add(s[0]);
+                        lstRow.Add(curRow.ToArray());
 
-                        curRow = new List<string>(); 
-                        curRow.Add(s[1]); 
+                        curRow = new List<string>();
+                        curRow.Add(s[1]);
                     }
                 }
                 else
@@ -121,6 +121,34 @@ namespace JHelper
             {
                 return (-2, ex.Message);
             }
+        }
+        public static DataTable DataTableFromGrid(DataGridView dgv, bool OnlyHeader = false)
+        {
+            var cols = dgv.Columns.Cast<DataGridViewColumn>()
+                          .Where(c => c.Visible)
+                          .OrderBy(c => c.DisplayIndex)
+                          .ToList();
+
+            var dt = new DataTable();
+            var used = new HashSet<string>();
+            foreach (var c in cols)
+            {
+                // HeaderText làm tiêu đề cột, tránh trùng tên
+                string name = string.IsNullOrWhiteSpace(c.HeaderText) ? c.Name : c.HeaderText;
+                string unique = name; int n = 1;
+                while (!used.Add(unique)) unique = name + "_" + (++n);
+                dt.Columns.Add(unique, typeof(object));
+            }
+            if (!OnlyHeader)
+                foreach (DataGridViewRow row in dgv.Rows)
+                {
+                    if (row.IsNewRow) continue;
+                    var values = new object[cols.Count];
+                    for (int i = 0; i < cols.Count; i++)
+                        values[i] = row.Cells[cols[i].Index].Value;   // DBNull/null giữ nguyên
+                    dt.Rows.Add(values);
+                }
+            return dt;
         }
     }
 }

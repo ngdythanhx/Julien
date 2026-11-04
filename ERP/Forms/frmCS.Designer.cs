@@ -28,14 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.chkALL = new System.Windows.Forms.CheckBox();
             this.dgvMaterial = new System.Windows.Forms.DataGridView();
+            this.colChecked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.dgvMain = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnMultiDel = new System.Windows.Forms.Button();
+            this.btnMultiInsert = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnInsert = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,14 +59,11 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
@@ -63,8 +74,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.chkALL);
             this.panel1.Controls.Add(this.dgvMaterial);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.label1);
@@ -77,44 +87,77 @@
             this.panel1.Size = new System.Drawing.Size(260, 705);
             this.panel1.TabIndex = 0;
             // 
-            // checkBox1
+            // chkALL
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(8, 678);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(92, 20);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Chọn tất cả";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(168, 675);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 25);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "+ Thêm mới";
-            this.button1.UseVisualStyleBackColor = false;
+            this.chkALL.AutoSize = true;
+            this.chkALL.Checked = true;
+            this.chkALL.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkALL.Location = new System.Drawing.Point(7, 64);
+            this.chkALL.Name = "chkALL";
+            this.chkALL.Size = new System.Drawing.Size(92, 20);
+            this.chkALL.TabIndex = 5;
+            this.chkALL.Text = "Chọn tất cả";
+            this.chkALL.UseVisualStyleBackColor = true;
+            this.chkALL.CheckedChanged += new System.EventHandler(this.chkALL_CheckedChanged);
             // 
             // dgvMaterial
             // 
             this.dgvMaterial.AllowUserToAddRows = false;
+            this.dgvMaterial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvMaterial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMaterial.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvMaterial.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvMaterial.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMaterial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvMaterial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMaterial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
+            this.colChecked,
             this.Column2,
             this.Column3});
-            this.dgvMaterial.Location = new System.Drawing.Point(5, 59);
+            this.dgvMaterial.EnableHeadersVisualStyles = false;
+            this.dgvMaterial.Location = new System.Drawing.Point(5, 86);
             this.dgvMaterial.MultiSelect = false;
             this.dgvMaterial.Name = "dgvMaterial";
             this.dgvMaterial.RowHeadersVisible = false;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvMaterial.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvMaterial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMaterial.Size = new System.Drawing.Size(250, 610);
+            this.dgvMaterial.Size = new System.Drawing.Size(250, 614);
             this.dgvMaterial.TabIndex = 3;
+            // 
+            // colChecked
+            // 
+            this.colChecked.DataPropertyName = "Checked";
+            this.colChecked.FillWeight = 15F;
+            this.colChecked.HeaderText = "";
+            this.colChecked.Name = "colChecked";
+            this.colChecked.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colChecked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "MaterialName";
+            this.Column2.FillWeight = 50F;
+            this.Column2.HeaderText = "Material Name";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Width";
+            this.Column3.FillWeight = 25F;
+            this.Column3.HeaderText = "Width";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // btnSearch
             // 
@@ -164,15 +207,139 @@
             this.dataGridViewTextBoxColumn1,
             this.Column4,
             this.Column5,
+            this.Column7,
             this.Column6,
-            this.Column7});
+            this.Column12,
+            this.Column13,
+            this.Column1});
             this.dgvMain.Location = new System.Drawing.Point(0, 28);
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.RowHeadersWidth = 30;
             this.dgvMain.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.MintCream;
-            this.dgvMain.Size = new System.Drawing.Size(1010, 671);
+            this.dgvMain.Size = new System.Drawing.Size(1010, 638);
             this.dgvMain.TabIndex = 238;
             this.dgvMain.VirtualMode = true;
+            this.dgvMain.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMain_CellDoubleClick);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel2.Controls.Add(this.pnlSearch);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnMultiDel);
+            this.panel2.Controls.Add(this.btnMultiInsert);
+            this.panel2.Controls.Add(this.btnDelete);
+            this.panel2.Controls.Add(this.btnUpdate);
+            this.panel2.Controls.Add(this.btnInsert);
+            this.panel2.Controls.Add(this.dgvMain);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(263, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1010, 699);
+            this.panel2.TabIndex = 1;
+            // 
+            // pnlSearch
+            // 
+            this.pnlSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlSearch.Location = new System.Drawing.Point(1, 1);
+            this.pnlSearch.Margin = new System.Windows.Forms.Padding(1);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new System.Drawing.Size(1009, 23);
+            this.pnlSearch.TabIndex = 239;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.BackColor = System.Drawing.SystemColors.Control;
+            this.button1.Location = new System.Drawing.Point(631, 670);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(140, 25);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Xuất file Excel";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // btnMultiDel
+            // 
+            this.btnMultiDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMultiDel.BackColor = System.Drawing.SystemColors.Control;
+            this.btnMultiDel.Location = new System.Drawing.Point(485, 670);
+            this.btnMultiDel.Name = "btnMultiDel";
+            this.btnMultiDel.Size = new System.Drawing.Size(140, 25);
+            this.btnMultiDel.TabIndex = 4;
+            this.btnMultiDel.Text = "Xóa hàng loạt";
+            this.btnMultiDel.UseVisualStyleBackColor = false;
+            // 
+            // btnMultiInsert
+            // 
+            this.btnMultiInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMultiInsert.BackColor = System.Drawing.SystemColors.Control;
+            this.btnMultiInsert.Location = new System.Drawing.Point(339, 670);
+            this.btnMultiInsert.Name = "btnMultiInsert";
+            this.btnMultiInsert.Size = new System.Drawing.Size(140, 25);
+            this.btnMultiInsert.TabIndex = 4;
+            this.btnMultiInsert.Text = "Thêm hàng loạt";
+            this.btnMultiInsert.UseVisualStyleBackColor = false;
+            this.btnMultiInsert.Click += new System.EventHandler(this.btnMultiInsert_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.BackColor = System.Drawing.SystemColors.Control;
+            this.btnDelete.Image = global::ERP.Properties.Resources.delete;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.Location = new System.Drawing.Point(189, 670);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(87, 25);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Xóa";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdate.BackColor = System.Drawing.SystemColors.Control;
+            this.btnUpdate.Image = global::ERP.Properties.Resources.editx;
+            this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdate.Location = new System.Drawing.Point(96, 670);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(87, 25);
+            this.btnUpdate.TabIndex = 4;
+            this.btnUpdate.Text = "Sửa";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnInsert
+            // 
+            this.btnInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnInsert.BackColor = System.Drawing.SystemColors.Control;
+            this.btnInsert.Image = global::ERP.Properties.Resources.addx;
+            this.btnInsert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInsert.Location = new System.Drawing.Point(3, 670);
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.Size = new System.Drawing.Size(87, 25);
+            this.btnInsert.TabIndex = 4;
+            this.btnInsert.Text = "Thêm mới";
+            this.btnInsert.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnInsert.UseVisualStyleBackColor = false;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 3);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1276, 705);
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
             // Column9
             // 
@@ -184,13 +351,13 @@
             // Column8
             // 
             this.Column8.DataPropertyName = "CustCode";
-            this.Column8.HeaderText = "Khách Hàng";
+            this.Column8.HeaderText = "Mã K.H";
             this.Column8.Name = "Column8";
-            this.Column8.Width = 110;
+            this.Column8.Width = 105;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Material";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "MaterialName";
             this.dataGridViewTextBoxColumn2.HeaderText = "Liệu";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Width = 150;
@@ -200,13 +367,13 @@
             this.Column10.DataPropertyName = "Width";
             this.Column10.HeaderText = "Khổ";
             this.Column10.Name = "Column10";
+            this.Column10.Width = 60;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "Color";
             this.dataGridViewTextBoxColumn3.HeaderText = "Màu";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 120;
             // 
             // Column11
             // 
@@ -234,75 +401,39 @@
             this.Column5.Name = "Column5";
             this.Column5.Width = 170;
             // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "SwatchLocation";
-            this.Column6.HeaderText = "Vị trí lưu";
-            this.Column6.Name = "Column6";
-            // 
             // Column7
             // 
             this.Column7.DataPropertyName = "Confirmed";
             this.Column7.HeaderText = "Xác nhận";
             this.Column7.Name = "Column7";
             // 
-            // panel2
+            // Column6
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel2.Controls.Add(this.pnlSearch);
-            this.panel2.Controls.Add(this.dgvMain);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(263, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1010, 699);
-            this.panel2.TabIndex = 1;
+            this.Column6.DataPropertyName = "AdditionalOptional1";
+            this.Column6.HeaderText = "Tùy chọn 1";
+            this.Column6.Name = "Column6";
             // 
-            // tableLayoutPanel1
+            // Column12
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.41166F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.58833F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 3);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1276, 705);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.Column12.DataPropertyName = "AdditionalOptional2";
+            this.Column12.HeaderText = "Tùy chọn 2";
+            this.Column12.Name = "Column12";
             // 
-            // pnlSearch
+            // Column13
             // 
-            this.pnlSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlSearch.Location = new System.Drawing.Point(1, 1);
-            this.pnlSearch.Margin = new System.Windows.Forms.Padding(1);
-            this.pnlSearch.Name = "pnlSearch";
-            this.pnlSearch.Size = new System.Drawing.Size(1009, 23);
-            this.pnlSearch.TabIndex = 239;
+            this.Column13.DataPropertyName = "AdditionalOptional3";
+            this.Column13.HeaderText = "Tùy chọn 3";
+            this.Column13.Name = "Column13";
             // 
             // Column1
             // 
-            this.Column1.DataPropertyName = "Checked";
-            this.Column1.FillWeight = 15F;
-            this.Column1.HeaderText = "";
+            this.Column1.DataPropertyName = "CreatedDatetime";
+            dataGridViewCellStyle6.Format = "yyyy/MM/yy HH:mm:ss";
+            dataGridViewCellStyle6.NullValue = " ";
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Column1.HeaderText = "Ngày tạo";
             this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "MaterialName";
-            this.Column2.FillWeight = 50F;
-            this.Column2.HeaderText = "Material Name";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Width";
-            this.Column3.FillWeight = 25F;
-            this.Column3.HeaderText = "Width";
-            this.Column3.Name = "Column3";
+            this.Column1.Width = 120;
             // 
             // frmCS
             // 
@@ -336,6 +467,17 @@
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.CheckBox chkALL;
+        private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colChecked;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Button btnMultiInsert;
+        private System.Windows.Forms.Button btnMultiDel;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -345,13 +487,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }
